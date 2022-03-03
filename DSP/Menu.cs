@@ -14,16 +14,26 @@ namespace DSP
     {
         private int numberOfCards = 0;
 
+        private List<Card> cards = new List<Card>();
+
         public Menu()
         {
             InitializeComponent();
+
         }
 
         private void buttonNewCard_Click(object sender, EventArgs e)
         {
             numberOfCards++;
             Card card = new Card(numberOfCards);
+            cards.Add(card);
             card.Show();
+        }
+
+        private void buttonOperations_Click(object sender, EventArgs e)
+        {
+            Operations operations = new Operations(cards);
+            operations.ShowDialog();
         }
     }
 }

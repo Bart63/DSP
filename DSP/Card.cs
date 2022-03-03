@@ -22,7 +22,10 @@ namespace DSP
             this.Text = "Karta " + n; 
         }
 
-        
+        public string GetName()
+        {
+            return this.Text;
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {

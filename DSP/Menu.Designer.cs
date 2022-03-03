@@ -31,7 +31,7 @@ namespace DSP
         {
             this.buttonNewCard = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonOperations = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonNewCard
@@ -55,15 +55,16 @@ namespace DSP
             this.buttonLoad.Text = "Wczytaj";
             this.buttonLoad.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonOperations
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(12, 260);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(393, 118);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "Wykonaj działanie";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonOperations.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonOperations.Location = new System.Drawing.Point(12, 260);
+            this.buttonOperations.Name = "buttonOperations";
+            this.buttonOperations.Size = new System.Drawing.Size(393, 118);
+            this.buttonOperations.TabIndex = 15;
+            this.buttonOperations.Text = "Wykonaj działanie";
+            this.buttonOperations.UseVisualStyleBackColor = true;
+            this.buttonOperations.Click += new System.EventHandler(this.buttonOperations_Click);
             // 
             // Menu
             // 
@@ -71,7 +72,7 @@ namespace DSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(417, 391);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonOperations);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonNewCard);
             this.Name = "Menu";
@@ -84,6 +85,6 @@ namespace DSP
 
         private System.Windows.Forms.Button buttonNewCard;
         private System.Windows.Forms.Button buttonLoad;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonOperations;
     }
 }

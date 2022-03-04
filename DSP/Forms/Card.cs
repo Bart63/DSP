@@ -31,23 +31,7 @@ namespace DSP
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Signal signal = new SinSignal(15, 2, 14, 2, 100);
-
-
-            SeriesCollection collection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Sin(t) * 4",
-                    Values = new ChartValues<ObservablePoint>(signal.points),
-                    PointForeground = null,
-                    PointGeometry = null,
-                    LineSmoothness = 1,
-                    
-                }
-            };
-
-            chart1Real.Series = collection;
+            
 
             chart1Real.AxisX.Add(new Axis
             {
@@ -64,6 +48,36 @@ namespace DSP
             
         }
 
-        
+        private void buttonGenerateSignal_Click(object sender, EventArgs e)
+        {
+            switch (comboBoxSignalType.SelectedIndex)
+            {
+                case 2:
+
+                    Signal signal = new SinSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text));
+
+                    
+                    SeriesCollection collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Title = "Sin(t) * A",
+                            Values = new ChartValues<ObservablePoint>(signal.points),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 1,
+
+                        }
+                    };
+
+                    chart1Real.Series = collection;
+
+                    break;
+            }
+        }
     }
 }

@@ -40,8 +40,6 @@ namespace DSP
             this.maskedTextBoxJumpTime = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.maskedTextBoxFilling = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxLength = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.maskedTextBoxStartTime = new System.Windows.Forms.MaskedTextBox();
@@ -66,6 +64,8 @@ namespace DSP
             this.label13 = new System.Windows.Forms.Label();
             this.maskedTextBoxEffectiveValue = new System.Windows.Forms.MaskedTextBox();
             this.chart2Im = new LiveCharts.WinForms.CartesianChart();
+            this.maskedTextBoxDuration = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxPeriod = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -105,10 +105,11 @@ namespace DSP
             // 
             this.maskedTextBoxFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxFrequency.Location = new System.Drawing.Point(293, 77);
-            this.maskedTextBoxFrequency.Mask = "00.00";
+            this.maskedTextBoxFrequency.Mask = "00000";
             this.maskedTextBoxFrequency.Name = "maskedTextBoxFrequency";
             this.maskedTextBoxFrequency.Size = new System.Drawing.Size(53, 29);
             this.maskedTextBoxFrequency.TabIndex = 10;
+            this.maskedTextBoxFrequency.ValidatingType = typeof(int);
             // 
             // label9
             // 
@@ -191,24 +192,6 @@ namespace DSP
             this.maskedTextBoxFilling.Name = "maskedTextBoxFilling";
             this.maskedTextBoxFilling.Size = new System.Drawing.Size(53, 29);
             this.maskedTextBoxFilling.TabIndex = 12;
-            // 
-            // maskedTextBoxLength
-            // 
-            this.maskedTextBoxLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxLength.Location = new System.Drawing.Point(307, 113);
-            this.maskedTextBoxLength.Mask = "00.00";
-            this.maskedTextBoxLength.Name = "maskedTextBoxLength";
-            this.maskedTextBoxLength.Size = new System.Drawing.Size(53, 29);
-            this.maskedTextBoxLength.TabIndex = 8;
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(307, 75);
-            this.maskedTextBox1.Mask = "00.00";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(53, 29);
-            this.maskedTextBox1.TabIndex = 10;
             // 
             // label4
             // 
@@ -295,8 +278,8 @@ namespace DSP
             this.tableLayoutPanel1.Controls.Add(this.maskedTextBoxStartTime, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.maskedTextBox1, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.maskedTextBoxLength, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.maskedTextBoxDuration, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.maskedTextBoxPeriod, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.maskedTextBoxFilling, 1, 4);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 515);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -320,6 +303,7 @@ namespace DSP
             this.buttonGenerateSignal.TabIndex = 12;
             this.buttonGenerateSignal.Text = "Generuj";
             this.buttonGenerateSignal.UseVisualStyleBackColor = true;
+            this.buttonGenerateSignal.Click += new System.EventHandler(this.buttonGenerateSignal_Click);
             // 
             // comboBoxSignalType
             // 
@@ -511,6 +495,24 @@ namespace DSP
             this.chart2Im.TabIndex = 17;
             this.chart2Im.Text = "cartesianChart1";
             // 
+            // maskedTextBoxDuration
+            // 
+            this.maskedTextBoxDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxDuration.Location = new System.Drawing.Point(307, 75);
+            this.maskedTextBoxDuration.Mask = "00.00";
+            this.maskedTextBoxDuration.Name = "maskedTextBoxDuration";
+            this.maskedTextBoxDuration.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxDuration.TabIndex = 10;
+            // 
+            // maskedTextBoxPeriod
+            // 
+            this.maskedTextBoxPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxPeriod.Location = new System.Drawing.Point(307, 113);
+            this.maskedTextBoxPeriod.Mask = "00.00";
+            this.maskedTextBoxPeriod.Name = "maskedTextBoxPeriod";
+            this.maskedTextBoxPeriod.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxPeriod.TabIndex = 8;
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -555,8 +557,6 @@ namespace DSP
         private System.Windows.Forms.MaskedTextBox maskedTextBoxJumpTime;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxFilling;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxLength;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxStartTime;
@@ -581,6 +581,8 @@ namespace DSP
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxEffectiveValue;
         private LiveCharts.WinForms.CartesianChart chart2Im;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxDuration;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxPeriod;
     }
 }
 

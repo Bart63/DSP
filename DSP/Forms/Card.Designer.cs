@@ -55,16 +55,17 @@ namespace DSP
             this.buttonSave = new System.Windows.Forms.Button();
             this.comboBoxNumberOfSections = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.maskedTextBoxAverageSignal = new System.Windows.Forms.MaskedTextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.maskedTextBoxAverageAbsSignal = new System.Windows.Forms.MaskedTextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.maskedTextBoxAveragePower = new System.Windows.Forms.MaskedTextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.maskedTextBoxWariation = new System.Windows.Forms.MaskedTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.maskedTextBoxEffectiveValue = new System.Windows.Forms.MaskedTextBox();
+            this.chart2Im = new LiveCharts.WinForms.CartesianChart();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -313,9 +314,9 @@ namespace DSP
             // buttonGenerateSignal
             // 
             this.buttonGenerateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonGenerateSignal.Location = new System.Drawing.Point(429, 358);
+            this.buttonGenerateSignal.Location = new System.Drawing.Point(853, 390);
             this.buttonGenerateSignal.Name = "buttonGenerateSignal";
-            this.buttonGenerateSignal.Size = new System.Drawing.Size(409, 57);
+            this.buttonGenerateSignal.Size = new System.Drawing.Size(336, 57);
             this.buttonGenerateSignal.TabIndex = 12;
             this.buttonGenerateSignal.Text = "Generuj";
             this.buttonGenerateSignal.UseVisualStyleBackColor = true;
@@ -336,7 +337,7 @@ namespace DSP
             "skok jednostkowy",
             "impuls jednostkowy",
             "szum impulsowy"});
-            this.comboBoxSignalType.Location = new System.Drawing.Point(429, 306);
+            this.comboBoxSignalType.Location = new System.Drawing.Point(429, 554);
             this.comboBoxSignalType.Name = "comboBoxSignalType";
             this.comboBoxSignalType.Size = new System.Drawing.Size(409, 28);
             this.comboBoxSignalType.TabIndex = 13;
@@ -345,9 +346,9 @@ namespace DSP
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSave.Location = new System.Drawing.Point(429, 421);
+            this.buttonSave.Location = new System.Drawing.Point(853, 453);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(409, 57);
+            this.buttonSave.Size = new System.Drawing.Size(336, 57);
             this.buttonSave.TabIndex = 14;
             this.buttonSave.Text = "Zapisz";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -384,7 +385,7 @@ namespace DSP
             this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxWariation, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.label13, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxEffectiveValue, 1, 4);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(844, 306);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(853, 522);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.14815F));
@@ -392,8 +393,19 @@ namespace DSP
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(336, 189);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(291, 189);
             this.tableLayoutPanel3.TabIndex = 16;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label11.Location = new System.Drawing.Point(3, 72);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(188, 24);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Moc średnia sygnału";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label6
             // 
@@ -409,7 +421,7 @@ namespace DSP
             // maskedTextBoxAverageSignal
             // 
             this.maskedTextBoxAverageSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAverageSignal.Location = new System.Drawing.Point(270, 3);
+            this.maskedTextBoxAverageSignal.Location = new System.Drawing.Point(234, 3);
             this.maskedTextBoxAverageSignal.Mask = "00.00";
             this.maskedTextBoxAverageSignal.Name = "maskedTextBoxAverageSignal";
             this.maskedTextBoxAverageSignal.ReadOnly = true;
@@ -419,10 +431,10 @@ namespace DSP
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label10.Location = new System.Drawing.Point(3, 35);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(145, 37);
+            this.label10.Size = new System.Drawing.Size(207, 18);
             this.label10.TabIndex = 7;
             this.label10.Text = "Wartość średnia bezwzględna";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -430,28 +442,17 @@ namespace DSP
             // maskedTextBoxAverageAbsSignal
             // 
             this.maskedTextBoxAverageAbsSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAverageAbsSignal.Location = new System.Drawing.Point(270, 38);
+            this.maskedTextBoxAverageAbsSignal.Location = new System.Drawing.Point(234, 38);
             this.maskedTextBoxAverageAbsSignal.Mask = "00.00";
             this.maskedTextBoxAverageAbsSignal.Name = "maskedTextBoxAverageAbsSignal";
             this.maskedTextBoxAverageAbsSignal.ReadOnly = true;
             this.maskedTextBoxAverageAbsSignal.Size = new System.Drawing.Size(42, 29);
             this.maskedTextBoxAverageAbsSignal.TabIndex = 8;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(3, 72);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(188, 24);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Moc średnia sygnału";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // maskedTextBoxAveragePower
             // 
             this.maskedTextBoxAveragePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAveragePower.Location = new System.Drawing.Point(270, 75);
+            this.maskedTextBoxAveragePower.Location = new System.Drawing.Point(234, 75);
             this.maskedTextBoxAveragePower.Mask = "00.00";
             this.maskedTextBoxAveragePower.Name = "maskedTextBoxAveragePower";
             this.maskedTextBoxAveragePower.ReadOnly = true;
@@ -472,7 +473,7 @@ namespace DSP
             // maskedTextBoxWariation
             // 
             this.maskedTextBoxWariation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxWariation.Location = new System.Drawing.Point(270, 116);
+            this.maskedTextBoxWariation.Location = new System.Drawing.Point(234, 116);
             this.maskedTextBoxWariation.Mask = "00.00";
             this.maskedTextBoxWariation.Name = "maskedTextBoxWariation";
             this.maskedTextBoxWariation.ReadOnly = true;
@@ -493,12 +494,22 @@ namespace DSP
             // maskedTextBoxEffectiveValue
             // 
             this.maskedTextBoxEffectiveValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxEffectiveValue.Location = new System.Drawing.Point(270, 148);
+            this.maskedTextBoxEffectiveValue.Location = new System.Drawing.Point(234, 148);
             this.maskedTextBoxEffectiveValue.Mask = "00.00";
             this.maskedTextBoxEffectiveValue.Name = "maskedTextBoxEffectiveValue";
             this.maskedTextBoxEffectiveValue.ReadOnly = true;
             this.maskedTextBoxEffectiveValue.Size = new System.Drawing.Size(42, 29);
             this.maskedTextBoxEffectiveValue.TabIndex = 14;
+            // 
+            // chart2Im
+            // 
+            this.chart2Im.BackColor = System.Drawing.Color.ForestGreen;
+            this.chart2Im.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.chart2Im.Location = new System.Drawing.Point(429, 264);
+            this.chart2Im.Name = "chart2Im";
+            this.chart2Im.Size = new System.Drawing.Size(410, 246);
+            this.chart2Im.TabIndex = 17;
+            this.chart2Im.Text = "cartesianChart1";
             // 
             // Card
             // 
@@ -506,6 +517,7 @@ namespace DSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1201, 726);
+            this.Controls.Add(this.chart2Im);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.comboBoxNumberOfSections);
             this.Controls.Add(this.buttonSave);
@@ -568,6 +580,7 @@ namespace DSP
         private System.Windows.Forms.MaskedTextBox maskedTextBoxWariation;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxEffectiveValue;
+        private LiveCharts.WinForms.CartesianChart chart2Im;
     }
 }
 

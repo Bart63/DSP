@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DSP.Signals;
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -19,7 +20,7 @@ namespace DSP
         {
             InitializeComponent();
 
-            this.Text = "Karta " + n; 
+            this.Text = "Karta " + n;
         }
 
         public string GetName()
@@ -27,22 +28,40 @@ namespace DSP
             return this.Text;
         }
 
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            Signal signal = new SinSignal(15, 2, 14, 2, 100);
+
+
             SeriesCollection collection = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Title = "Test",
-                    Values = new ChartValues<double> {4, 7.58, 4, 69.4},
+                    Title = "Sin(t) * 4",
+                    Values = new ChartValues<ObservablePoint>(signal.points),
                     PointForeground = null,
                     PointGeometry = null,
                     LineSmoothness = 1,
-                    PointGeometrySize = 5
+                    
                 }
             };
 
             chart1Real.Series = collection;
+
+            chart1Real.AxisX.Add(new Axis
+            {
+                Title = "t [s]",
+                
+            });
+
+            chart1Real.AxisY.Add(new Axis
+            {
+                Title = "A",
+                
+            });
+
+            
         }
 
         

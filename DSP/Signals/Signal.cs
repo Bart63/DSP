@@ -22,6 +22,11 @@ namespace DSP.Signals
 
         public float AverageSignalValue;
         public float AverageSignalAbsValue;
+        public float AverageSignalPower;
+        public float Variance;
+        public float EffectiveValue;
+
+        private const int _integralAccuracy = 300;
 
         protected Signal(float a, float t1, float d, float t, int f)
         {
@@ -45,6 +50,9 @@ namespace DSP.Signals
 
             CalculateAverageSignalAbsValue(isContinuous);
             CalculateAverageSignalValue(isContinuous);
+            CalculateAverageSignalPower(isContinuous);
+            CalculateVariance(isContinuous);
+            CalculateEffectiveValue();
         }
         public abstract float Func(float t);
 
@@ -52,7 +60,8 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, 300 ,Func)));
+                AverageSignalValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d,
+                    _integralAccuracy, Func)));
             }
         }
 
@@ -60,9 +69,34 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalAbsValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, 300, 
+                AverageSignalAbsValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy, 
                     delegate (float t) { return Math.Abs(Func(t)); })));
             }
         }
+
+        protected void CalculateAverageSignalPower(bool isContinuous)
+        {
+            if (isContinuous)
+            {
+                AverageSignalPower = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy,
+                    delegate (float t) { return (float)Math.Pow(Func(t), 2); })));
+            }
+        }
+
+        protected void CalculateVariance(bool isContinuous)
+        {
+            if (isContinuous)
+            {
+                Variance = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy,
+                    delegate (float t) { return (float)Math.Pow(Func(t) - AverageSignalValue, 2); })));
+            }
+        }
+
+        protected void CalculateEffectiveValue()
+        {
+            EffectiveValue = (float)Math.Sqrt(AverageSignalPower);
+            
+        }
+
     }
 }

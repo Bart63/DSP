@@ -18,11 +18,16 @@ namespace DSP
     {
         public Signal signal;
 
-        public Card(int n)
+        private Action<Card> removeCardCallback;
+
+        public Card(int n, Action<Card> removeCardCallback)
         {
             InitializeComponent();
 
             this.Text = "Karta " + n;
+
+            this.removeCardCallback = removeCardCallback;
+
         }
 
         public string GetName()
@@ -74,10 +79,9 @@ namespace DSP
                             PointGeometry = null,
                             LineSmoothness = 1,
                             Fill = System.Windows.Media.Brushes.Transparent
-            }
+                        }
                     };
 
-                    
 
                     break;
 
@@ -89,7 +93,15 @@ namespace DSP
 
                 maskedTextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
                 maskedTextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
+                maskedTextBoxAveragePower.Text = signal.AverageSignalPower.ToString();
+                maskedTextBoxVariance.Text = signal.Variance.ToString();
+                maskedTextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
             }
+        }
+
+        private void Card_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            removeCardCallback(this);
         }
     }
 }

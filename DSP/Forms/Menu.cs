@@ -22,10 +22,15 @@ namespace DSP
 
         }
 
+        private void RemoveCard(Card card)
+        {
+            cards.Remove(card);
+        }
+
         private void buttonNewCard_Click(object sender, EventArgs e)
         {
             numberOfCards++;
-            Card card = new Card(numberOfCards);
+            Card card = new Card(numberOfCards, RemoveCard);
             cards.Add(card);
             card.Show();
         }

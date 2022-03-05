@@ -62,7 +62,7 @@ namespace DSP
             this.maskedTextBoxAverageAbsSignal = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBoxAveragePower = new System.Windows.Forms.MaskedTextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.maskedTextBoxWariation = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxVariance = new System.Windows.Forms.MaskedTextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.maskedTextBoxEffectiveValue = new System.Windows.Forms.MaskedTextBox();
             this.chart2Im = new LiveCharts.WinForms.CartesianChart();
@@ -387,7 +387,7 @@ namespace DSP
             this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxAverageAbsSignal, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxAveragePower, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.label12, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxWariation, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxVariance, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.label13, 0, 4);
             this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxEffectiveValue, 1, 4);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(853, 522);
@@ -475,15 +475,15 @@ namespace DSP
             this.label12.Text = "Wariancja sygnału";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maskedTextBoxWariation
+            // maskedTextBoxVariance
             // 
-            this.maskedTextBoxWariation.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxWariation.Location = new System.Drawing.Point(234, 116);
-            this.maskedTextBoxWariation.Mask = "00.00";
-            this.maskedTextBoxWariation.Name = "maskedTextBoxWariation";
-            this.maskedTextBoxWariation.ReadOnly = true;
-            this.maskedTextBoxWariation.Size = new System.Drawing.Size(42, 29);
-            this.maskedTextBoxWariation.TabIndex = 12;
+            this.maskedTextBoxVariance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxVariance.Location = new System.Drawing.Point(234, 116);
+            this.maskedTextBoxVariance.Mask = "00.00";
+            this.maskedTextBoxVariance.Name = "maskedTextBoxVariance";
+            this.maskedTextBoxVariance.ReadOnly = true;
+            this.maskedTextBoxVariance.Size = new System.Drawing.Size(42, 29);
+            this.maskedTextBoxVariance.TabIndex = 12;
             // 
             // label13
             // 
@@ -536,6 +536,7 @@ namespace DSP
             this.Controls.Add(this.chart1Real);
             this.Name = "Card";
             this.Text = "Karta 1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Card_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -581,7 +582,7 @@ namespace DSP
         private System.Windows.Forms.MaskedTextBox maskedTextBoxAverageAbsSignal;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxAveragePower;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxWariation;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxVariance;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxEffectiveValue;
         private LiveCharts.WinForms.CartesianChart chart2Im;

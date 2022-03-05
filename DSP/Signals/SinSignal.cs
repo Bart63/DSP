@@ -11,15 +11,13 @@ namespace DSP.Signals
     {
         public SinSignal(float a, float t1, float d, float t, int f) : base(a, t1, d, t, f)
         {
-            GeneratePoints();
+            GeneratePoints(true);
         }
 
-        public override void GeneratePoints()
+        public override float Func(float t)
         {
-            for (float t = t1; t < d; t += 1/(float)f)
-            {
-                points.Add(new ObservablePoint(t, A * Math.Sin((Math.PI / T) * (t - t1))));
-            }
+            return (float)(A * Math.Sin((2 * Math.PI / T) * (t - t1)));
         }
+
     }
 }

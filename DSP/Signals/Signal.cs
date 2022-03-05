@@ -17,11 +17,16 @@ namespace DSP.Signals
         public float T; //okres
         public int f; //czestotliwosc probkowania
 
-        public List<ObservablePoint> points;
+        public List<ObservablePoint> PointsReal;
+        public List<ObservablePoint> PointsIm;
+
+        public float AverageSignalValue;
+        public float AverageSignalAbsValue;
 
         protected Signal(float a, float t1, float d, float t, int f)
         {
-            points = new List<ObservablePoint>();
+            PointsReal = new List<ObservablePoint>();
+            PointsIm = new List<ObservablePoint>();
 
             A = a;
             this.t1 = t1;
@@ -30,6 +35,34 @@ namespace DSP.Signals
             this.f = f;
         }
 
-        public abstract void GeneratePoints();
+        public virtual void GeneratePoints(bool isContinuous)
+        {
+            for (float t = t1; t < d; t += 1 / (float)f)
+            {
+                PointsReal.Add(new ObservablePoint(t, Func(t)));
+            }
+
+
+            CalculateAverageSignalAbsValue(isContinuous);
+            CalculateAverageSignalValue(isContinuous);
+        }
+        public abstract float Func(float t);
+
+        protected void CalculateAverageSignalValue(bool isContinuous)
+        {
+            if (isContinuous)
+            {
+                AverageSignalValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, 300 ,Func)));
+            }
+        }
+
+        protected void CalculateAverageSignalAbsValue(bool isContinuous)
+        {
+            if (isContinuous)
+            {
+                AverageSignalAbsValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, 300, 
+                    delegate (float t) { return Math.Abs(Func(t)); })));
+            }
+        }
     }
 }

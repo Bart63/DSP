@@ -16,6 +16,8 @@ namespace DSP
 {
     public partial class Card : Form
     {
+        public Signal signal;
+
         public Card(int n)
         {
             InitializeComponent();
@@ -31,18 +33,18 @@ namespace DSP
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
 
             chart1Real.AxisX.Add(new Axis
             {
                 Title = "t [s]",
-                
-            });
+                Foreground = System.Windows.Media.Brushes.Black
+            }); 
 
             chart1Real.AxisY.Add(new Axis
             {
                 Title = "A",
-                
+                Foreground = System.Windows.Media.Brushes.Black
             });
 
             
@@ -50,33 +52,43 @@ namespace DSP
 
         private void buttonGenerateSignal_Click(object sender, EventArgs e)
         {
+            SeriesCollection collection = null;
+
             switch (comboBoxSignalType.SelectedIndex)
             {
                 case 2:
 
-                    Signal signal = new SinSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                    signal = new SinSignal(float.Parse(maskedTextBoxAmplitude.Text),
                         float.Parse(maskedTextBoxStartTime.Text),
                         float.Parse(maskedTextBoxDuration.Text),
                         float.Parse(maskedTextBoxPeriod.Text),
                         int.Parse(maskedTextBoxFrequency.Text));
 
-                    
-                    SeriesCollection collection = new SeriesCollection
+                    collection = new SeriesCollection
                     {
                         new LineSeries
                         {
                             Title = "Sin(t) * A",
-                            Values = new ChartValues<ObservablePoint>(signal.points),
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
                             PointForeground = null,
                             PointGeometry = null,
                             LineSmoothness = 1,
-
-                        }
+                            Fill = System.Windows.Media.Brushes.Transparent
+            }
                     };
 
-                    chart1Real.Series = collection;
+                    
 
                     break;
+
+            }
+
+            if (collection != null && signal != null)
+            {
+                chart1Real.Series = collection;
+
+                maskedTextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
+                maskedTextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
             }
         }
     }

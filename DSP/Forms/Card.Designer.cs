@@ -48,6 +48,8 @@ namespace DSP
             this.maskedTextBoxAmplitude = new System.Windows.Forms.MaskedTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.maskedTextBoxDuration = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxPeriod = new System.Windows.Forms.MaskedTextBox();
             this.buttonGenerateSignal = new System.Windows.Forms.Button();
             this.comboBoxSignalType = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
@@ -64,8 +66,6 @@ namespace DSP
             this.label13 = new System.Windows.Forms.Label();
             this.maskedTextBoxEffectiveValue = new System.Windows.Forms.MaskedTextBox();
             this.chart2Im = new LiveCharts.WinForms.CartesianChart();
-            this.maskedTextBoxDuration = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxPeriod = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -74,6 +74,7 @@ namespace DSP
             // chart1Real
             // 
             this.chart1Real.BackColor = System.Drawing.Color.DarkRed;
+            this.chart1Real.BackColorTransparent = true;
             this.chart1Real.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.chart1Real.Location = new System.Drawing.Point(12, 12);
             this.chart1Real.Name = "chart1Real";
@@ -84,6 +85,7 @@ namespace DSP
             // chart1Im
             // 
             this.chart1Im.BackColor = System.Drawing.Color.DarkRed;
+            this.chart1Im.BackColorTransparent = true;
             this.chart1Im.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.chart1Im.Location = new System.Drawing.Point(12, 264);
             this.chart1Im.Name = "chart1Im";
@@ -94,6 +96,7 @@ namespace DSP
             // chart2Real
             // 
             this.chart2Real.BackColor = System.Drawing.Color.ForestGreen;
+            this.chart2Real.BackColorTransparent = true;
             this.chart2Real.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.chart2Real.Location = new System.Drawing.Point(428, 12);
             this.chart2Real.Name = "chart2Real";
@@ -294,6 +297,24 @@ namespace DSP
             this.tableLayoutPanel1.Size = new System.Drawing.Size(410, 196);
             this.tableLayoutPanel1.TabIndex = 10;
             // 
+            // maskedTextBoxDuration
+            // 
+            this.maskedTextBoxDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxDuration.Location = new System.Drawing.Point(307, 75);
+            this.maskedTextBoxDuration.Mask = "00.00";
+            this.maskedTextBoxDuration.Name = "maskedTextBoxDuration";
+            this.maskedTextBoxDuration.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxDuration.TabIndex = 10;
+            // 
+            // maskedTextBoxPeriod
+            // 
+            this.maskedTextBoxPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxPeriod.Location = new System.Drawing.Point(307, 113);
+            this.maskedTextBoxPeriod.Mask = "00.00";
+            this.maskedTextBoxPeriod.Name = "maskedTextBoxPeriod";
+            this.maskedTextBoxPeriod.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxPeriod.TabIndex = 8;
+            // 
             // buttonGenerateSignal
             // 
             this.buttonGenerateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -488,30 +509,13 @@ namespace DSP
             // chart2Im
             // 
             this.chart2Im.BackColor = System.Drawing.Color.ForestGreen;
+            this.chart2Im.BackColorTransparent = true;
             this.chart2Im.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.chart2Im.Location = new System.Drawing.Point(429, 264);
             this.chart2Im.Name = "chart2Im";
             this.chart2Im.Size = new System.Drawing.Size(410, 246);
             this.chart2Im.TabIndex = 17;
             this.chart2Im.Text = "cartesianChart1";
-            // 
-            // maskedTextBoxDuration
-            // 
-            this.maskedTextBoxDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxDuration.Location = new System.Drawing.Point(307, 75);
-            this.maskedTextBoxDuration.Mask = "00.00";
-            this.maskedTextBoxDuration.Name = "maskedTextBoxDuration";
-            this.maskedTextBoxDuration.Size = new System.Drawing.Size(53, 29);
-            this.maskedTextBoxDuration.TabIndex = 10;
-            // 
-            // maskedTextBoxPeriod
-            // 
-            this.maskedTextBoxPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxPeriod.Location = new System.Drawing.Point(307, 113);
-            this.maskedTextBoxPeriod.Mask = "00.00";
-            this.maskedTextBoxPeriod.Name = "maskedTextBoxPeriod";
-            this.maskedTextBoxPeriod.Size = new System.Drawing.Size(53, 29);
-            this.maskedTextBoxPeriod.TabIndex = 8;
             // 
             // Card
             // 

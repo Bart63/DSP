@@ -78,6 +78,7 @@
     <Compile Include="Forms\Operations.Designer.cs">
       <DependentUpon>Operations.cs</DependentUpon>
     </Compile>
+    <Compile Include="MathExtensions\Integration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Signals\Signal.cs" />

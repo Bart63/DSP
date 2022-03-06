@@ -31,6 +31,29 @@ namespace DSP
 
         }
 
+        public Card(int n, Action<Card> removeCardCallback, Signal signal)
+        {
+            InitializeComponent();
+
+            this.Text = "Karta " + n;
+
+            this.removeCardCallback = removeCardCallback;
+
+            SeriesCollection collection = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                    PointForeground = null,
+                    PointGeometry = null,
+                    LineSmoothness = 1,
+                    Fill = System.Windows.Media.Brushes.Transparent
+                }
+            };
+
+            ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+        }
+
         public string GetName()
         {
             return this.Text;
@@ -72,7 +95,7 @@ namespace DSP
                         float.Parse(maskedTextBoxStartTime.Text),
                         float.Parse(maskedTextBoxDuration.Text),
                         float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text));
+                        int.Parse(maskedTextBoxFrequency.Text), true);
 
                     collection = new SeriesCollection
                     {
@@ -94,23 +117,31 @@ namespace DSP
 
             if (collection != null && signal != null)
             {
-                chart1Real.Series = collection;
+                ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+            }
+        }
 
-                maskedTextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
-                maskedTextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
-                maskedTextBoxAveragePower.Text = signal.AverageSignalPower.ToString();
-                maskedTextBoxVariance.Text = signal.Variance.ToString();
-                maskedTextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
+        private void ShowCharts (ref LiveCharts.WinForms.CartesianChart chart, 
+            ref LiveCharts.WinForms.CartesianChart histogramChart, 
+            SeriesCollection collection, Signal signal)
+        {
+            chart.Series = collection;
 
-                int numberOfSections = 5;
-                if (comboBoxNumberOfSections.SelectedItem != null)
-                {
-                    numberOfSections = int.Parse(comboBoxNumberOfSections.SelectedItem.ToString());
-                }
+            maskedTextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
+            maskedTextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
+            maskedTextBoxAveragePower.Text = signal.AverageSignalPower.ToString();
+            maskedTextBoxVariance.Text = signal.Variance.ToString();
+            maskedTextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
 
-                var histogram = Histogram.CreateHistogram(signal.PointsReal, numberOfSections);
+            int numberOfSections = 5;
+            if (comboBoxNumberOfSections.SelectedItem != null)
+            {
+                numberOfSections = int.Parse(comboBoxNumberOfSections.SelectedItem.ToString());
+            }
 
-                SeriesCollection histogramCollectionReal = new SeriesCollection
+            var histogram = Histogram.CreateHistogram(signal.PointsReal, numberOfSections);
+
+            SeriesCollection histogramCollectionReal = new SeriesCollection
                 {
                     new ColumnSeries
                     {
@@ -118,22 +149,30 @@ namespace DSP
                     }
                 };
 
-                chart2Real.Series = histogramCollectionReal;
+            histogramChart.Series = histogramCollectionReal;
 
-                chart2Real.AxisX.RemoveAt(0);
-                chart2Real.AxisX.Add(new Axis
-                {
-                    Labels = histogram.labels,
-                    Foreground = System.Windows.Media.Brushes.Black,
-                    Separator = new Separator { Step = 1 },
-                });
+            if (histogramChart.AxisX.Count() > 0)
+                histogramChart.AxisX.RemoveAt(0);
 
-            }
-        }
+            histogramChart.AxisX.Add(new Axis
+            {
+                Labels = histogram.labels,
+                Foreground = System.Windows.Media.Brushes.Black,
+                Separator = new Separator { Step = 1 },
+            });
+
+        
+    }
 
         private void Card_FormClosing(object sender, FormClosingEventArgs e)
         {
             removeCardCallback(this);
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            if (signal != null)
+                FileManager.Save(signal);
         }
     }
 }

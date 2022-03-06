@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DSP.Helpers;
+using DSP.Signals;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,6 +41,19 @@ namespace DSP
         {
             Operations operations = new Operations(cards);
             operations.ShowDialog();
+        }
+
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            Signal signal = FileManager.Load();
+
+            if (signal != null)
+            {
+                numberOfCards++;
+                Card card = new Card(numberOfCards, RemoveCard, signal);
+                cards.Add(card);
+                card.Show();
+            }
         }
     }
 }

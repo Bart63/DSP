@@ -32,7 +32,7 @@ namespace DSP.Helpers
                 {
                     sections.Add(new Point(Ypoints.Min(), Ypoints.Min() + h));
 
-                    histogramLabels.Add(Math.Round(sections[j].X, 2) + " - " + Math.Round(sections[j].Y));
+                    histogramLabels.Add(Math.Round(sections[j].X, 2) + " - " + Math.Round(sections[j].Y, 2));
 
                 }
                 else

@@ -357,6 +357,7 @@ namespace DSP
             this.buttonSave.TabIndex = 14;
             this.buttonSave.Text = "Zapisz";
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // comboBoxNumberOfSections
             // 

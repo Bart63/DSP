@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DSP.Signals
 {
-    public abstract class Signal
+    public class Signal
     {
         public float A; //aplituda
         public float t1; //czas początkowy
@@ -28,7 +28,11 @@ namespace DSP.Signals
 
         private const int _integralAccuracy = 300;
 
-        protected Signal(float a, float t1, float d, float t, int f)
+        public bool isContinuous;
+
+
+
+        protected Signal(float a, float t1, float d, float t, int f, bool isContinuous)
         {
             PointsReal = new List<ObservablePoint>();
             PointsIm = new List<ObservablePoint>();
@@ -38,6 +42,23 @@ namespace DSP.Signals
             this.d = d;
             T = t;
             this.f = f;
+            this.isContinuous = isContinuous;
+        }
+
+        public Signal (float a, float t1, float d, float t, int f, bool isContinuous,
+            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null)
+        {
+            A = a;
+            this.t1 = t1;
+            this.d = d;
+            T = t;
+            this.f = f;
+            this.isContinuous = isContinuous;
+
+            PointsReal = pointsReal;
+            PointsIm = pointsIm;
+
+            
         }
 
         public virtual void GeneratePoints(bool isContinuous)
@@ -54,7 +75,10 @@ namespace DSP.Signals
             CalculateVariance(isContinuous);
             CalculateEffectiveValue();
         }
-        public abstract float Func(float t);
+        public virtual float Func(float t)
+        {
+            return 0;
+        }
 
         protected void CalculateAverageSignalValue(bool isContinuous)
         {

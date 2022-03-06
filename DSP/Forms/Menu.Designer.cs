@@ -54,6 +54,7 @@ namespace DSP
             this.buttonLoad.TabIndex = 14;
             this.buttonLoad.Text = "Wczytaj";
             this.buttonLoad.UseVisualStyleBackColor = true;
+            this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
             // buttonOperations
             // 

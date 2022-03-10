@@ -83,8 +83,13 @@
     <Compile Include="MathExtensions\Integration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Signals\RectSignal.cs" />
+    <Compile Include="Signals\RectSimSignal.cs" />
     <Compile Include="Signals\Signal.cs" />
     <Compile Include="Signals\SinSignal.cs" />
+    <Compile Include="Signals\SinSignal2.cs" />
+    <Compile Include="Signals\SinSignal3.cs" />
+    <Compile Include="Signals\TrianSignal.cs" />
     <EmbeddedResource Include="Forms\Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
     </EmbeddedResource>

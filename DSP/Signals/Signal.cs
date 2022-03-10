@@ -43,6 +43,8 @@ namespace DSP.Signals
             T = t;
             this.f = f;
             this.isContinuous = isContinuous;
+
+            
         }
 
         public Signal (float a, float t1, float d, float t, int f, bool isContinuous,

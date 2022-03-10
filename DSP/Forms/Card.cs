@@ -113,6 +113,124 @@ namespace DSP
 
                     break;
 
+                case 3:
+
+                    signal = new SinSignal2(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true);
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 1,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 4:
+
+                    signal = new SinSignal3(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true);
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0.5,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 5:
+
+                    signal = new RectSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true,
+                        float.Parse(maskedTextBoxFilling.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 6:
+
+                    signal = new RectSimSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true,
+                        float.Parse(maskedTextBoxFilling.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 7:
+
+                    signal = new TrianSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true,
+                        float.Parse(maskedTextBoxFilling.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
             }
 
             if (collection != null && signal != null)

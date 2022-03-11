@@ -38,3 +38,5 @@ D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.pdb
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Card.resources
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Menu.resources
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Operations.resources
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\MathNet.Numerics.dll
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\MathNet.Numerics.xml

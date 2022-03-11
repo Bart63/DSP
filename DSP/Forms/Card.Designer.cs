@@ -108,9 +108,9 @@ namespace DSP
             // 
             this.maskedTextBoxFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxFrequency.Location = new System.Drawing.Point(293, 77);
-            this.maskedTextBoxFrequency.Mask = "00000";
+            this.maskedTextBoxFrequency.Mask = "0000000";
             this.maskedTextBoxFrequency.Name = "maskedTextBoxFrequency";
-            this.maskedTextBoxFrequency.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxFrequency.Size = new System.Drawing.Size(85, 29);
             this.maskedTextBoxFrequency.TabIndex = 10;
             this.maskedTextBoxFrequency.ValidatingType = typeof(int);
             // 
@@ -222,9 +222,9 @@ namespace DSP
             // 
             this.maskedTextBoxStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxStartTime.Location = new System.Drawing.Point(307, 39);
-            this.maskedTextBoxStartTime.Mask = "00.00";
+            this.maskedTextBoxStartTime.Mask = "00.000";
             this.maskedTextBoxStartTime.Name = "maskedTextBoxStartTime";
-            this.maskedTextBoxStartTime.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxStartTime.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxStartTime.TabIndex = 6;
             // 
             // label2
@@ -253,9 +253,9 @@ namespace DSP
             // 
             this.maskedTextBoxAmplitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxAmplitude.Location = new System.Drawing.Point(307, 3);
-            this.maskedTextBoxAmplitude.Mask = "00.00";
+            this.maskedTextBoxAmplitude.Mask = "00.000";
             this.maskedTextBoxAmplitude.Name = "maskedTextBoxAmplitude";
-            this.maskedTextBoxAmplitude.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxAmplitude.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxAmplitude.TabIndex = 3;
             // 
             // label5
@@ -301,18 +301,18 @@ namespace DSP
             // 
             this.maskedTextBoxDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxDuration.Location = new System.Drawing.Point(307, 75);
-            this.maskedTextBoxDuration.Mask = "00.00";
+            this.maskedTextBoxDuration.Mask = "00.000";
             this.maskedTextBoxDuration.Name = "maskedTextBoxDuration";
-            this.maskedTextBoxDuration.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxDuration.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxDuration.TabIndex = 10;
             // 
             // maskedTextBoxPeriod
             // 
             this.maskedTextBoxPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxPeriod.Location = new System.Drawing.Point(307, 113);
-            this.maskedTextBoxPeriod.Mask = "00.00";
+            this.maskedTextBoxPeriod.Mask = "00.000";
             this.maskedTextBoxPeriod.Name = "maskedTextBoxPeriod";
-            this.maskedTextBoxPeriod.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxPeriod.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxPeriod.TabIndex = 8;
             // 
             // buttonGenerateSignal
@@ -379,8 +379,8 @@ namespace DSP
             this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.71014F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.28986F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.24601F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.75399F));
             this.tableLayoutPanel3.Controls.Add(this.label11, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxAverageSignal, 1, 0);
@@ -399,7 +399,7 @@ namespace DSP
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(291, 189);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(316, 189);
             this.tableLayoutPanel3.TabIndex = 16;
             // 
             // label11
@@ -427,11 +427,11 @@ namespace DSP
             // maskedTextBoxAverageSignal
             // 
             this.maskedTextBoxAverageSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAverageSignal.Location = new System.Drawing.Point(234, 3);
-            this.maskedTextBoxAverageSignal.Mask = "00.00";
+            this.maskedTextBoxAverageSignal.Location = new System.Drawing.Point(228, 3);
+            this.maskedTextBoxAverageSignal.Mask = "00.000";
             this.maskedTextBoxAverageSignal.Name = "maskedTextBoxAverageSignal";
             this.maskedTextBoxAverageSignal.ReadOnly = true;
-            this.maskedTextBoxAverageSignal.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxAverageSignal.Size = new System.Drawing.Size(81, 29);
             this.maskedTextBoxAverageSignal.TabIndex = 6;
             // 
             // label10
@@ -448,21 +448,21 @@ namespace DSP
             // maskedTextBoxAverageAbsSignal
             // 
             this.maskedTextBoxAverageAbsSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAverageAbsSignal.Location = new System.Drawing.Point(234, 38);
-            this.maskedTextBoxAverageAbsSignal.Mask = "00.00";
+            this.maskedTextBoxAverageAbsSignal.Location = new System.Drawing.Point(228, 38);
+            this.maskedTextBoxAverageAbsSignal.Mask = "00.000";
             this.maskedTextBoxAverageAbsSignal.Name = "maskedTextBoxAverageAbsSignal";
             this.maskedTextBoxAverageAbsSignal.ReadOnly = true;
-            this.maskedTextBoxAverageAbsSignal.Size = new System.Drawing.Size(42, 29);
+            this.maskedTextBoxAverageAbsSignal.Size = new System.Drawing.Size(81, 29);
             this.maskedTextBoxAverageAbsSignal.TabIndex = 8;
             // 
             // maskedTextBoxAveragePower
             // 
             this.maskedTextBoxAveragePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAveragePower.Location = new System.Drawing.Point(234, 75);
-            this.maskedTextBoxAveragePower.Mask = "00.00";
+            this.maskedTextBoxAveragePower.Location = new System.Drawing.Point(228, 75);
+            this.maskedTextBoxAveragePower.Mask = "00.000";
             this.maskedTextBoxAveragePower.Name = "maskedTextBoxAveragePower";
             this.maskedTextBoxAveragePower.ReadOnly = true;
-            this.maskedTextBoxAveragePower.Size = new System.Drawing.Size(42, 29);
+            this.maskedTextBoxAveragePower.Size = new System.Drawing.Size(81, 29);
             this.maskedTextBoxAveragePower.TabIndex = 10;
             // 
             // label12
@@ -479,11 +479,11 @@ namespace DSP
             // maskedTextBoxVariance
             // 
             this.maskedTextBoxVariance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxVariance.Location = new System.Drawing.Point(234, 116);
-            this.maskedTextBoxVariance.Mask = "00.00";
+            this.maskedTextBoxVariance.Location = new System.Drawing.Point(228, 116);
+            this.maskedTextBoxVariance.Mask = "00.000";
             this.maskedTextBoxVariance.Name = "maskedTextBoxVariance";
             this.maskedTextBoxVariance.ReadOnly = true;
-            this.maskedTextBoxVariance.Size = new System.Drawing.Size(42, 29);
+            this.maskedTextBoxVariance.Size = new System.Drawing.Size(81, 29);
             this.maskedTextBoxVariance.TabIndex = 12;
             // 
             // label13
@@ -500,11 +500,11 @@ namespace DSP
             // maskedTextBoxEffectiveValue
             // 
             this.maskedTextBoxEffectiveValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxEffectiveValue.Location = new System.Drawing.Point(234, 148);
-            this.maskedTextBoxEffectiveValue.Mask = "00.00";
+            this.maskedTextBoxEffectiveValue.Location = new System.Drawing.Point(228, 148);
+            this.maskedTextBoxEffectiveValue.Mask = "00.000";
             this.maskedTextBoxEffectiveValue.Name = "maskedTextBoxEffectiveValue";
             this.maskedTextBoxEffectiveValue.ReadOnly = true;
-            this.maskedTextBoxEffectiveValue.Size = new System.Drawing.Size(42, 29);
+            this.maskedTextBoxEffectiveValue.Size = new System.Drawing.Size(81, 29);
             this.maskedTextBoxEffectiveValue.TabIndex = 14;
             // 
             // chart2Im

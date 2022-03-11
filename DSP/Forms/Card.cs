@@ -68,7 +68,7 @@ namespace DSP
             {
                 Title = "t [s]",
                 Foreground = System.Windows.Media.Brushes.Black,
-                Separator = new Separator { Step = 1 }
+                
             }); 
 
             chart1Real.AxisY.Add(new Axis
@@ -89,6 +89,51 @@ namespace DSP
 
             switch (comboBoxSignalType.SelectedIndex)
             {
+                case 0:
+
+                    signal = new NoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true);
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 1:
+
+                    signal = new GaussianNoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), true);
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+
                 case 2:
 
                     signal = new SinSignal(float.Parse(maskedTextBoxAmplitude.Text),
@@ -231,6 +276,7 @@ namespace DSP
 
                     break;
 
+                
             }
 
             if (collection != null && signal != null)

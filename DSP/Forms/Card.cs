@@ -29,6 +29,7 @@ namespace DSP
 
             this.removeCardCallback = removeCardCallback;
 
+            DisableTextBoxes();
         }
 
         public Card(int n, Action<Card> removeCardCallback, Signal signal)
@@ -39,19 +40,53 @@ namespace DSP
 
             this.removeCardCallback = removeCardCallback;
 
-            SeriesCollection collection = new SeriesCollection
+            SeriesCollection collection;
+
+            if (signal.isContinuous)
             {
-                new LineSeries
+                collection = new SeriesCollection
                 {
-                    Values = new ChartValues<ObservablePoint>(signal.PointsReal),
-                    PointForeground = null,
-                    PointGeometry = null,
-                    LineSmoothness = 1,
-                    Fill = System.Windows.Media.Brushes.Transparent
-                }
-            };
+                    new LineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                        PointForeground = null,
+                        PointGeometry = null,
+                        LineSmoothness = 1,
+                        Fill = System.Windows.Media.Brushes.Transparent
+                    }
+                };
+            }
+            else
+            {
+                collection = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+
+                        PointGeometrySize = 8,
+                        Fill = System.Windows.Media.Brushes.Transparent,
+                        StrokeThickness = 0,
+
+                    }
+                };
+            }
 
             ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+
+            DisableTextBoxes();
+        }
+
+        private void DisableTextBoxes()
+        {
+            var list = tableLayoutPanel1.Controls.OfType<MaskedTextBox>().ToList();
+
+            list.AddRange(tableLayoutPanel2.Controls.OfType<MaskedTextBox>().ToList());
+
+            foreach (var e in list)
+            {
+                e.Enabled = false;
+            }
         }
 
         public string GetName()
@@ -299,7 +334,54 @@ namespace DSP
 
                     break;
 
+                case 9:
 
+                    signal = new UnitImpulseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        int.Parse(maskedTextBoxFirstSampleNumber.Text),
+                        int.Parse(maskedTextBoxNuberOfSamples.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), 
+                        int.Parse(maskedTextBoxSampleNumber.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            
+                            PointGeometrySize = 8,
+                            Fill = System.Windows.Media.Brushes.Transparent,
+                            StrokeThickness = 0,
+                            
+                        }
+                    };
+
+
+                    break;
+
+
+                case 10:
+
+                    signal = new ImpulseNoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text),
+                        float.Parse(maskedTextBoxProbability.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+
+                            PointGeometrySize = 8,
+                            Fill = System.Windows.Media.Brushes.Transparent,
+                            StrokeThickness = 0,
+
+                        }
+                    };
+
+
+                    break;
             }
 
             if (collection != null && signal != null)
@@ -362,6 +444,100 @@ namespace DSP
                 FileManager.Save(signal);
         }
 
-       
+        private void comboBoxSignalType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisableTextBoxes();
+
+            maskedTextBoxFrequency.Enabled = true;
+
+            switch (comboBoxSignalType.SelectedIndex)
+            {
+                case 0:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled = true;
+
+                    break;
+
+                case 1:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled = true;
+
+                    break;
+
+                case 2:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled = 
+                        maskedTextBoxPeriod.Enabled = true;
+
+                    break;
+
+                case 3:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = true;
+
+                    break;
+
+                case 4:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = true;
+
+                    break;
+
+                case 5:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = maskedTextBoxFilling.Enabled = true;
+
+                    break;
+
+                case 6:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = maskedTextBoxFilling.Enabled = true;
+
+                    break;
+
+                case 7:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = maskedTextBoxFilling.Enabled = true;
+
+                    break;
+
+                case 8:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxJumpTime.Enabled = true;
+
+                    break;
+
+                case 9:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxFirstSampleNumber.Enabled = maskedTextBoxSampleNumber.Enabled = 
+                        maskedTextBoxNuberOfSamples.Enabled = true;
+
+                    break;
+
+                case 10:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxProbability.Enabled = true;
+
+                    break;
+            }
+        }
     }
 }

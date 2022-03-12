@@ -65,7 +65,7 @@ namespace DSP.Signals
 
         public virtual void GeneratePoints(bool isContinuous, Action resetValuesCallback = null)
         {
-            for (int i = 0; i < ((d - t1) * f); i++)
+            for (int i = 0; i < (d * f); i++)
             {
                 float t = (float)i / f + t1;
 

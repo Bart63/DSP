@@ -39,6 +39,12 @@ namespace DSP
             this.label7 = new System.Windows.Forms.Label();
             this.maskedTextBoxJumpTime = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label14 = new System.Windows.Forms.Label();
+            this.maskedTextBoxSampleNumber = new System.Windows.Forms.MaskedTextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.maskedTextBoxFirstSampleNumber = new System.Windows.Forms.MaskedTextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.maskedTextBoxNuberOfSamples = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBoxFilling = new System.Windows.Forms.MaskedTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -66,12 +72,6 @@ namespace DSP
             this.TextBoxVariance = new System.Windows.Forms.TextBox();
             this.TextBoxEffectiveValue = new System.Windows.Forms.TextBox();
             this.chart2Im = new LiveCharts.WinForms.CartesianChart();
-            this.label14 = new System.Windows.Forms.Label();
-            this.maskedTextBoxSampleNumber = new System.Windows.Forms.MaskedTextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.maskedTextBoxFirstSampleNumber = new System.Windows.Forms.MaskedTextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.maskedTextBoxNuberOfSamples = new System.Windows.Forms.MaskedTextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -204,6 +204,66 @@ namespace DSP
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(382, 242);
             this.tableLayoutPanel2.TabIndex = 11;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label14.Location = new System.Drawing.Point(3, 43);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(162, 24);
+            this.label14.TabIndex = 11;
+            this.label14.Text = "Numer próbki (ns)";
+            // 
+            // maskedTextBoxSampleNumber
+            // 
+            this.maskedTextBoxSampleNumber.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.maskedTextBoxSampleNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxSampleNumber.Location = new System.Drawing.Point(285, 46);
+            this.maskedTextBoxSampleNumber.Mask = "000";
+            this.maskedTextBoxSampleNumber.Name = "maskedTextBoxSampleNumber";
+            this.maskedTextBoxSampleNumber.Size = new System.Drawing.Size(87, 29);
+            this.maskedTextBoxSampleNumber.TabIndex = 12;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label15.Location = new System.Drawing.Point(3, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(209, 24);
+            this.label15.TabIndex = 13;
+            this.label15.Text = "Numer pierwszej próbki";
+            // 
+            // maskedTextBoxFirstSampleNumber
+            // 
+            this.maskedTextBoxFirstSampleNumber.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.maskedTextBoxFirstSampleNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxFirstSampleNumber.Location = new System.Drawing.Point(285, 3);
+            this.maskedTextBoxFirstSampleNumber.Name = "maskedTextBoxFirstSampleNumber";
+            this.maskedTextBoxFirstSampleNumber.Size = new System.Drawing.Size(87, 29);
+            this.maskedTextBoxFirstSampleNumber.TabIndex = 14;
+            this.maskedTextBoxFirstSampleNumber.ValidatingType = typeof(int);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label16.Location = new System.Drawing.Point(3, 84);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(133, 24);
+            this.label16.TabIndex = 15;
+            this.label16.Text = "Ilość próbek (l)";
+            // 
+            // maskedTextBoxNuberOfSamples
+            // 
+            this.maskedTextBoxNuberOfSamples.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.maskedTextBoxNuberOfSamples.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxNuberOfSamples.Location = new System.Drawing.Point(285, 87);
+            this.maskedTextBoxNuberOfSamples.Mask = "000";
+            this.maskedTextBoxNuberOfSamples.Name = "maskedTextBoxNuberOfSamples";
+            this.maskedTextBoxNuberOfSamples.Size = new System.Drawing.Size(87, 29);
+            this.maskedTextBoxNuberOfSamples.TabIndex = 16;
             // 
             // maskedTextBoxFilling
             // 
@@ -531,66 +591,6 @@ namespace DSP
             this.chart2Im.Size = new System.Drawing.Size(410, 246);
             this.chart2Im.TabIndex = 17;
             this.chart2Im.Text = "cartesianChart1";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label14.Location = new System.Drawing.Point(3, 43);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(162, 24);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Numer próbki (ns)";
-            // 
-            // maskedTextBoxSampleNumber
-            // 
-            this.maskedTextBoxSampleNumber.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.maskedTextBoxSampleNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxSampleNumber.Location = new System.Drawing.Point(285, 46);
-            this.maskedTextBoxSampleNumber.Mask = "000";
-            this.maskedTextBoxSampleNumber.Name = "maskedTextBoxSampleNumber";
-            this.maskedTextBoxSampleNumber.Size = new System.Drawing.Size(87, 29);
-            this.maskedTextBoxSampleNumber.TabIndex = 12;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label15.Location = new System.Drawing.Point(3, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(209, 24);
-            this.label15.TabIndex = 13;
-            this.label15.Text = "Numer pierwszej próbki";
-            // 
-            // maskedTextBoxFirstSampleNumber
-            // 
-            this.maskedTextBoxFirstSampleNumber.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.maskedTextBoxFirstSampleNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxFirstSampleNumber.Location = new System.Drawing.Point(285, 3);
-            this.maskedTextBoxFirstSampleNumber.Name = "maskedTextBoxFirstSampleNumber";
-            this.maskedTextBoxFirstSampleNumber.Size = new System.Drawing.Size(87, 29);
-            this.maskedTextBoxFirstSampleNumber.TabIndex = 14;
-            this.maskedTextBoxFirstSampleNumber.ValidatingType = typeof(int);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label16.Location = new System.Drawing.Point(3, 84);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(133, 24);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "Ilość próbek (l)";
-            // 
-            // maskedTextBoxNuberOfSamples
-            // 
-            this.maskedTextBoxNuberOfSamples.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.maskedTextBoxNuberOfSamples.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxNuberOfSamples.Location = new System.Drawing.Point(285, 87);
-            this.maskedTextBoxNuberOfSamples.Mask = "000";
-            this.maskedTextBoxNuberOfSamples.Name = "maskedTextBoxNuberOfSamples";
-            this.maskedTextBoxNuberOfSamples.Size = new System.Drawing.Size(87, 29);
-            this.maskedTextBoxNuberOfSamples.TabIndex = 16;
             // 
             // Card
             // 

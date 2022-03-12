@@ -97,6 +97,7 @@
     <Compile Include="Signals\SinSignal2.cs" />
     <Compile Include="Signals\SinSignal3.cs" />
     <Compile Include="Signals\TrianSignal.cs" />
+    <Compile Include="Signals\UnitJumpSignal.cs" />
     <EmbeddedResource Include="Forms\Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
     </EmbeddedResource>

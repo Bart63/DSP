@@ -50,7 +50,7 @@ namespace DSP.Helpers
 
             for (int i = 0; i < numberOfSections; i++)
             {
-                histogramData.Add(Ypoints.Count(x => x >= sections[i].X && x < sections[i].Y));
+                histogramData.Add(Ypoints.Count(x => x >= sections[i].X && x <= sections[i].Y));
             }
 
             return (histogramData, histogramLabels);

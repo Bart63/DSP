@@ -11,14 +11,14 @@ namespace DSP.Signals
     {
         Random r;
 
-        public NoiseSignal(float a, float t1, float d, int f, bool isContinuous) : base(a, t1, d, 0, f, isContinuous)
+        public NoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true)
         {
             r = new Random();
 
-            GeneratePoints(isContinuous);
+            GeneratePoints(isContinuous, null);
         }
 
-        public override void GeneratePoints(bool isContinuous)
+        public override void GeneratePoints(bool isContinuous, Action a)
         {
             for (float t = t1; t < d; t += 1 / (float)f)
             {

@@ -11,12 +11,12 @@ namespace DSP.Signals
         public float kw;
 
         private int k;
-        public RectSimSignal(float a, float t1, float d, float t, int f, bool isContinuous, float kw) : base(a, t1, d, t, f, isContinuous)
+        public RectSimSignal(float a, float t1, float d, float t, int f, float kw) : base(a, t1, d, t, f, true)
         {
             this.kw = kw;
             k = 0;
 
-            GeneratePoints(isContinuous);
+            GeneratePoints(isContinuous, resetK);
         }
 
         public override float Func(float t)
@@ -34,6 +34,11 @@ namespace DSP.Signals
                 k += 1;
                 return Func(t);
             }
+        }
+
+        private void resetK()
+        {
+            k = 0;
         }
     }
 }

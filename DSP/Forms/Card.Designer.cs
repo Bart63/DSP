@@ -57,15 +57,15 @@ namespace DSP
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.maskedTextBoxAverageSignal = new System.Windows.Forms.MaskedTextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.maskedTextBoxAverageAbsSignal = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxAveragePower = new System.Windows.Forms.MaskedTextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.maskedTextBoxVariance = new System.Windows.Forms.MaskedTextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.maskedTextBoxEffectiveValue = new System.Windows.Forms.MaskedTextBox();
             this.chart2Im = new LiveCharts.WinForms.CartesianChart();
+            this.TextBoxAverageSignal = new System.Windows.Forms.TextBox();
+            this.TextBoxAverageAbsSignal = new System.Windows.Forms.TextBox();
+            this.TextBoxAveragePower = new System.Windows.Forms.TextBox();
+            this.TextBoxVariance = new System.Windows.Forms.TextBox();
+            this.TextBoxEffectiveValue = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -160,9 +160,9 @@ namespace DSP
             // 
             this.maskedTextBoxJumpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxJumpTime.Location = new System.Drawing.Point(293, 3);
-            this.maskedTextBoxJumpTime.Mask = "00.00";
+            this.maskedTextBoxJumpTime.Mask = "00.000";
             this.maskedTextBoxJumpTime.Name = "maskedTextBoxJumpTime";
-            this.maskedTextBoxJumpTime.Size = new System.Drawing.Size(53, 29);
+            this.maskedTextBoxJumpTime.Size = new System.Drawing.Size(72, 29);
             this.maskedTextBoxJumpTime.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -376,37 +376,36 @@ namespace DSP
             // 
             // tableLayoutPanel3
             // 
-            this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.24601F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.75399F));
-            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 2);
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
             this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxAverageSignal, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.label10, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxAverageAbsSignal, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxAveragePower, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.label12, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxVariance, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.label13, 0, 4);
-            this.tableLayoutPanel3.Controls.Add(this.maskedTextBoxEffectiveValue, 1, 4);
+            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 2);
+            this.tableLayoutPanel3.Controls.Add(this.TextBoxAverageSignal, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.TextBoxAverageAbsSignal, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.TextBoxAveragePower, 1, 2);
+            this.tableLayoutPanel3.Controls.Add(this.TextBoxVariance, 1, 3);
+            this.tableLayoutPanel3.Controls.Add(this.TextBoxEffectiveValue, 1, 4);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(853, 522);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.14815F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.85185F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.30769F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.69231F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(316, 189);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(336, 189);
             this.tableLayoutPanel3.TabIndex = 16;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(3, 72);
+            this.label11.Location = new System.Drawing.Point(3, 65);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(188, 24);
             this.label11.TabIndex = 9;
@@ -424,88 +423,38 @@ namespace DSP
             this.label6.Text = "Wartość średnia sygnału";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maskedTextBoxAverageSignal
-            // 
-            this.maskedTextBoxAverageSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAverageSignal.Location = new System.Drawing.Point(228, 3);
-            this.maskedTextBoxAverageSignal.Mask = "00.000";
-            this.maskedTextBoxAverageSignal.Name = "maskedTextBoxAverageSignal";
-            this.maskedTextBoxAverageSignal.ReadOnly = true;
-            this.maskedTextBoxAverageSignal.Size = new System.Drawing.Size(81, 29);
-            this.maskedTextBoxAverageSignal.TabIndex = 6;
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(3, 35);
+            this.label10.Location = new System.Drawing.Point(3, 34);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(207, 18);
             this.label10.TabIndex = 7;
             this.label10.Text = "Wartość średnia bezwzględna";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maskedTextBoxAverageAbsSignal
-            // 
-            this.maskedTextBoxAverageAbsSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAverageAbsSignal.Location = new System.Drawing.Point(228, 38);
-            this.maskedTextBoxAverageAbsSignal.Mask = "00.000";
-            this.maskedTextBoxAverageAbsSignal.Name = "maskedTextBoxAverageAbsSignal";
-            this.maskedTextBoxAverageAbsSignal.ReadOnly = true;
-            this.maskedTextBoxAverageAbsSignal.Size = new System.Drawing.Size(81, 29);
-            this.maskedTextBoxAverageAbsSignal.TabIndex = 8;
-            // 
-            // maskedTextBoxAveragePower
-            // 
-            this.maskedTextBoxAveragePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAveragePower.Location = new System.Drawing.Point(228, 75);
-            this.maskedTextBoxAveragePower.Mask = "00.000";
-            this.maskedTextBoxAveragePower.Name = "maskedTextBoxAveragePower";
-            this.maskedTextBoxAveragePower.ReadOnly = true;
-            this.maskedTextBoxAveragePower.Size = new System.Drawing.Size(81, 29);
-            this.maskedTextBoxAveragePower.TabIndex = 10;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label12.Location = new System.Drawing.Point(3, 113);
+            this.label12.Location = new System.Drawing.Point(3, 107);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(167, 24);
             this.label12.TabIndex = 11;
             this.label12.Text = "Wariancja sygnału";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maskedTextBoxVariance
-            // 
-            this.maskedTextBoxVariance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxVariance.Location = new System.Drawing.Point(228, 116);
-            this.maskedTextBoxVariance.Mask = "00.000";
-            this.maskedTextBoxVariance.Name = "maskedTextBoxVariance";
-            this.maskedTextBoxVariance.ReadOnly = true;
-            this.maskedTextBoxVariance.Size = new System.Drawing.Size(81, 29);
-            this.maskedTextBoxVariance.TabIndex = 12;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label13.Location = new System.Drawing.Point(3, 145);
+            this.label13.Location = new System.Drawing.Point(3, 147);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(167, 24);
             this.label13.TabIndex = 13;
             this.label13.Text = "Wartość skuteczna";
             this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // maskedTextBoxEffectiveValue
-            // 
-            this.maskedTextBoxEffectiveValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxEffectiveValue.Location = new System.Drawing.Point(228, 148);
-            this.maskedTextBoxEffectiveValue.Mask = "00.000";
-            this.maskedTextBoxEffectiveValue.Name = "maskedTextBoxEffectiveValue";
-            this.maskedTextBoxEffectiveValue.ReadOnly = true;
-            this.maskedTextBoxEffectiveValue.Size = new System.Drawing.Size(81, 29);
-            this.maskedTextBoxEffectiveValue.TabIndex = 14;
             // 
             // chart2Im
             // 
@@ -518,14 +467,54 @@ namespace DSP
             this.chart2Im.TabIndex = 17;
             this.chart2Im.Text = "cartesianChart1";
             // 
+            // TextBoxAverageSignal
+            // 
+            this.TextBoxAverageSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxAverageSignal.Location = new System.Drawing.Point(230, 3);
+            this.TextBoxAverageSignal.Name = "TextBoxAverageSignal";
+            this.TextBoxAverageSignal.Size = new System.Drawing.Size(100, 29);
+            this.TextBoxAverageSignal.TabIndex = 14;
+            // 
+            // TextBoxAverageAbsSignal
+            // 
+            this.TextBoxAverageAbsSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxAverageAbsSignal.Location = new System.Drawing.Point(230, 37);
+            this.TextBoxAverageAbsSignal.Name = "TextBoxAverageAbsSignal";
+            this.TextBoxAverageAbsSignal.Size = new System.Drawing.Size(100, 29);
+            this.TextBoxAverageAbsSignal.TabIndex = 15;
+            // 
+            // TextBoxAveragePower
+            // 
+            this.TextBoxAveragePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxAveragePower.Location = new System.Drawing.Point(230, 68);
+            this.TextBoxAveragePower.Name = "TextBoxAveragePower";
+            this.TextBoxAveragePower.Size = new System.Drawing.Size(100, 29);
+            this.TextBoxAveragePower.TabIndex = 16;
+            // 
+            // TextBoxVariance
+            // 
+            this.TextBoxVariance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxVariance.Location = new System.Drawing.Point(230, 110);
+            this.TextBoxVariance.Name = "TextBoxVariance";
+            this.TextBoxVariance.Size = new System.Drawing.Size(100, 29);
+            this.TextBoxVariance.TabIndex = 17;
+            // 
+            // TextBoxEffectiveValue
+            // 
+            this.TextBoxEffectiveValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TextBoxEffectiveValue.Location = new System.Drawing.Point(230, 150);
+            this.TextBoxEffectiveValue.Name = "TextBoxEffectiveValue";
+            this.TextBoxEffectiveValue.Size = new System.Drawing.Size(100, 29);
+            this.TextBoxEffectiveValue.TabIndex = 18;
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1201, 726);
-            this.Controls.Add(this.chart2Im);
             this.Controls.Add(this.tableLayoutPanel3);
+            this.Controls.Add(this.chart2Im);
             this.Controls.Add(this.comboBoxNumberOfSections);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.comboBoxSignalType);
@@ -546,7 +535,6 @@ namespace DSP
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -578,17 +566,17 @@ namespace DSP
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxAverageSignal;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxAverageAbsSignal;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxAveragePower;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxVariance;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxEffectiveValue;
         private LiveCharts.WinForms.CartesianChart chart2Im;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxDuration;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPeriod;
+        private System.Windows.Forms.TextBox TextBoxAverageSignal;
+        private System.Windows.Forms.TextBox TextBoxAverageAbsSignal;
+        private System.Windows.Forms.TextBox TextBoxAveragePower;
+        private System.Windows.Forms.TextBox TextBoxVariance;
+        private System.Windows.Forms.TextBox TextBoxEffectiveValue;
     }
 }
 

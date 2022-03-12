@@ -13,28 +13,23 @@ namespace DSP.Signals
         MathNet.Numerics.Distributions.Normal normal;
 
         
-        public GaussianNoiseSignal(float a, float t1, float d, int f, bool isContinuous) : base(a, t1, d, 0, f, isContinuous)
+        public GaussianNoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true)
         {
             
             normal = new MathNet.Numerics.Distributions.Normal(0, 1);
 
-            GeneratePoints(isContinuous);
+            GeneratePoints(isContinuous, null);
         }
 
-        public override void GeneratePoints(bool isContinuous)
+        public override void GeneratePoints(bool isContinuous, Action a)
         {
             double[] normalDst = new double[(int)((d - t1) * f)];
 
             normal.Samples(normalDst);
 
-            float valueMin = (float)normalDst.Min();
-            float valueMax = (float)normalDst.Max();
-            float scaleRange = 1;
-            float valueRange = valueMax - valueMin;
+            float m = A / (float)normalDst.Max();
 
-            List<float> normalized = normalDst.Select(i => (float)(scaleRange * ((i - valueMin)/valueRange))).ToList();
-
-            List<float> points = (normalized.Select(i => i * (2 * A) - A)).ToList();
+            List<float> points = (normalDst.ToList().Select(i => (float)i * m)).ToList();
 
 
             float t = t1;

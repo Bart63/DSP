@@ -63,19 +63,26 @@ namespace DSP.Signals
             
         }
 
-        public virtual void GeneratePoints(bool isContinuous)
+        public virtual void GeneratePoints(bool isContinuous, Action resetValuesCallback = null)
         {
-            for (float t = t1; t < d; t += 1 / (float)f)
+            for (int i = 1; i < ((d - t1) * f); i++)
             {
+                float t = (float)i / f;
+
                 PointsReal.Add(new ObservablePoint(t, Func(t)));
             }
 
+            if (resetValuesCallback != null)
+            {
+                resetValuesCallback();
+            }
 
             CalculateAverageSignalAbsValue(isContinuous);
             CalculateAverageSignalValue(isContinuous);
             CalculateAverageSignalPower(isContinuous);
             CalculateVariance(isContinuous);
             CalculateEffectiveValue();
+
         }
         public virtual float Func(float t)
         {
@@ -86,8 +93,13 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d,
+                AverageSignalValue = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y)
+                    * (MathExtensions.Integration.Calculate(t1, d,
                     _integralAccuracy, Func)));
+            }
+            else
+            {
+                AverageSignalValue = (float)(PointsReal.Sum(x => x.Y) / (PointsReal.Last().Y - PointsReal.First().Y + 1));
             }
         }
 
@@ -95,8 +107,14 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalAbsValue = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy, 
+                AverageSignalAbsValue = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y)
+                    * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy, 
                     delegate (float t) { return Math.Abs(Func(t)); })));
+            }
+            else
+            {
+                AverageSignalAbsValue = (float)(PointsReal.Sum(x => Math.Abs(x.Y))
+                    / (PointsReal.Last().Y - PointsReal.First().Y + 1));
             }
         }
 
@@ -104,8 +122,14 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalPower = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy,
+                AverageSignalPower = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y) *
+                    (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy,
                     delegate (float t) { return (float)Math.Pow(Func(t), 2); })));
+            }
+            else
+            {
+                AverageSignalPower = (float)((PointsReal.Sum(x => Math.Pow(x.Y, 2))) /
+                    (PointsReal.Last().Y - PointsReal.First().Y + 1));
             }
         }
 
@@ -113,8 +137,14 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                Variance = (float)(1 / (d - t1) * (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy,
+                Variance = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y) *
+                    (MathExtensions.Integration.Calculate(t1, d, _integralAccuracy,
                     delegate (float t) { return (float)Math.Pow(Func(t) - AverageSignalValue, 2); })));
+            }
+            else
+            {
+                Variance = (float)((PointsReal.Sum(x => Math.Pow(x.Y - AverageSignalValue, 2)) /
+                    (PointsReal.Last().Y - PointsReal.First().Y)));
             }
         }
 
@@ -122,6 +152,20 @@ namespace DSP.Signals
         {
             EffectiveValue = (float)Math.Sqrt(AverageSignalPower);
             
+        }
+
+        public List<ObservablePoint> GetRealPointsToChart()
+        {
+            if (PointsReal.Count() <= 1000)
+            {
+                return PointsReal;
+            }
+            else
+            {
+                int d = PointsReal.Count / 1000;
+
+                return PointsReal.Where((x, i) => i % d == 0).ToList();
+            }
         }
 
     }

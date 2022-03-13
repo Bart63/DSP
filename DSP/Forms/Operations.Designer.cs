@@ -57,6 +57,7 @@ namespace DSP
             this.buttonRun.TabIndex = 2;
             this.buttonRun.Text = "Wykonaj";
             this.buttonRun.UseVisualStyleBackColor = true;
+            this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
             // flowLayoutPanel1
             // 
@@ -75,7 +76,6 @@ namespace DSP
             this.Controls.Add(this.comboBox1);
             this.Name = "Operations";
             this.Text = "Operations";
-            this.Load += new System.EventHandler(this.Operations_Load);
             this.ResumeLayout(false);
 
         }

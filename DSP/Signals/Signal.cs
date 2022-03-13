@@ -57,8 +57,13 @@ namespace DSP.Signals
             this.f = f;
             this.isContinuous = isContinuous;
 
-            PointsReal = pointsReal;
-            PointsIm = pointsIm;
+            PointsReal = new List<ObservablePoint>();
+            if (pointsReal != null)
+                PointsReal.AddRange(pointsReal);
+
+            PointsIm = new List<ObservablePoint>();
+            if (pointsIm != null)
+                PointsIm.AddRange(pointsIm);
 
             
         }
@@ -69,6 +74,7 @@ namespace DSP.Signals
             {
                 float t = (float)i / f + t1;
 
+                
                 PointsReal.Add(new ObservablePoint(t, Func(t)));
             }
 
@@ -167,6 +173,20 @@ namespace DSP.Signals
 
                 return PointsReal.Where((x, i) => i % d == 0).ToList();
             }
+        }
+
+        public static Signal operator + (Signal s1, Signal s2)
+        {
+            List<ObservablePoint> newPoints = new List<ObservablePoint>();
+
+            for (int i = 0; i < s1.PointsReal.Count; i++)
+            {
+                newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s1.PointsReal[i].Y + s2.PointsReal[i].X));
+            }
+
+            Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);
+
+            return signal;
         }
 
     }

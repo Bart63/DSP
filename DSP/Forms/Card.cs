@@ -36,6 +36,8 @@ namespace DSP
         {
             InitializeComponent();
 
+            this.signal = signal;
+
             this.Text = "Karta " + n;
 
             this.removeCardCallback = removeCardCallback;

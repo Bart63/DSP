@@ -71,12 +71,14 @@ namespace DSP
             if (selectedCards.Count != 2)
                 return;
 
+            
+
             switch (comboBox1.SelectedIndex)
             {
                 case 0:
 
-                    Signal s2 = selectedCards[0].signal;
-                    Signal s = selectedCards[0].signal + selectedCards[1].signal;
+                    Signal s;
+                    s = selectedCards[0].signal + selectedCards[1].signal;
 
                     DSP.Menu.Instance.ShowCard(s);
 
@@ -86,13 +88,32 @@ namespace DSP
 
                 case 1:
 
+                    
+                    s = selectedCards[0].signal - selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
+
                     break;
 
                 case 2:
 
+                    s = selectedCards[0].signal * selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
+
                     break;
 
                 case 3:
+
+                    s = selectedCards[0].signal / selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
 
                     break;
             }

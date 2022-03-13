@@ -181,7 +181,7 @@ namespace DSP.Signals
 
             for (int i = 0; i < s1.PointsReal.Count; i++)
             {
-                newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s1.PointsReal[i].Y + s2.PointsReal[i].X));
+                newPoints.Add(new ObservablePoint(s1.PointsReal[i].Y, s1.PointsReal[i].Y + s2.PointsReal[i].Y));
             }
 
             Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);
@@ -189,5 +189,49 @@ namespace DSP.Signals
             return signal;
         }
 
+        public static Signal operator -(Signal s1, Signal s2)
+        {
+            List<ObservablePoint> newPoints = new List<ObservablePoint>();
+
+            for (int i = 0; i < s1.PointsReal.Count; i++)
+            {
+                newPoints.Add(new ObservablePoint(s1.PointsReal[i].Y, s1.PointsReal[i].Y - s2.PointsReal[i].Y));
+            }
+
+            Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);
+
+            return signal;
+        }
+
+        public static Signal operator *(Signal s1, Signal s2)
+        {
+            List<ObservablePoint> newPoints = new List<ObservablePoint>();
+
+            for (int i = 0; i < s1.PointsReal.Count; i++)
+            {
+                newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s1.PointsReal[i].Y * s2.PointsReal[i].Y));
+            }
+
+            Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);
+
+            return signal;
+        }
+
+        public static Signal operator /(Signal s1, Signal s2)
+        {
+            List<ObservablePoint> newPoints = new List<ObservablePoint>();
+
+            for (int i = 0; i < s1.PointsReal.Count; i++)
+            {
+                if (s2.PointsReal[i].Y != 0)
+                    newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s1.PointsReal[i].Y / s2.PointsReal[i].Y));
+                else
+                    newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s2.PointsReal[i].Y));
+            }
+
+            Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);
+
+            return signal;
+        }
     }
 }

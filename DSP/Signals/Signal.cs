@@ -27,6 +27,7 @@ namespace DSP.Signals
         public float EffectiveValue;
 
         private const int _integralAccuracy = 300;
+        private float endTime;
 
         public bool isContinuous;
 
@@ -83,6 +84,8 @@ namespace DSP.Signals
                 resetValuesCallback();
             }
 
+            endTime = ((int)(d / T)) * T + t1;
+
             CalculateAverageSignalAbsValue(isContinuous);
             CalculateAverageSignalValue(isContinuous);
             CalculateAverageSignalPower(isContinuous);
@@ -100,13 +103,13 @@ namespace DSP.Signals
             if (isContinuous)
             {
                 
-                AverageSignalValue = (float)(1 / (PointsReal.First().Y - PointsReal.Last().Y)
+                AverageSignalValue = (float)(1 / (PointsReal.Find(x => endTime - x.X <= 1/f).Y - PointsReal.First().Y)
                     * (MathExtensions.Integration.Calculate(t1, d - t1,
                     _integralAccuracy, Func)));
             }
             else
             {
-                AverageSignalValue = (float)(PointsReal.Sum(x => x.Y) / (PointsReal.First().Y - PointsReal.Last().Y + 1));
+                AverageSignalValue = (float)(PointsReal.Sum(x => x.Y) / (PointsReal.Last().Y - PointsReal.First().Y + 1));
             }
         }
 
@@ -114,14 +117,14 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalAbsValue = (float)(1 / (PointsReal.First().Y - PointsReal.Last().Y)
+                AverageSignalAbsValue = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y)
                     * (MathExtensions.Integration.Calculate(t1, d - t1, _integralAccuracy, 
                     delegate (float t) { return Math.Abs(Func(t)); })));
             }
             else
             {
                 AverageSignalAbsValue = (float)(PointsReal.Sum(x => Math.Abs(x.Y))
-                    / (PointsReal.First().Y - PointsReal.Last().Y + 1));
+                    / (PointsReal.Last().Y - PointsReal.First().Y + 1));
             }
         }
 
@@ -129,14 +132,14 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                AverageSignalPower = (float)(1 / (PointsReal.First().Y - PointsReal.Last().Y) *
+                AverageSignalPower = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y) *
                     (MathExtensions.Integration.Calculate(t1, d - t1, _integralAccuracy,
                     delegate (float t) { return (float)Math.Pow(Func(t), 2); })));
             }
             else
             {
                 AverageSignalPower = (float)((PointsReal.Sum(x => Math.Pow(x.Y, 2))) /
-                    (PointsReal.First().Y - PointsReal.Last().Y + 1));
+                    (PointsReal.Last().Y - PointsReal.First().Y + 1));
             }
         }
 
@@ -144,14 +147,14 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
-                Variance = (float)(1 / (PointsReal.First().Y - PointsReal.Last().Y) *
+                Variance = (float)(1 / (PointsReal.Last().Y - PointsReal.First().Y) *
                     (MathExtensions.Integration.Calculate(t1, d - t1, _integralAccuracy,
                     delegate (float t) { return (float)Math.Pow(Func(t) - AverageSignalValue, 2); })));
             }
             else
             {
                 Variance = (float)((PointsReal.Sum(x => Math.Pow(x.Y - AverageSignalValue, 2)) /
-                    (PointsReal.First().Y - PointsReal.Last().Y)));
+                    (PointsReal.Last().Y - PointsReal.First().Y)));
             }
         }
 

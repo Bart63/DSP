@@ -38,6 +38,7 @@ D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.pdb
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Card.resources
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Menu.resources
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Operations.resources
+<<<<<<< HEAD
 C:\Users\Szymon\Documents\Sygnały\DSP\bin\Debug\DSP.exe.config
 C:\Users\Szymon\Documents\Sygnały\DSP\bin\Debug\DSP.exe
 C:\Users\Szymon\Documents\Sygnały\DSP\bin\Debug\DSP.pdb
@@ -59,3 +60,10 @@ C:\Users\Szymon\Documents\Sygnały\DSP\obj\Debug\DSP.csproj.GenerateResource.cac
 C:\Users\Szymon\Documents\Sygnały\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cache
 C:\Users\Szymon\Documents\Sygnały\DSP\obj\Debug\DSP.exe
 C:\Users\Szymon\Documents\Sygnały\DSP\obj\Debug\DSP.pdb
+=======
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\MathNet.Numerics.dll
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\MathNet.Numerics.xml
+>>>>>>> d5d8379599f39e6a75f348509b413c1032d050c5
+C:\Users\Szymon\Documents\Sygnały\DSP\bin\Debug\MathNet.Numerics.dll
+C:\Users\Szymon\Documents\Sygnały\DSP\bin\Debug\MathNet.Numerics.xml
+C:\Users\Szymon\Documents\Sygnały\DSP\obj\Debug\DSP.csproj.CopyComplete

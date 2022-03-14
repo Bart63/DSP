@@ -32,7 +32,7 @@ namespace DSP.Helpers
                 {
                     sections.Add(new Point(Ypoints.Min(), Ypoints.Min() + h));
 
-                    histogramLabels.Add(Math.Round(sections[j].X, 2) + " - " + Math.Round(sections[j].Y, 2));
+                    histogramLabels.Add(Math.Round(sections[j].X, 3) + " - " + Math.Round(sections[j].Y, 3));
 
                 }
                 else
@@ -41,7 +41,7 @@ namespace DSP.Helpers
                     
                     j++;
 
-                    histogramLabels.Add(Math.Round(sections[j].X, 2) + " - " + Math.Round(sections[j].Y, 2));
+                    histogramLabels.Add(Math.Round(sections[j].X, 3) + " - " + Math.Round(sections[j].Y, 3));
 
                     
                 }
@@ -50,7 +50,7 @@ namespace DSP.Helpers
 
             for (int i = 0; i < numberOfSections; i++)
             {
-                histogramData.Add(Ypoints.Count(x => x >= sections[i].X && x < sections[i].Y));
+                histogramData.Add(Ypoints.Count(x => x >= sections[i].X && x <= sections[i].Y));
             }
 
             return (histogramData, histogramLabels);

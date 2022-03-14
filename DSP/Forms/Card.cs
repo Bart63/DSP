@@ -29,29 +29,66 @@ namespace DSP
 
             this.removeCardCallback = removeCardCallback;
 
+            DisableTextBoxes();
         }
 
         public Card(int n, Action<Card> removeCardCallback, Signal signal)
         {
             InitializeComponent();
 
+            this.signal = signal;
+
             this.Text = "Karta " + n;
 
             this.removeCardCallback = removeCardCallback;
 
-            SeriesCollection collection = new SeriesCollection
+            SeriesCollection collection;
+
+            if (signal.isContinuous)
             {
-                new LineSeries
+                collection = new SeriesCollection
                 {
-                    Values = new ChartValues<ObservablePoint>(signal.PointsReal),
-                    PointForeground = null,
-                    PointGeometry = null,
-                    LineSmoothness = 1,
-                    Fill = System.Windows.Media.Brushes.Transparent
-                }
-            };
+                    new LineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                        PointForeground = null,
+                        PointGeometry = null,
+                        LineSmoothness = 1,
+                        Fill = System.Windows.Media.Brushes.Transparent
+                    }
+                };
+            }
+            else
+            {
+                collection = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+
+                        PointGeometrySize = 8,
+                        Fill = System.Windows.Media.Brushes.Transparent,
+                        StrokeThickness = 0,
+
+                    }
+                };
+            }
 
             ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+
+            DisableTextBoxes();
+        }
+
+        private void DisableTextBoxes()
+        {
+            var list = tableLayoutPanel1.Controls.OfType<MaskedTextBox>().ToList();
+
+            list.AddRange(tableLayoutPanel2.Controls.OfType<MaskedTextBox>().ToList());
+
+            foreach (var e in list)
+            {
+                e.Enabled = false;
+            }
         }
 
         public string GetName()
@@ -68,7 +105,7 @@ namespace DSP
             {
                 Title = "t [s]",
                 Foreground = System.Windows.Media.Brushes.Black,
-                Separator = new Separator { Step = 1 }
+                
             }); 
 
             chart1Real.AxisY.Add(new Axis
@@ -89,20 +126,65 @@ namespace DSP
 
             switch (comboBoxSignalType.SelectedIndex)
             {
+                case 0:
+
+                    signal = new NoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 1:
+
+                    signal = new GaussianNoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+
                 case 2:
 
                     signal = new SinSignal(float.Parse(maskedTextBoxAmplitude.Text),
                         float.Parse(maskedTextBoxStartTime.Text),
                         float.Parse(maskedTextBoxDuration.Text),
                         float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text), true);
+                        int.Parse(maskedTextBoxFrequency.Text));
 
                     collection = new SeriesCollection
                     {
                         new LineSeries
                         {
                             Title = "Sin(t) * A",
-                            Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
                             PointForeground = null,
                             PointGeometry = null,
                             LineSmoothness = 1,
@@ -113,6 +195,195 @@ namespace DSP
 
                     break;
 
+                case 3:
+
+                    signal = new SinSignal2(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 1,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 4:
+
+                    signal = new SinSignal3(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0.5,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 5:
+
+                    signal = new RectSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text),
+                        float.Parse(maskedTextBoxFilling.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 6:
+
+                    signal = new RectSimSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text),
+                        float.Parse(maskedTextBoxFilling.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 7:
+
+                    signal = new TrianSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        float.Parse(maskedTextBoxPeriod.Text),
+                        int.Parse(maskedTextBoxFrequency.Text),
+                        float.Parse(maskedTextBoxFilling.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 8:
+
+                    signal = new UnitJumpSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text),
+                        float.Parse(maskedTextBoxJumpTime.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            PointForeground = null,
+                            PointGeometry = null,
+                            LineSmoothness = 0,
+                            Fill = System.Windows.Media.Brushes.Transparent
+                        }
+                    };
+
+
+                    break;
+
+                case 9:
+
+                    signal = new UnitImpulseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        int.Parse(maskedTextBoxFirstSampleNumber.Text),
+                        int.Parse(maskedTextBoxNuberOfSamples.Text),
+                        int.Parse(maskedTextBoxFrequency.Text), 
+                        int.Parse(maskedTextBoxSampleNumber.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                            
+                            PointGeometrySize = 8,
+                            Fill = System.Windows.Media.Brushes.Transparent,
+                            StrokeThickness = 0,
+                            
+                        }
+                    };
+
+
+                    break;
+
+
+                case 10:
+
+                    signal = new ImpulseNoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
+                        float.Parse(maskedTextBoxStartTime.Text),
+                        float.Parse(maskedTextBoxDuration.Text),
+                        int.Parse(maskedTextBoxFrequency.Text),
+                        float.Parse(maskedTextBoxProbability.Text));
+
+                    collection = new SeriesCollection
+                    {
+                        new LineSeries
+                        {
+                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+
+                            PointGeometrySize = 8,
+                            Fill = System.Windows.Media.Brushes.Transparent,
+                            StrokeThickness = 0,
+
+                        }
+                    };
+
+
+                    break;
             }
 
             if (collection != null && signal != null)
@@ -127,11 +398,11 @@ namespace DSP
         {
             chart.Series = collection;
 
-            maskedTextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
-            maskedTextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
-            maskedTextBoxAveragePower.Text = signal.AverageSignalPower.ToString();
-            maskedTextBoxVariance.Text = signal.Variance.ToString();
-            maskedTextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
+            TextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
+            TextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
+            TextBoxAveragePower.Text = signal.AverageSignalPower.ToString();
+            TextBoxVariance.Text = signal.Variance.ToString();
+            TextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
 
             int numberOfSections = 5;
             if (comboBoxNumberOfSections.SelectedItem != null)
@@ -173,6 +444,102 @@ namespace DSP
         {
             if (signal != null)
                 FileManager.Save(signal);
+        }
+
+        private void comboBoxSignalType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisableTextBoxes();
+
+            maskedTextBoxFrequency.Enabled = true;
+
+            switch (comboBoxSignalType.SelectedIndex)
+            {
+                case 0:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled = true;
+
+                    break;
+
+                case 1:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled = true;
+
+                    break;
+
+                case 2:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled = 
+                        maskedTextBoxPeriod.Enabled = true;
+
+                    break;
+
+                case 3:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = true;
+
+                    break;
+
+                case 4:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = true;
+
+                    break;
+
+                case 5:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = maskedTextBoxFilling.Enabled = true;
+
+                    break;
+
+                case 6:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = maskedTextBoxFilling.Enabled = true;
+
+                    break;
+
+                case 7:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = maskedTextBoxFilling.Enabled = true;
+
+                    break;
+
+                case 8:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxJumpTime.Enabled = true;
+
+                    break;
+
+                case 9:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxFirstSampleNumber.Enabled = maskedTextBoxSampleNumber.Enabled = 
+                        maskedTextBoxNuberOfSamples.Enabled = true;
+
+                    break;
+
+                case 10:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxProbability.Enabled = true;
+
+                    break;
+            }
         }
     }
 }

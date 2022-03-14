@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSP.Signals;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -63,9 +64,59 @@ namespace DSP
             }
         }
 
-        private void Operations_Load(object sender, EventArgs e)
-        {
+        
 
+        private void buttonRun_Click(object sender, EventArgs e)
+        {
+            if (selectedCards.Count != 2)
+                return;
+
+            
+
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0:
+
+                    Signal s;
+                    s = selectedCards[0].signal + selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
+
+                    break;
+
+                case 1:
+
+                    
+                    s = selectedCards[0].signal - selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
+
+                    break;
+
+                case 2:
+
+                    s = selectedCards[0].signal * selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
+
+                    break;
+
+                case 3:
+
+                    s = selectedCards[0].signal / selectedCards[1].signal;
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    Close();
+
+                    break;
+            }
         }
     }
 }

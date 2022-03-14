@@ -14,7 +14,7 @@ namespace DSP.MathExtensions
         {
             float dx, calka, s, x;
 
-            dx = (xk - xp) / (float)n;
+            dx = (xk - xp) / n;
 
             calka = 0;
             s = 0;

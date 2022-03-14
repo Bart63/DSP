@@ -18,10 +18,13 @@ namespace DSP
 
         private List<Card> cards = new List<Card>();
 
+        public static Menu Instance;
+
         public Menu()
         {
             InitializeComponent();
 
+            Instance = this;
         }
 
         private void RemoveCard(Card card)
@@ -47,6 +50,11 @@ namespace DSP
         {
             Signal signal = FileManager.Load();
 
+            ShowCard(signal);
+        }
+
+        public void ShowCard(Signal signal)
+        {
             if (signal != null)
             {
                 numberOfCards++;

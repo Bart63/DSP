@@ -50,7 +50,7 @@ namespace DSP
                 {
                     new LineSeries
                     {
-                        Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
                         PointForeground = null,
                         PointGeometry = null,
                         LineSmoothness = 1,
@@ -64,7 +64,7 @@ namespace DSP
                 {
                     new LineSeries
                     {
-                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                        Values = new ChartValues<ObservablePoint>(signal.PointsReal),
 
                         PointGeometrySize = 8,
                         Fill = System.Windows.Media.Brushes.Transparent,
@@ -404,6 +404,12 @@ namespace DSP
             TextBoxVariance.Text = signal.Variance.ToString();
             TextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
 
+            maskedTextBoxAmplitude.Text = signal.A.ToString();
+            maskedTextBoxDuration.Text = signal.d.ToString();
+            maskedTextBoxFrequency.Text = signal.f.ToString();
+            maskedTextBoxPeriod.Text = signal.T.ToString();
+            maskedTextBoxStartTime.Text = signal.t1.ToString();
+
             int numberOfSections = 5;
             if (comboBoxNumberOfSections.SelectedItem != null)
             {
@@ -432,6 +438,7 @@ namespace DSP
                 Foreground = System.Windows.Media.Brushes.Black,
                 Separator = new Separator { Step = 1 },
             });
+
 
         
     }

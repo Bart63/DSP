@@ -88,31 +88,32 @@ namespace DSP.Helpers
 
                 int n = BitConverter.ToInt32(binary.GetRange(14, 4).ToArray(), 0);
 
-                
+                float d = (float)n / f;
+
 
                 List<ObservablePoint> pointsReal = new List<ObservablePoint>();
                 List<ObservablePoint> pointsIm = new List<ObservablePoint>();
 
-                float t = 0;
+               
 
                 if (!isComplex)
                 {
-                    int nn = 0;
-                    for (int i = 14; i < n * 4; i += 4)
+                    
+                    for (int i = 0; i < (d * f); i++)
                     {
-                        float value = (float)BitConverter.ToSingle(binary.GetRange(i, 4).ToArray(), 0);
-                        t = nn / (float)f + t1;
-                        pointsReal.Add(new ObservablePoint(t, value));
+                        float t = (float)i / f + t1;
 
-                        nn++;
+
+                        pointsReal.Add(new ObservablePoint(t, (float)BitConverter.ToSingle(binary.GetRange(i * 4 + 14, 4).ToArray(), 0)));
                     }
+
                 }
                 else
                 {
                     return null;
                 }
 
-                Signal signal = new Signal((float)pointsReal.Max(x => x.Y), t1, t, T, f, isContinuous, pointsReal);
+                Signal signal = new Signal((float)pointsReal.Max(x => x.Y), t1, d, T, f, isContinuous, pointsReal);
 
                 return signal;
             }

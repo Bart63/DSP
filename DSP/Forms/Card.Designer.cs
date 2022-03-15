@@ -137,7 +137,6 @@ namespace DSP
             this.maskedTextBoxProbability.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxProbability.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxProbability.Location = new System.Drawing.Point(285, 172);
-            this.maskedTextBoxProbability.Mask = "00.00";
             this.maskedTextBoxProbability.Name = "maskedTextBoxProbability";
             this.maskedTextBoxProbability.Size = new System.Drawing.Size(87, 29);
             this.maskedTextBoxProbability.TabIndex = 6;
@@ -169,7 +168,6 @@ namespace DSP
             this.maskedTextBoxJumpTime.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxJumpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxJumpTime.Location = new System.Drawing.Point(285, 128);
-            this.maskedTextBoxJumpTime.Mask = "00.000";
             this.maskedTextBoxJumpTime.Name = "maskedTextBoxJumpTime";
             this.maskedTextBoxJumpTime.Size = new System.Drawing.Size(87, 29);
             this.maskedTextBoxJumpTime.TabIndex = 3;
@@ -270,7 +268,6 @@ namespace DSP
             this.maskedTextBoxFilling.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxFilling.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxFilling.Location = new System.Drawing.Point(307, 156);
-            this.maskedTextBoxFilling.Mask = "00.00";
             this.maskedTextBoxFilling.Name = "maskedTextBoxFilling";
             this.maskedTextBoxFilling.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxFilling.TabIndex = 12;
@@ -302,7 +299,6 @@ namespace DSP
             this.maskedTextBoxStartTime.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxStartTime.Location = new System.Drawing.Point(307, 39);
-            this.maskedTextBoxStartTime.Mask = "00.000";
             this.maskedTextBoxStartTime.Name = "maskedTextBoxStartTime";
             this.maskedTextBoxStartTime.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxStartTime.TabIndex = 6;
@@ -334,7 +330,6 @@ namespace DSP
             this.maskedTextBoxAmplitude.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxAmplitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxAmplitude.Location = new System.Drawing.Point(307, 3);
-            this.maskedTextBoxAmplitude.Mask = "00.000";
             this.maskedTextBoxAmplitude.Name = "maskedTextBoxAmplitude";
             this.maskedTextBoxAmplitude.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxAmplitude.TabIndex = 3;
@@ -383,7 +378,6 @@ namespace DSP
             this.maskedTextBoxDuration.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxDuration.Location = new System.Drawing.Point(307, 75);
-            this.maskedTextBoxDuration.Mask = "00.000";
             this.maskedTextBoxDuration.Name = "maskedTextBoxDuration";
             this.maskedTextBoxDuration.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxDuration.TabIndex = 10;
@@ -393,7 +387,6 @@ namespace DSP
             this.maskedTextBoxPeriod.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.maskedTextBoxPeriod.Location = new System.Drawing.Point(307, 113);
-            this.maskedTextBoxPeriod.Mask = "00.000";
             this.maskedTextBoxPeriod.Name = "maskedTextBoxPeriod";
             this.maskedTextBoxPeriod.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxPeriod.TabIndex = 8;

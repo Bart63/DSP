@@ -27,7 +27,7 @@ namespace DSP.Signals
         public float EffectiveValue;
         public float endTime;
 
-        private const int _integralAccuracy = 300;
+        
         
 
         public bool isContinuous;
@@ -109,13 +109,15 @@ namespace DSP.Signals
         {
             if (isContinuous)
             {
+                float f = (1 / (endTime - t1));
+                float f2 = (float)MathExtensions.Integration.Calculate(GetRealPointsWithTime(t1, endTime));
 
                 AverageSignalValue = (float)(1 / (endTime - t1)
                     * (MathExtensions.Integration.Calculate(GetRealPointsWithTime(t1, endTime))));
             }
             else
             {
-                AverageSignalValue = (float)(PointsReal.Sum(x => x.Y) / (1 + PointsReal.Count + 1));
+                AverageSignalValue = (float)(PointsReal.Sum(x => x.Y) / (PointsReal.Count + 1));
             }
         }
 
@@ -130,7 +132,7 @@ namespace DSP.Signals
             else
             {
                 AverageSignalAbsValue = (float)(PointsReal.Sum(x => Math.Abs(x.Y))
-                    / (PointsReal.Last().Y - PointsReal.First().Y + 1));
+                    / (PointsReal.Count + 1));
             }
         }
 
@@ -145,7 +147,7 @@ namespace DSP.Signals
             else
             {
                 AverageSignalPower = (float)((PointsReal.Sum(x => Math.Pow(x.Y, 2))) /
-                    (PointsReal.Last().Y - PointsReal.First().Y + 1));
+                    (PointsReal.Count + 1));
             }
         }
 
@@ -160,7 +162,7 @@ namespace DSP.Signals
             else
             {
                 Variance = (float)((PointsReal.Sum(x => Math.Pow(x.Y - AverageSignalValue, 2)) /
-                    (PointsReal.Last().Y - PointsReal.First().Y)));
+                    (PointsReal.Count + 1)));
             }
         }
 
@@ -202,7 +204,7 @@ namespace DSP.Signals
 
             for (int i = 0; i < s1.PointsReal.Count; i++)
             {
-                newPoints.Add(new ObservablePoint(s1.PointsReal[i].Y, s1.PointsReal[i].Y + s2.PointsReal[i].Y));
+                newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s1.PointsReal[i].Y + s2.PointsReal[i].Y));
             }
 
             Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);
@@ -216,7 +218,7 @@ namespace DSP.Signals
 
             for (int i = 0; i < s1.PointsReal.Count; i++)
             {
-                newPoints.Add(new ObservablePoint(s1.PointsReal[i].Y, s1.PointsReal[i].Y - s2.PointsReal[i].Y));
+                newPoints.Add(new ObservablePoint(s1.PointsReal[i].X, s1.PointsReal[i].Y - s2.PointsReal[i].Y));
             }
 
             Signal signal = new Signal(newPoints.Max(x => (float)x.Y), s1.t1, s1.d, s1.T, s1.f, s1.isContinuous, newPoints);

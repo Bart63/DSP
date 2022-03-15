@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LiveCharts.Defaults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,24 +11,18 @@ namespace DSP.MathExtensions
     {
         public delegate float FUNC(float t);
 
-        public static double Calculate(float xp, float xk, int n, FUNC func)
+        public static double Calculate(List<ObservablePoint> points)
         {
-            float dx, calka, s, x;
+            float value = 0;
 
-            dx = (xk - xp) / n;
-
-            calka = 0;
-            s = 0;
-            for (int i = 1; i < n; i++)
+            
+            for (int i = 0; i < points.Count - 1; i++)
             {
-                x = xp + i * dx;
-                s += func(x - dx / 2);
-                calka += func(x);
+                value += (float)((points[i].Y + points[i + 1].Y) *
+                    (points[i + 1].X - points[i].X) * 0.5);
             }
-            s += func(xk - dx / 2);
-            calka = (dx / 6) * (func(xp) + func(xk) + 2 * calka + 4 * s);
 
-            return calka;
+            return value;
         }
     }
 }

@@ -27,15 +27,13 @@ namespace DSP.Signals
 
             normal.Samples(normalDst);
 
-            float m = A / (float)normalDst.Max();
-
-            List<float> points = (normalDst.ToList().Select(i => (float)i * m)).ToList();
+            
 
 
             float t = t1;
-            for (int i = 0; i < points.Count(); i++)
+            for (int i = 0; i < normalDst.Count(); i++)
             {
-                PointsReal.Add(new ObservablePoint(t, points.ToArray()[i]));
+                PointsReal.Add(new ObservablePoint(t, normalDst.ToArray()[i]));
                 t += 1 / (float)f;
             }
         }

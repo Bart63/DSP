@@ -24,6 +24,14 @@ namespace DSP.Signals
             {
                 PointsReal.Add(new ObservablePoint(t, Func(t)));
             }
+
+            endTime = t1 + d;
+
+            CalculateAverageSignalAbsValue(isContinuous);
+            CalculateAverageSignalValue(isContinuous);
+            CalculateAverageSignalPower(isContinuous);
+            CalculateVariance(isContinuous);
+            CalculateEffectiveValue();
         }
 
         public override float Func(float t)

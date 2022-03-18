@@ -16,7 +16,7 @@ namespace DSP.Signals
         public GaussianNoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true)
         {
             
-            normal = new MathNet.Numerics.Distributions.Normal(0, 1);
+            normal = new MathNet.Numerics.Distributions.Normal(0, a);
 
             GeneratePoints(isContinuous, null);
         }
@@ -36,6 +36,14 @@ namespace DSP.Signals
                 PointsReal.Add(new ObservablePoint(t, normalDst.ToArray()[i]));
                 t += 1 / (float)f;
             }
+
+            endTime = t1 + d;
+
+            CalculateAverageSignalAbsValue(isContinuous);
+            CalculateAverageSignalValue(isContinuous);
+            CalculateAverageSignalPower(isContinuous);
+            CalculateVariance(isContinuous);
+            CalculateEffectiveValue();
         }
 
         

@@ -23,7 +23,7 @@ namespace DSP.Signals
 
         public override void GeneratePoints(bool isContinuous, Action resetValuesCallback = null)
         {
-            int n = (int)(d - t1) * f;
+            int n = (int)((d - t1) * f);
 
             for (int i = 0; i < n; i++)
             {
@@ -34,6 +34,7 @@ namespace DSP.Signals
                 else
                     PointsReal.Add(new ObservablePoint((float)i / f, 0));
             }
+
 
             CalculateAverageSignalAbsValue(isContinuous);
             CalculateAverageSignalValue(isContinuous);

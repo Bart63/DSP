@@ -416,8 +416,9 @@ namespace DSP
                 numberOfSections = int.Parse(comboBoxNumberOfSections.SelectedItem.ToString());
             }
 
-            var histogram = Histogram.CreateHistogram(signal.GetRealPointsWithTime
-                (signal.t1, signal.endTime), numberOfSections);
+
+            var histogram = Histogram.CreateHistogram((signal.isContinuous) ? signal.GetRealPointsWithTime
+                (signal.t1, signal.endTime) : signal.PointsReal, numberOfSections);
 
             SeriesCollection histogramCollectionReal = new SeriesCollection
                 {
@@ -439,7 +440,7 @@ namespace DSP
                 Separator = new Separator { Step = 1 },
             });
 
-
+           
         
     }
 

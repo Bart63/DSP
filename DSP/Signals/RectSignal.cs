@@ -22,6 +22,9 @@ namespace DSP.Signals
 
         public override float Func(float t)
         {
+            if (t == t1)
+                return 0;
+
             if (t >= ((k * T) + t1) && t <= ((kw * T) + (k * T) + t1))
             {
                 return A;

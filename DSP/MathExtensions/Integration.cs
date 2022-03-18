@@ -9,12 +9,14 @@ namespace DSP.MathExtensions
 {
     public static class Integration
     {
-        public delegate float FUNC(float t);
+        
 
         public static double Calculate(List<ObservablePoint> points)
         {
             float value = 0;
 
+            float v1 = (float)points.First().X;
+            float v2 = (float)points.Last().X;
             
             for (int i = 0; i < points.Count - 1; i++)
             {
@@ -22,7 +24,7 @@ namespace DSP.MathExtensions
                     (points[i + 1].X - points[i].X) * 0.5);
             }
 
-            return value;
+            return (float)Math.Round(value, 4);
         }
     }
 }

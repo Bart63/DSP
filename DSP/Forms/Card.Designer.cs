@@ -72,9 +72,22 @@ namespace DSP
             this.TextBoxVariance = new System.Windows.Forms.TextBox();
             this.TextBoxEffectiveValue = new System.Windows.Forms.TextBox();
             this.chart2Im = new LiveCharts.WinForms.CartesianChart();
+            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBoxMeanSquareError = new System.Windows.Forms.TextBox();
+            this.textBoxSignalNoiseRatio = new System.Windows.Forms.TextBox();
+            this.textBoxHighestSignalNoiseRatio = new System.Windows.Forms.TextBox();
+            this.textBoxMaxDifference = new System.Windows.Forms.TextBox();
+            this.comboBoxReconstructionType = new System.Windows.Forms.ComboBox();
+            this.buttonRecontruction = new System.Windows.Forms.Button();
+            this.buttonQuantization = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1Real
@@ -104,7 +117,7 @@ namespace DSP
             this.chart2Real.BackColor = System.Drawing.Color.ForestGreen;
             this.chart2Real.BackColorTransparent = true;
             this.chart2Real.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.chart2Real.Location = new System.Drawing.Point(697, 48);
+            this.chart2Real.Location = new System.Drawing.Point(697, 15);
             this.chart2Real.Name = "chart2Real";
             this.chart2Real.Size = new System.Drawing.Size(375, 185);
             this.chart2Real.TabIndex = 6;
@@ -396,7 +409,7 @@ namespace DSP
             this.buttonGenerateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 533);
             this.buttonGenerateSignal.Name = "buttonGenerateSignal";
-            this.buttonGenerateSignal.Size = new System.Drawing.Size(409, 52);
+            this.buttonGenerateSignal.Size = new System.Drawing.Size(211, 52);
             this.buttonGenerateSignal.TabIndex = 12;
             this.buttonGenerateSignal.Text = "Generuj";
             this.buttonGenerateSignal.UseVisualStyleBackColor = true;
@@ -428,9 +441,9 @@ namespace DSP
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSave.Location = new System.Drawing.Point(1095, 591);
+            this.buttonSave.Location = new System.Drawing.Point(1312, 533);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(409, 54);
+            this.buttonSave.Size = new System.Drawing.Size(192, 52);
             this.buttonSave.TabIndex = 14;
             this.buttonSave.Text = "Zapisz";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -468,7 +481,7 @@ namespace DSP
             this.tableLayoutPanel3.Controls.Add(this.TextBoxAveragePower, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.TextBoxVariance, 1, 3);
             this.tableLayoutPanel3.Controls.Add(this.TextBoxEffectiveValue, 1, 4);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(712, 472);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(697, 396);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 5;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.29578F));
@@ -476,6 +489,7 @@ namespace DSP
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(377, 173);
             this.tableLayoutPanel3.TabIndex = 16;
             // 
@@ -579,18 +593,156 @@ namespace DSP
             this.chart2Im.BackColor = System.Drawing.Color.ForestGreen;
             this.chart2Im.BackColorTransparent = true;
             this.chart2Im.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.chart2Im.Location = new System.Drawing.Point(697, 257);
+            this.chart2Im.Location = new System.Drawing.Point(697, 214);
             this.chart2Im.Name = "chart2Im";
             this.chart2Im.Size = new System.Drawing.Size(375, 185);
             this.chart2Im.TabIndex = 17;
             this.chart2Im.Text = "cartesianChart1";
+            // 
+            // tableLayoutPanel4
+            // 
+            this.tableLayoutPanel4.AutoSize = true;
+            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.tableLayoutPanel4.ColumnCount = 2;
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.24601F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
+            this.tableLayoutPanel4.Controls.Add(this.label17, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.label18, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.label19, 0, 3);
+            this.tableLayoutPanel4.Controls.Add(this.label21, 0, 2);
+            this.tableLayoutPanel4.Controls.Add(this.textBoxMeanSquareError, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.textBoxSignalNoiseRatio, 1, 1);
+            this.tableLayoutPanel4.Controls.Add(this.textBoxHighestSignalNoiseRatio, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.textBoxMaxDifference, 1, 3);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(697, 621);
+            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
+            this.tableLayoutPanel4.RowCount = 4;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.29578F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.70422F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(394, 140);
+            this.tableLayoutPanel4.TabIndex = 18;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label17.Location = new System.Drawing.Point(3, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(182, 24);
+            this.label17.TabIndex = 5;
+            this.label17.Text = "Błąd średnio. (MSE)";
+            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label18.Location = new System.Drawing.Point(3, 35);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(258, 24);
+            this.label18.TabIndex = 7;
+            this.label18.Text = "Stosunek sygnał-szum (SNR)";
+            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label19.Location = new System.Drawing.Point(3, 106);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(226, 24);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Maksymalna różnica (MD)";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label21.Location = new System.Drawing.Point(3, 70);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(279, 24);
+            this.label21.TabIndex = 9;
+            this.label21.Text = " Szczytowy stosunek s-s (PSNR)";
+            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxMeanSquareError
+            // 
+            this.textBoxMeanSquareError.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxMeanSquareError.Location = new System.Drawing.Point(288, 3);
+            this.textBoxMeanSquareError.Name = "textBoxMeanSquareError";
+            this.textBoxMeanSquareError.Size = new System.Drawing.Size(100, 29);
+            this.textBoxMeanSquareError.TabIndex = 14;
+            // 
+            // textBoxSignalNoiseRatio
+            // 
+            this.textBoxSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxSignalNoiseRatio.Location = new System.Drawing.Point(288, 38);
+            this.textBoxSignalNoiseRatio.Name = "textBoxSignalNoiseRatio";
+            this.textBoxSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
+            this.textBoxSignalNoiseRatio.TabIndex = 15;
+            // 
+            // textBoxHighestSignalNoiseRatio
+            // 
+            this.textBoxHighestSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxHighestSignalNoiseRatio.Location = new System.Drawing.Point(288, 73);
+            this.textBoxHighestSignalNoiseRatio.Name = "textBoxHighestSignalNoiseRatio";
+            this.textBoxHighestSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
+            this.textBoxHighestSignalNoiseRatio.TabIndex = 16;
+            // 
+            // textBoxMaxDifference
+            // 
+            this.textBoxMaxDifference.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxMaxDifference.Location = new System.Drawing.Point(288, 109);
+            this.textBoxMaxDifference.Name = "textBoxMaxDifference";
+            this.textBoxMaxDifference.Size = new System.Drawing.Size(100, 29);
+            this.textBoxMaxDifference.TabIndex = 17;
+            // 
+            // comboBoxReconstructionType
+            // 
+            this.comboBoxReconstructionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxReconstructionType.FormattingEnabled = true;
+            this.comboBoxReconstructionType.Items.AddRange(new object[] {
+            "Interpolacja pierwszego rzędu",
+            "Rekonstrukcja w oparciu o funkcję sinc"});
+            this.comboBoxReconstructionType.Location = new System.Drawing.Point(1097, 619);
+            this.comboBoxReconstructionType.Name = "comboBoxReconstructionType";
+            this.comboBoxReconstructionType.Size = new System.Drawing.Size(409, 28);
+            this.comboBoxReconstructionType.TabIndex = 19;
+            this.comboBoxReconstructionType.Text = "Wybierz typ rekonstrukcji sygnału";
+            // 
+            // buttonRecontruction
+            // 
+            this.buttonRecontruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonRecontruction.Location = new System.Drawing.Point(1312, 656);
+            this.buttonRecontruction.Name = "buttonRecontruction";
+            this.buttonRecontruction.Size = new System.Drawing.Size(192, 52);
+            this.buttonRecontruction.TabIndex = 21;
+            this.buttonRecontruction.Text = "Rekonstruuj";
+            this.buttonRecontruction.UseVisualStyleBackColor = true;
+            // 
+            // buttonQuantization
+            // 
+            this.buttonQuantization.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonQuantization.Location = new System.Drawing.Point(1095, 656);
+            this.buttonQuantization.Name = "buttonQuantization";
+            this.buttonQuantization.Size = new System.Drawing.Size(211, 52);
+            this.buttonQuantization.TabIndex = 20;
+            this.buttonQuantization.Text = "Kwantyzuj";
+            this.buttonQuantization.UseVisualStyleBackColor = true;
             // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(1516, 726);
+            this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.buttonRecontruction);
+            this.Controls.Add(this.buttonQuantization);
+            this.Controls.Add(this.comboBoxReconstructionType);
+            this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.chart2Im);
             this.Controls.Add(this.comboBoxNumberOfSections);
@@ -612,6 +764,8 @@ namespace DSP
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -662,6 +816,18 @@ namespace DSP
         private System.Windows.Forms.MaskedTextBox maskedTextBoxFirstSampleNumber;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxNuberOfSamples;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBoxMeanSquareError;
+        private System.Windows.Forms.TextBox textBoxSignalNoiseRatio;
+        private System.Windows.Forms.TextBox textBoxHighestSignalNoiseRatio;
+        private System.Windows.Forms.TextBox textBoxMaxDifference;
+        private System.Windows.Forms.ComboBox comboBoxReconstructionType;
+        private System.Windows.Forms.Button buttonRecontruction;
+        private System.Windows.Forms.Button buttonQuantization;
     }
 }
 

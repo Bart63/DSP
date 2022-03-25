@@ -91,6 +91,7 @@
     <Compile Include="Signals\GaussianNoiseSignal.cs" />
     <Compile Include="Signals\ImpulseNoiseSignal.cs" />
     <Compile Include="Signals\NoiseSignal.cs" />
+    <Compile Include="Signals\QuantizedSignal.cs" />
     <Compile Include="Signals\RectSignal.cs" />
     <Compile Include="Signals\RectSimSignal.cs" />
     <Compile Include="Signals\Signal.cs" />

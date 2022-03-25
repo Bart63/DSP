@@ -428,8 +428,7 @@ namespace DSP
                     }
                 };
 
-            histogramChart.Series = histogramCollectionReal;
-
+            
             if (histogramChart.AxisX.Count() > 0)
                 histogramChart.AxisX.RemoveAt(0);
 
@@ -440,9 +439,18 @@ namespace DSP
                 Separator = new Separator { Step = 1 },
             });
 
-           
-        
-    }
+            if (histogramChart.AxisY.Count() > 0)
+                histogramChart.AxisY.RemoveAt(0);
+
+            histogramChart.AxisY.Add(new Axis
+            {
+                MinValue = 0,
+                Foreground = System.Windows.Media.Brushes.Black,
+            });
+
+            histogramChart.Series = histogramCollectionReal;
+
+        }
 
         private void Card_FormClosing(object sender, FormClosingEventArgs e)
         {

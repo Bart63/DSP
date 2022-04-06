@@ -24,11 +24,11 @@ namespace DSP.Signals
             
             if (t >= ((k * T) + t1) && t <= ((kw * T) + (k * T) + t1))
             {
-                return (float)(A/(kw*T))*(t - (k * T) - t1);
+                return (float)Math.Round((A/(kw*T))*(t - (k * T) - t1), 2);
             }
             else if (t >= ((kw * T) - (k * T) + t1) && t <= (T + (k * T) + t1))
             {
-                return (float)((-A/(T * (1 - kw))) * (t - (k * T) - t1) + (A/(1 - kw)));
+                return (float)Math.Round(((-A/(T * (1 - kw))) * (t - (k * T) - t1) + (A/(1 - kw))), 2);
             }
             else
             {

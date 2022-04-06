@@ -15,8 +15,8 @@ namespace DSP.Signals
 
         public override float Func(float t)
         {
-            return (float)(0.5f * A * (Math.Sin(2 * Math.PI / T * (t - t1)) +
-                Math.Abs( Math.Sin((2 * Math.PI) / T * (t - t1)))));
+            return (float)Math.Round((0.5f * A * (Math.Sin(2 * Math.PI / T * (t - t1)) +
+                Math.Abs( Math.Sin((2 * Math.PI) / T * (t - t1))))), 2);
         }
     }
 }

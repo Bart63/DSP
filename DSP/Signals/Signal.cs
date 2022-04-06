@@ -32,6 +32,7 @@ namespace DSP.Signals
 
         public bool isContinuous;
 
+        public bool isQuantized;
 
 
         protected Signal(float a, float t1, float d, float t, int f, bool isContinuous)
@@ -50,10 +51,12 @@ namespace DSP.Signals
 
             if (endTime == t1)
                 endTime = t1 + d;
+
+            isQuantized = false;
         }
 
         public Signal (float a, float t1, float d, float t, int f, bool isContinuous,
-            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null)
+            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, bool isQuantized = false)
         {
             A = a;
             this.t1 = t1;
@@ -75,12 +78,16 @@ namespace DSP.Signals
             if (endTime == t1)
                 endTime = t1 + d;
 
+            this.isQuantized = isQuantized;
+
             CalculateAverageSignalAbsValue(isContinuous);
             CalculateAverageSignalValue(isContinuous);
             CalculateAverageSignalPower(isContinuous);
             CalculateVariance(isContinuous);
             CalculateEffectiveValue();
         }
+
+       
 
         public virtual void GeneratePoints(bool isContinuous, Action resetValuesCallback = null)
         {

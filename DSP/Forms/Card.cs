@@ -19,7 +19,11 @@ namespace DSP
     {
         public Signal signal;
 
+        public QuantizedSignal quantizedSignal;
+
         private Action<Card> removeCardCallback;
+
+        SeriesCollection collection = null;
 
         public Card(int n, Action<Card> removeCardCallback)
         {
@@ -32,6 +36,28 @@ namespace DSP
             DisableTextBoxes();
         }
 
+        public Card(int n, Action<Card> removeCardCallback, Signal basicSignal, ReconstructedSignal reconstructedSignal)
+        {
+            InitializeComponent();
+
+            this.Text = "Karta " + n;
+
+            this.removeCardCallback = removeCardCallback;
+
+            DisableTextBoxes();
+        }
+        public Card(int n, Action<Card> removeCardCallback, QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
+        {
+            InitializeComponent();
+
+            this.Text = "Karta " + n;
+
+            this.removeCardCallback = removeCardCallback;
+
+            DisableTextBoxes();
+        }
+
+
         public Card(int n, Action<Card> removeCardCallback, Signal signal)
         {
             InitializeComponent();
@@ -42,8 +68,7 @@ namespace DSP
 
             this.removeCardCallback = removeCardCallback;
 
-            SeriesCollection collection;
-
+            
             if (signal.isContinuous)
             {
                 collection = new SeriesCollection
@@ -122,7 +147,7 @@ namespace DSP
 
         private void buttonGenerateSignal_Click(object sender, EventArgs e)
         {
-            SeriesCollection collection = null;
+            
 
             switch (comboBoxSignalType.SelectedIndex)
             {
@@ -557,6 +582,29 @@ namespace DSP
 
                     break;
             }
+        }
+
+        private void buttonQuantization_Click(object sender, EventArgs e)
+        {
+            if (signal == null || maskedTextBoxQuantizationFrequency.Text == "")
+                return;
+
+            quantizedSignal = new QuantizedSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
+                signal.PointsReal, int.Parse(maskedTextBoxQuantizationFrequency.Text));
+
+            if (collection.Count > 1)
+                collection.RemoveAt(1);
+
+            collection.Add(new StepLineSeries
+            {
+                Values = new ChartValues<ObservablePoint>(quantizedSignal.getChartPoints(true)),
+                
+            });
+        }
+
+        private void buttonRecontruction_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

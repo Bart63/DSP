@@ -743,11 +743,11 @@ namespace DSP
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label20.Location = new System.Drawing.Point(1120, 705);
+            this.label20.Location = new System.Drawing.Point(1147, 705);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(198, 24);
+            this.label20.Size = new System.Drawing.Size(132, 24);
             this.label20.TabIndex = 22;
-            this.label20.Text = "Częst. kwantyzacji [Hz]";
+            this.label20.Text = "Ilość p. kwant. ";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // maskedTextBoxQuantizationFrequency

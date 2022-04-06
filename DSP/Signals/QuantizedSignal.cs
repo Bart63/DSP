@@ -40,9 +40,9 @@ namespace DSP.Signals
                     {
                         return new ObservablePoint(point.X, points[i].Y);
                     }));
-               
-        }
 
+            }
+        }
 
         public List<ObservablePoint> getChartPoints(bool real)
         {

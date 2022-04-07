@@ -200,7 +200,7 @@ namespace DSP.Signals
             }
         }
 
-        public List<ObservablePoint> GetRealPointsToChart()
+        public virtual List<ObservablePoint> GetRealPointsToChart()
         {
             if (PointsReal.Count() <= 1000)
             {

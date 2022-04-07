@@ -21,6 +21,8 @@ namespace DSP
 
         public QuantizedSignal quantizedSignal;
 
+        public ReconstructedSignal reconstructedSignal;
+
         private Action<Card> removeCardCallback;
 
         SeriesCollection collection = null;
@@ -36,25 +38,62 @@ namespace DSP
             DisableTextBoxes();
         }
 
-        public Card(int n, Action<Card> removeCardCallback, Signal basicSignal, ReconstructedSignal reconstructedSignal)
+        public Card(Signal basicSignal, ReconstructedSignal reconstructedSignal)
         {
+            this.signal = basicSignal;
+            this.reconstructedSignal = reconstructedSignal;
+
             InitializeComponent();
-
-            this.Text = "Karta " + n;
-
-            this.removeCardCallback = removeCardCallback;
 
             DisableTextBoxes();
         }
-        public Card(int n, Action<Card> removeCardCallback, QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
+        public Card(QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
         {
             InitializeComponent();
 
-            this.Text = "Karta " + n;
+            this.quantizedSignal = quantizedSignal;
+            this.reconstructedSignal = reconstructedSignal;
 
-            this.removeCardCallback = removeCardCallback;
+            if (reconstructedSignal.isContinuous)
+            {
+                collection = new SeriesCollection
+                {
+                    new StepLineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
+                        StrokeThickness = 1,
+                        PointGeometry = null
+                    },
+                    new LineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
+                        PointForeground = null,
+                        PointGeometry = null,
+                        LineSmoothness = 0.7,
+                        Fill = System.Windows.Media.Brushes.Transparent
+                    },
+                    
+                };
+            }
+            else
+            {
+                collection = new SeriesCollection
+                {
+                    new LineSeries
+                    {
+                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.reconstructedSignalPointsReal),
+
+                        PointGeometrySize = 8,
+                        Fill = System.Windows.Media.Brushes.Transparent,
+                        StrokeThickness = 0,
+
+                    }
+                };
+            }
 
             DisableTextBoxes();
+
+            ShowCharts(ref chart1Real, ref chart2Real, collection, reconstructedSignal);
         }
 
 
@@ -479,7 +518,8 @@ namespace DSP
 
         private void Card_FormClosing(object sender, FormClosingEventArgs e)
         {
-            removeCardCallback(this);
+            if (removeCardCallback != null)
+                removeCardCallback(this);
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -597,14 +637,20 @@ namespace DSP
 
             collection.Add(new StepLineSeries
             {
-                Values = new ChartValues<ObservablePoint>(quantizedSignal.getChartPoints(true)),
-                
+                Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
+                PointGeometry = null
             });
         }
 
         private void buttonRecontruction_Click(object sender, EventArgs e)
         {
+            ReconstructedSignal reconstructedSignal = new ReconstructedSignal(quantizedSignal.A, quantizedSignal.t1, quantizedSignal.d,
+                quantizedSignal.T, quantizedSignal.f, quantizedSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
+                quantizedSignal.k, quantizedSignal.quantizedSignalPoints);
 
+            Card card = new Card(quantizedSignal, reconstructedSignal);
+
+            card.Show();
         }
     }
 }

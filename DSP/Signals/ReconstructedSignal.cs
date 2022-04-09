@@ -12,46 +12,47 @@ namespace DSP.Signals
     {
         public List<ObservablePoint> reconstructedSignalPointsReal;
 
-        public ReconstructedSignal(float a, float t1, float d, float t, int f, bool isContinuous, int methodIndex, int k, List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null)
-            : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, false)
+        public ReconstructedSignal(float a, float t1, float d, float t, bool isContinuous, int methodIndex, int quantizationFrequency, int reconstructionFrequency,
+            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, int n = 0)
+            : base(a, t1, d, t, reconstructionFrequency, isContinuous, pointsReal, pointsIm, false)
         {
             reconstructedSignalPointsReal = new List<ObservablePoint>();
 
-            Reconstruct(methodIndex, ref reconstructedSignalPointsReal, PointsReal, k);
+            Reconstruct(methodIndex, ref reconstructedSignalPointsReal, PointsReal, quantizationFrequency, reconstructionFrequency, n);
 
             PointsReal = reconstructedSignalPointsReal;
         }
 
-        private void Reconstruct(int method, ref List<ObservablePoint> reconstructedSignal, List<ObservablePoint> points, int k)
+        private void Reconstruct(int method, ref List<ObservablePoint> reconstructedSignal, List<ObservablePoint> points, int quantizationFrequency, int reconstructionFrequency, int n)
         {
+            
+
             switch(method)
             {
                 case 0:
 
-                    int difference = (int)Math.Round((float)points.Count(x => x.X < t1 + T) / k);
-
-                    List<ObservablePoint> keyPoints = new List<ObservablePoint>();
-
-                    for (int i = 0; i < points.Count; i += difference)
+                    for (int i = 0; i < (d * f); i++)
                     {
-                        keyPoints.Add(points[i]);
-                    }
+                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 3);
 
-                    for (int i = 0; i < keyPoints.Count; i++)
-                    {
-                        if (i+1 < keyPoints.Count)
-                        {
-                            Tuple<double, double> parameters = Fit.Line(new double[] { keyPoints[i].X, keyPoints[i + 1].X },
-                                new double[] { keyPoints[i].Y, keyPoints[i+1].Y });
+                        int index = points.FindIndex(x => x.X > t);
 
-                            float a = (float)parameters.Item2;
-                            float b = (float)parameters.Item1;
+                        if (index == -1)
+                            break;
 
-                            for (int j = i * difference; j < (i+1) * difference; j++)
-                            {
-                                reconstructedSignal.Add(new ObservablePoint(points[j].X, b + (points[j].X * a)));
-                            }
-                        }
+                        index--;
+
+                        
+                        Tuple<double, double> parameters = Fit.Line(new double[] { points[index].X, points[index + 1].X },
+                            new double[] { points[index].Y, points[index+1].Y });
+
+                        float a = (float)parameters.Item2;
+                        float b = (float)parameters.Item1;
+
+                               
+                        reconstructedSignal.Add(new ObservablePoint(t, b + (t * a)));
+                                
+                        
                     }
 
                     break;
@@ -59,12 +60,32 @@ namespace DSP.Signals
 
                 case 1:
 
+                    for (int i = 0; i < (d * f); i++)
+                    {
+                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 3);
+
+                        float value = 0;
+
+                        for (int j = 0; j < n; j++)
+                        {
+                            value += (float)(points[j].Y * sinc((t / (1 / (float)quantizationFrequency)) - n));
+                        }
+
+                        reconstructedSignal.Add(new ObservablePoint(t, value));
+                    }
 
 
                     break;
             }
         }
 
+        private double sinc(double t)
+        {
+            if (t == 0)
+                return 1;
+            else
+                return Math.Sin(Math.PI * t) / (Math.PI * t);
+        }
         
     }
 }

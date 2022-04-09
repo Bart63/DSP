@@ -645,8 +645,9 @@ namespace DSP
         private void buttonRecontruction_Click(object sender, EventArgs e)
         {
             ReconstructedSignal reconstructedSignal = new ReconstructedSignal(quantizedSignal.A, quantizedSignal.t1, quantizedSignal.d,
-                quantizedSignal.T, quantizedSignal.f, quantizedSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
-                quantizedSignal.k, quantizedSignal.quantizedSignalPoints);
+                quantizedSignal.T, quantizedSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
+                quantizedSignal.quantizationFrequency, int.Parse(maskedTextBoxRecostructionFrequency.Text), quantizedSignal.PointsReal, null, 
+                comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
 
             Card card = new Card(quantizedSignal, reconstructedSignal);
 

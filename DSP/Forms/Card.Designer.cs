@@ -88,6 +88,8 @@ namespace DSP
             this.maskedTextBoxQuantizationFrequency = new System.Windows.Forms.MaskedTextBox();
             this.maskedTextBoxRecostructionFrequency = new System.Windows.Forms.MaskedTextBox();
             this.label22 = new System.Windows.Forms.Label();
+            this.maskedTextBoxNumberOfSamplesSinc = new System.Windows.Forms.MaskedTextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -711,7 +713,7 @@ namespace DSP
             this.comboBoxReconstructionType.Items.AddRange(new object[] {
             "Interpolacja pierwszego rzędu",
             "Rekonstrukcja w oparciu o funkcję sinc"});
-            this.comboBoxReconstructionType.Location = new System.Drawing.Point(1095, 601);
+            this.comboBoxReconstructionType.Location = new System.Drawing.Point(1095, 616);
             this.comboBoxReconstructionType.Name = "comboBoxReconstructionType";
             this.comboBoxReconstructionType.Size = new System.Drawing.Size(265, 28);
             this.comboBoxReconstructionType.TabIndex = 19;
@@ -731,7 +733,7 @@ namespace DSP
             // buttonQuantization
             // 
             this.buttonQuantization.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonQuantization.Location = new System.Drawing.Point(1368, 709);
+            this.buttonQuantization.Location = new System.Drawing.Point(417, 712);
             this.buttonQuantization.Name = "buttonQuantization";
             this.buttonQuantization.Size = new System.Drawing.Size(136, 52);
             this.buttonQuantization.TabIndex = 20;
@@ -743,18 +745,18 @@ namespace DSP
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label20.Location = new System.Drawing.Point(1147, 705);
+            this.label20.Location = new System.Drawing.Point(152, 709);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(132, 24);
+            this.label20.Size = new System.Drawing.Size(222, 24);
             this.label20.TabIndex = 22;
-            this.label20.Text = "Ilość p. kwant. ";
+            this.label20.Text = "Częstotliwość kwantyzacji";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // maskedTextBoxQuantizationFrequency
             // 
             this.maskedTextBoxQuantizationFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxQuantizationFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxQuantizationFrequency.Location = new System.Drawing.Point(1178, 732);
+            this.maskedTextBoxQuantizationFrequency.Location = new System.Drawing.Point(227, 735);
             this.maskedTextBoxQuantizationFrequency.Mask = "0000000";
             this.maskedTextBoxQuantizationFrequency.Name = "maskedTextBoxQuantizationFrequency";
             this.maskedTextBoxQuantizationFrequency.Size = new System.Drawing.Size(87, 29);
@@ -765,7 +767,7 @@ namespace DSP
             // 
             this.maskedTextBoxRecostructionFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxRecostructionFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxRecostructionFrequency.Location = new System.Drawing.Point(1178, 659);
+            this.maskedTextBoxRecostructionFrequency.Location = new System.Drawing.Point(1385, 671);
             this.maskedTextBoxRecostructionFrequency.Mask = "0000000";
             this.maskedTextBoxRecostructionFrequency.Name = "maskedTextBoxRecostructionFrequency";
             this.maskedTextBoxRecostructionFrequency.Size = new System.Drawing.Size(87, 29);
@@ -776,12 +778,34 @@ namespace DSP
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label22.Location = new System.Drawing.Point(1120, 632);
+            this.label22.Location = new System.Drawing.Point(1111, 674);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(209, 24);
             this.label22.TabIndex = 24;
             this.label22.Text = "Częst. rekonstrukcji [Hz]";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // maskedTextBoxNumberOfSamplesSinc
+            // 
+            this.maskedTextBoxNumberOfSamplesSinc.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.maskedTextBoxNumberOfSamplesSinc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxNumberOfSamplesSinc.Location = new System.Drawing.Point(1385, 706);
+            this.maskedTextBoxNumberOfSamplesSinc.Mask = "0000000";
+            this.maskedTextBoxNumberOfSamplesSinc.Name = "maskedTextBoxNumberOfSamplesSinc";
+            this.maskedTextBoxNumberOfSamplesSinc.Size = new System.Drawing.Size(87, 29);
+            this.maskedTextBoxNumberOfSamplesSinc.TabIndex = 27;
+            this.maskedTextBoxNumberOfSamplesSinc.ValidatingType = typeof(int);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label23.Location = new System.Drawing.Point(1111, 708);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(163, 24);
+            this.label23.TabIndex = 26;
+            this.label23.Text = "Ilość próbek (sinc)";
+            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Card
             // 
@@ -789,6 +813,8 @@ namespace DSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.maskedTextBoxNumberOfSamplesSinc);
+            this.Controls.Add(this.label23);
             this.Controls.Add(this.maskedTextBoxRecostructionFrequency);
             this.Controls.Add(this.label22);
             this.Controls.Add(this.maskedTextBoxQuantizationFrequency);
@@ -886,6 +912,8 @@ namespace DSP
         private System.Windows.Forms.MaskedTextBox maskedTextBoxQuantizationFrequency;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxRecostructionFrequency;
         private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxNumberOfSamplesSinc;
+        private System.Windows.Forms.Label label23;
     }
 }
 

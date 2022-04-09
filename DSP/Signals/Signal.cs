@@ -93,9 +93,8 @@ namespace DSP.Signals
         {
             for (int i = 0; i < (d * f); i++)
             {
-                float t = (float)i / f + t1;
+                float t = (float)Math.Round((float)i / f + t1, 3);
 
-                
                 PointsReal.Add(new ObservablePoint(t, Func(t)));
             }
 

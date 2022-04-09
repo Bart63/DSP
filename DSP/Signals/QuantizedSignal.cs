@@ -9,22 +9,22 @@ namespace DSP.Signals
 {
     public class QuantizedSignal : Signal
     {
-        public List<ObservablePoint> quantizedSignalPoints;
+        private List<ObservablePoint> quantizedSignalPoints;
 
         public float MSE;
         public float SNR;
         public float PSNR;
         public float MD;
 
-        public int k;
+        public int quantizationFrequency;
         
         public QuantizedSignal(float a, float t1, float d, float t, int f, bool isContinuous,
-            List<ObservablePoint> pointsReal, int k, List<ObservablePoint> pointsIm = null)
+            List<ObservablePoint> pointsReal, int quantizationFrequency, List<ObservablePoint> pointsIm = null)
             : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, true)
         {
             quantizedSignalPoints = new List<ObservablePoint>();
 
-            this.k = k;
+            this.quantizationFrequency = quantizationFrequency;
             Quantize(pointsReal, ref quantizedSignalPoints);
 
             PointsReal = quantizedSignalPoints;
@@ -32,42 +32,30 @@ namespace DSP.Signals
 
         private void Quantize(List<ObservablePoint> points, ref List<ObservablePoint> quantizedSignal)
         {
-            int difference = (int)Math.Round((float)points.Count(x => x.X < t1 + T) / k);
+            float difference = 1 / (float)quantizationFrequency;
 
 
-            for (int i = 0; i < points.Count; i += difference)
+            for (float i = 0; i < points.Count * ((float)1/f); i += difference)
             {
-                if (i + difference < points.Count)
-                    quantizedSignal.AddRange(points.GetRange(i, difference).Select(delegate (ObservablePoint point)
-                    {
-                        return new ObservablePoint(point.X, points[i].Y);
-                    }));
+                
+                int index = points.FindIndex(x => x.X == i);
 
-            }
-        }
-
-        public override List<ObservablePoint> GetRealPointsToChart()
-        {
-            
-            List<ObservablePoint> newPoints = new List<ObservablePoint>();
-
-            
-            newPoints.Add(quantizedSignalPoints[0]);
-
-            for (int i = 1; i < quantizedSignalPoints.Count - 1; i++)
-            {
-                if (quantizedSignalPoints[i-1].Y != quantizedSignalPoints[i].Y &&
-                    quantizedSignalPoints[i].Y == quantizedSignalPoints[i + 1].Y)
+                if (index == -1)
                 {
-                    newPoints.Add(quantizedSignalPoints[i]);
+                    ObservablePoint closestPoint = points.Aggregate((x1, x2) => Math.Abs(x1.X - i) < Math.Abs(x2.X - i) ? x1 : x2);
+
+                    index = points.IndexOf(closestPoint);
                 }
+
+                quantizedSignal.Add(points[index]);
+
             }
 
-            newPoints.Add(quantizedSignalPoints.Last());
-
-            return newPoints;
-           
+            quantizedSignal.RemoveAt(quantizedSignal.Count - 1);
+            
         }
+
+        
         
     }
 }

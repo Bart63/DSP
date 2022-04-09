@@ -68,7 +68,7 @@ namespace DSP.Signals
 
                         for (int j = 0; j < n; j++)
                         {
-                            value += (float)(points[j].Y * sinc((t / (1 / (float)quantizationFrequency)) - n));
+                            value += (float)(points[j].Y * sinc((t / (1 / (float)quantizationFrequency)) - j));
                         }
 
                         reconstructedSignal.Add(new ObservablePoint(t, value));

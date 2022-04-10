@@ -13,6 +13,7 @@ using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
 
+
 namespace DSP
 {
     public partial class Card : Form
@@ -26,6 +27,7 @@ namespace DSP
         private Action<Card> removeCardCallback;
 
         SeriesCollection collection = null;
+        private SampledSignal sampledSignal;
 
         public Card(int n, Action<Card> removeCardCallback)
         {
@@ -34,6 +36,8 @@ namespace DSP
             this.Text = "Karta " + n;
 
             this.removeCardCallback = removeCardCallback;
+
+            maskedTextBoxFrequency.Text = "10000";
 
             DisableTextBoxes();
         }
@@ -45,7 +49,32 @@ namespace DSP
 
             InitializeComponent();
 
+            collection = new SeriesCollection
+            {
+                
+                new LineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
+                    PointForeground = null,
+                    PointGeometry = null,
+                    LineSmoothness = 0.7,
+                    Fill = System.Windows.Media.Brushes.Transparent
+                },
+                new LineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>(basicSignal.GetRealPointsToChart()),
+                    PointForeground = null,
+                    PointGeometry = null,
+                    LineSmoothness = 1,
+                    Fill = System.Windows.Media.Brushes.Transparent
+                },
+            };
+
             DisableTextBoxes();
+
+
+            ShowCharts(ref chart1Real, ref chart2Real, collection, reconstructedSignal);
+
         }
         public Card(QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
         {
@@ -138,7 +167,9 @@ namespace DSP
                 };
             }
 
+            
             ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+            
 
             DisableTextBoxes();
         }
@@ -161,28 +192,7 @@ namespace DSP
         }
 
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-            chart1Real.AxisX.Add(new Axis
-            {
-                Title = "t [s]",
-                Foreground = System.Windows.Media.Brushes.Black,
-                
-            }); 
-
-            chart1Real.AxisY.Add(new Axis
-            {
-                Title = "A",
-                Foreground = System.Windows.Media.Brushes.Black
-            });
-            chart2Real.AxisY.Add(new Axis
-            {
-                Foreground = System.Windows.Media.Brushes.Black
-            });
-
-        }
+        
 
         private void buttonGenerateSignal_Click(object sender, EventArgs e)
         {
@@ -460,6 +470,22 @@ namespace DSP
             ref LiveCharts.WinForms.CartesianChart histogramChart, 
             SeriesCollection collection, Signal signal)
         {
+            chart.AxisX.Clear();
+            chart.AxisY.Clear();
+
+            chart.AxisX.Add(new Axis
+            {
+                Title = "t [s]",
+                Foreground = System.Windows.Media.Brushes.Black,
+
+            });
+
+            chart.AxisY.Add(new Axis
+            {
+                Title = "A",
+                Foreground = System.Windows.Media.Brushes.Black
+            });
+
             chart.Series = collection;
 
             TextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
@@ -493,8 +519,11 @@ namespace DSP
                 };
 
             
-            if (histogramChart.AxisX.Count() > 0)
-                histogramChart.AxisX.RemoveAt(0);
+
+            histogramChart.AxisX.Clear();
+            histogramChart.AxisY.Clear();
+
+            
 
             histogramChart.AxisX.Add(new Axis
             {
@@ -502,16 +531,12 @@ namespace DSP
                 Foreground = System.Windows.Media.Brushes.Black,
                 Separator = new Separator { Step = 1 },
             });
-
-            if (histogramChart.AxisY.Count() > 0)
-                histogramChart.AxisY.RemoveAt(0);
-
             histogramChart.AxisY.Add(new Axis
             {
                 MinValue = 0,
+                MaxValue = histogram.data.ToList().Max() + 1,
                 Foreground = System.Windows.Media.Brushes.Black,
             });
-
             histogramChart.Series = histogramCollectionReal;
 
         }
@@ -626,11 +651,11 @@ namespace DSP
 
         private void buttonQuantization_Click(object sender, EventArgs e)
         {
-            if (signal == null || maskedTextBoxQuantizationFrequency.Text == "")
+            if (signal == null || maskedTextBoxQuantizationLevels.Text == "")
                 return;
 
             quantizedSignal = new QuantizedSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
-                signal.PointsReal, int.Parse(maskedTextBoxQuantizationFrequency.Text));
+                signal.PointsReal, int.Parse(maskedTextBoxQuantizationLevels.Text));
 
             if (collection.Count > 1)
                 collection.RemoveAt(1);
@@ -640,18 +665,47 @@ namespace DSP
                 Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
                 PointGeometry = null
             });
+
+            textBoxMeanSquareError.Text = quantizedSignal.MSE.ToString();
+            textBoxSignalNoiseRatio.Text = quantizedSignal.SNR.ToString();
+            textBoxHighestSignalNoiseRatio.Text = quantizedSignal.PSNR.ToString();
+            textBoxMaxDifference.Text = quantizedSignal.MD.ToString();
         }
 
         private void buttonRecontruction_Click(object sender, EventArgs e)
         {
-            ReconstructedSignal reconstructedSignal = new ReconstructedSignal(quantizedSignal.A, quantizedSignal.t1, quantizedSignal.d,
-                quantizedSignal.T, quantizedSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
-                quantizedSignal.quantizationFrequency, int.Parse(maskedTextBoxRecostructionFrequency.Text), quantizedSignal.PointsReal, null, 
-                comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
+            ReconstructionOptions reconstructionOption = new ReconstructionOptions(sampledSignal, quantizedSignal);
 
-            Card card = new Card(quantizedSignal, reconstructedSignal);
+            reconstructionOption.ShowDialog();
+        }
 
-            card.Show();
+        private void buttonSample_Click(object sender, EventArgs e)
+        {
+            if (maskedTextBoxSampleFrequency.Text == "")
+                return;
+
+            if (signal == null)
+            {
+                buttonGenerateSignal_Click(null, null);
+            }
+
+            sampledSignal = new SampledSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
+                signal.PointsReal, int.Parse(maskedTextBoxSampleFrequency.Text), signal.Func);
+
+            if (collection.Count > 1)
+                collection.RemoveAt(1);
+
+            collection.Add(new LineSeries
+            {
+                Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
+                Stroke = System.Windows.Media.Brushes.Transparent,
+                Fill = System.Windows.Media.Brushes.Transparent,
+            }); 
+
+            textBoxMeanSquareError.Text = sampledSignal.MSE.ToString();
+            textBoxSignalNoiseRatio.Text = sampledSignal.SNR.ToString();
+            textBoxHighestSignalNoiseRatio.Text = sampledSignal.PSNR.ToString();
+            textBoxMaxDifference.Text = sampledSignal.MD.ToString();
         }
     }
 }

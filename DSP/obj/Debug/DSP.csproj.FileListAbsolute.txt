@@ -21,3 +21,4 @@ D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cache
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.exe
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.pdb
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.csproj.AssemblyReference.cache
+D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.ReconstructionOptions.resources

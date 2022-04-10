@@ -81,15 +81,13 @@ namespace DSP
             this.textBoxSignalNoiseRatio = new System.Windows.Forms.TextBox();
             this.textBoxHighestSignalNoiseRatio = new System.Windows.Forms.TextBox();
             this.textBoxMaxDifference = new System.Windows.Forms.TextBox();
-            this.comboBoxReconstructionType = new System.Windows.Forms.ComboBox();
             this.buttonRecontruction = new System.Windows.Forms.Button();
             this.buttonQuantization = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
-            this.maskedTextBoxQuantizationFrequency = new System.Windows.Forms.MaskedTextBox();
-            this.maskedTextBoxRecostructionFrequency = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxQuantizationLevels = new System.Windows.Forms.MaskedTextBox();
+            this.maskedTextBoxSampleFrequency = new System.Windows.Forms.MaskedTextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.maskedTextBoxNumberOfSamplesSinc = new System.Windows.Forms.MaskedTextBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.buttonSample = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -133,7 +131,7 @@ namespace DSP
             // 
             this.maskedTextBoxFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxFrequency.Location = new System.Drawing.Point(306, 208);
+            this.maskedTextBoxFrequency.Location = new System.Drawing.Point(306, 197);
             this.maskedTextBoxFrequency.Mask = "0000000";
             this.maskedTextBoxFrequency.Name = "maskedTextBoxFrequency";
             this.maskedTextBoxFrequency.Size = new System.Drawing.Size(87, 29);
@@ -144,18 +142,18 @@ namespace DSP
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label9.Location = new System.Drawing.Point(3, 205);
+            this.label9.Location = new System.Drawing.Point(3, 194);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(274, 24);
+            this.label9.Size = new System.Drawing.Size(236, 48);
             this.label9.TabIndex = 7;
-            this.label9.Text = "Częstotliwość próbkowania [Hz]";
+            this.label9.Text = "Częstotliwość próbkowania (generacja) [Hz]";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // maskedTextBoxProbability
             // 
             this.maskedTextBoxProbability.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxProbability.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxProbability.Location = new System.Drawing.Point(306, 172);
+            this.maskedTextBoxProbability.Location = new System.Drawing.Point(306, 151);
             this.maskedTextBoxProbability.Name = "maskedTextBoxProbability";
             this.maskedTextBoxProbability.Size = new System.Drawing.Size(87, 29);
             this.maskedTextBoxProbability.TabIndex = 6;
@@ -164,7 +162,7 @@ namespace DSP
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label8.Location = new System.Drawing.Point(3, 169);
+            this.label8.Location = new System.Drawing.Point(3, 148);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(221, 24);
             this.label8.TabIndex = 5;
@@ -175,7 +173,7 @@ namespace DSP
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(3, 125);
+            this.label7.Location = new System.Drawing.Point(3, 113);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(140, 24);
             this.label7.TabIndex = 4;
@@ -186,7 +184,7 @@ namespace DSP
             // 
             this.maskedTextBoxJumpTime.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxJumpTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxJumpTime.Location = new System.Drawing.Point(306, 128);
+            this.maskedTextBoxJumpTime.Location = new System.Drawing.Point(306, 116);
             this.maskedTextBoxJumpTime.Name = "maskedTextBoxJumpTime";
             this.maskedTextBoxJumpTime.Size = new System.Drawing.Size(87, 29);
             this.maskedTextBoxJumpTime.TabIndex = 3;
@@ -212,14 +210,14 @@ namespace DSP
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tableLayoutPanel2.RowCount = 6;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.16279F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.83721F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 44F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 54.92958F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.07042F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(410, 242);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(410, 249);
             this.tableLayoutPanel2.TabIndex = 11;
             // 
             // label14
@@ -266,7 +264,7 @@ namespace DSP
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label16.Location = new System.Drawing.Point(3, 84);
+            this.label16.Location = new System.Drawing.Point(3, 79);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(133, 24);
             this.label16.TabIndex = 15;
@@ -276,7 +274,7 @@ namespace DSP
             // 
             this.maskedTextBoxNuberOfSamples.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxNuberOfSamples.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxNuberOfSamples.Location = new System.Drawing.Point(306, 87);
+            this.maskedTextBoxNuberOfSamples.Location = new System.Drawing.Point(306, 82);
             this.maskedTextBoxNuberOfSamples.Mask = "000";
             this.maskedTextBoxNuberOfSamples.Name = "maskedTextBoxNuberOfSamples";
             this.maskedTextBoxNuberOfSamples.Size = new System.Drawing.Size(87, 29);
@@ -413,7 +411,7 @@ namespace DSP
             // buttonGenerateSignal
             // 
             this.buttonGenerateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 533);
+            this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 566);
             this.buttonGenerateSignal.Name = "buttonGenerateSignal";
             this.buttonGenerateSignal.Size = new System.Drawing.Size(211, 52);
             this.buttonGenerateSignal.TabIndex = 12;
@@ -447,7 +445,7 @@ namespace DSP
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSave.Location = new System.Drawing.Point(1312, 533);
+            this.buttonSave.Location = new System.Drawing.Point(1312, 566);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(192, 52);
             this.buttonSave.TabIndex = 14;
@@ -464,7 +462,7 @@ namespace DSP
             "10",
             "15",
             "20"});
-            this.comboBoxNumberOfSections.Location = new System.Drawing.Point(1095, 470);
+            this.comboBoxNumberOfSections.Location = new System.Drawing.Point(1095, 531);
             this.comboBoxNumberOfSections.Name = "comboBoxNumberOfSections";
             this.comboBoxNumberOfSections.Size = new System.Drawing.Size(409, 28);
             this.comboBoxNumberOfSections.TabIndex = 15;
@@ -627,7 +625,7 @@ namespace DSP
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.70422F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(389, 140);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(426, 140);
             this.tableLayoutPanel4.TabIndex = 18;
             // 
             // label17
@@ -647,9 +645,9 @@ namespace DSP
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label18.Location = new System.Drawing.Point(3, 35);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(258, 24);
+            this.label18.Size = new System.Drawing.Size(296, 24);
             this.label18.TabIndex = 7;
-            this.label18.Text = "Stosunek sygnał-szum (SNR)";
+            this.label18.Text = "Stosunek sygnał-szum (SNR) [dB]";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label19
@@ -669,15 +667,15 @@ namespace DSP
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label21.Location = new System.Drawing.Point(3, 70);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(274, 24);
+            this.label21.Size = new System.Drawing.Size(311, 24);
             this.label21.TabIndex = 9;
-            this.label21.Text = "Szczytowy stosunek s-s (PSNR)";
+            this.label21.Text = "Szczytowy stosunek s-s (PSNR) [db]";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxMeanSquareError
             // 
             this.textBoxMeanSquareError.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxMeanSquareError.Location = new System.Drawing.Point(283, 3);
+            this.textBoxMeanSquareError.Location = new System.Drawing.Point(320, 3);
             this.textBoxMeanSquareError.Name = "textBoxMeanSquareError";
             this.textBoxMeanSquareError.Size = new System.Drawing.Size(100, 29);
             this.textBoxMeanSquareError.TabIndex = 14;
@@ -685,7 +683,7 @@ namespace DSP
             // textBoxSignalNoiseRatio
             // 
             this.textBoxSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxSignalNoiseRatio.Location = new System.Drawing.Point(283, 38);
+            this.textBoxSignalNoiseRatio.Location = new System.Drawing.Point(320, 38);
             this.textBoxSignalNoiseRatio.Name = "textBoxSignalNoiseRatio";
             this.textBoxSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
             this.textBoxSignalNoiseRatio.TabIndex = 15;
@@ -693,7 +691,7 @@ namespace DSP
             // textBoxHighestSignalNoiseRatio
             // 
             this.textBoxHighestSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxHighestSignalNoiseRatio.Location = new System.Drawing.Point(283, 73);
+            this.textBoxHighestSignalNoiseRatio.Location = new System.Drawing.Point(320, 73);
             this.textBoxHighestSignalNoiseRatio.Name = "textBoxHighestSignalNoiseRatio";
             this.textBoxHighestSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
             this.textBoxHighestSignalNoiseRatio.TabIndex = 16;
@@ -701,30 +699,17 @@ namespace DSP
             // textBoxMaxDifference
             // 
             this.textBoxMaxDifference.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxMaxDifference.Location = new System.Drawing.Point(283, 109);
+            this.textBoxMaxDifference.Location = new System.Drawing.Point(320, 109);
             this.textBoxMaxDifference.Name = "textBoxMaxDifference";
             this.textBoxMaxDifference.Size = new System.Drawing.Size(100, 29);
             this.textBoxMaxDifference.TabIndex = 17;
             // 
-            // comboBoxReconstructionType
-            // 
-            this.comboBoxReconstructionType.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxReconstructionType.FormattingEnabled = true;
-            this.comboBoxReconstructionType.Items.AddRange(new object[] {
-            "Interpolacja pierwszego rzędu",
-            "Rekonstrukcja w oparciu o funkcję sinc"});
-            this.comboBoxReconstructionType.Location = new System.Drawing.Point(1095, 616);
-            this.comboBoxReconstructionType.Name = "comboBoxReconstructionType";
-            this.comboBoxReconstructionType.Size = new System.Drawing.Size(265, 28);
-            this.comboBoxReconstructionType.TabIndex = 19;
-            this.comboBoxReconstructionType.Text = "Wybierz typ rekonstrukcji sygnału";
-            // 
             // buttonRecontruction
             // 
             this.buttonRecontruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonRecontruction.Location = new System.Drawing.Point(1366, 601);
+            this.buttonRecontruction.Location = new System.Drawing.Point(382, 712);
             this.buttonRecontruction.Name = "buttonRecontruction";
-            this.buttonRecontruction.Size = new System.Drawing.Size(136, 52);
+            this.buttonRecontruction.Size = new System.Drawing.Size(192, 52);
             this.buttonRecontruction.TabIndex = 21;
             this.buttonRecontruction.Text = "Rekonstruuj";
             this.buttonRecontruction.UseVisualStyleBackColor = true;
@@ -733,7 +718,7 @@ namespace DSP
             // buttonQuantization
             // 
             this.buttonQuantization.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonQuantization.Location = new System.Drawing.Point(417, 712);
+            this.buttonQuantization.Location = new System.Drawing.Point(240, 712);
             this.buttonQuantization.Name = "buttonQuantization";
             this.buttonQuantization.Size = new System.Drawing.Size(136, 52);
             this.buttonQuantization.TabIndex = 20;
@@ -745,67 +730,56 @@ namespace DSP
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label20.Location = new System.Drawing.Point(152, 709);
+            this.label20.Location = new System.Drawing.Point(12, 712);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(222, 24);
+            this.label20.Size = new System.Drawing.Size(181, 24);
             this.label20.TabIndex = 22;
-            this.label20.Text = "Częstotliwość kwantyzacji";
+            this.label20.Text = "Poziomy kwantyzacji";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maskedTextBoxQuantizationFrequency
+            // maskedTextBoxQuantizationLevels
             // 
-            this.maskedTextBoxQuantizationFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.maskedTextBoxQuantizationFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxQuantizationFrequency.Location = new System.Drawing.Point(227, 735);
-            this.maskedTextBoxQuantizationFrequency.Mask = "0000000";
-            this.maskedTextBoxQuantizationFrequency.Name = "maskedTextBoxQuantizationFrequency";
-            this.maskedTextBoxQuantizationFrequency.Size = new System.Drawing.Size(87, 29);
-            this.maskedTextBoxQuantizationFrequency.TabIndex = 23;
-            this.maskedTextBoxQuantizationFrequency.ValidatingType = typeof(int);
+            this.maskedTextBoxQuantizationLevels.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.maskedTextBoxQuantizationLevels.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxQuantizationLevels.Location = new System.Drawing.Point(54, 739);
+            this.maskedTextBoxQuantizationLevels.Mask = "0000000";
+            this.maskedTextBoxQuantizationLevels.Name = "maskedTextBoxQuantizationLevels";
+            this.maskedTextBoxQuantizationLevels.Size = new System.Drawing.Size(87, 29);
+            this.maskedTextBoxQuantizationLevels.TabIndex = 23;
+            this.maskedTextBoxQuantizationLevels.ValidatingType = typeof(int);
             // 
-            // maskedTextBoxRecostructionFrequency
+            // maskedTextBoxSampleFrequency
             // 
-            this.maskedTextBoxRecostructionFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.maskedTextBoxRecostructionFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxRecostructionFrequency.Location = new System.Drawing.Point(1385, 671);
-            this.maskedTextBoxRecostructionFrequency.Mask = "0000000";
-            this.maskedTextBoxRecostructionFrequency.Name = "maskedTextBoxRecostructionFrequency";
-            this.maskedTextBoxRecostructionFrequency.Size = new System.Drawing.Size(87, 29);
-            this.maskedTextBoxRecostructionFrequency.TabIndex = 25;
-            this.maskedTextBoxRecostructionFrequency.ValidatingType = typeof(int);
+            this.maskedTextBoxSampleFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.maskedTextBoxSampleFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.maskedTextBoxSampleFrequency.Location = new System.Drawing.Point(1385, 669);
+            this.maskedTextBoxSampleFrequency.Mask = "0000000";
+            this.maskedTextBoxSampleFrequency.Name = "maskedTextBoxSampleFrequency";
+            this.maskedTextBoxSampleFrequency.Size = new System.Drawing.Size(87, 29);
+            this.maskedTextBoxSampleFrequency.TabIndex = 25;
+            this.maskedTextBoxSampleFrequency.ValidatingType = typeof(int);
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label22.Location = new System.Drawing.Point(1111, 674);
+            this.label22.Location = new System.Drawing.Point(1141, 669);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(209, 24);
+            this.label22.Size = new System.Drawing.Size(236, 24);
             this.label22.TabIndex = 24;
-            this.label22.Text = "Częst. rekonstrukcji [Hz]";
+            this.label22.Text = "Częstotliwość próbkowania";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // maskedTextBoxNumberOfSamplesSinc
+            // buttonSample
             // 
-            this.maskedTextBoxNumberOfSamplesSinc.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.maskedTextBoxNumberOfSamplesSinc.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxNumberOfSamplesSinc.Location = new System.Drawing.Point(1385, 706);
-            this.maskedTextBoxNumberOfSamplesSinc.Mask = "0000000";
-            this.maskedTextBoxNumberOfSamplesSinc.Name = "maskedTextBoxNumberOfSamplesSinc";
-            this.maskedTextBoxNumberOfSamplesSinc.Size = new System.Drawing.Size(87, 29);
-            this.maskedTextBoxNumberOfSamplesSinc.TabIndex = 27;
-            this.maskedTextBoxNumberOfSamplesSinc.ValidatingType = typeof(int);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label23.Location = new System.Drawing.Point(1111, 708);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(163, 24);
-            this.label23.TabIndex = 26;
-            this.label23.Text = "Ilość próbek (sinc)";
-            this.label23.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.buttonSample.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonSample.Location = new System.Drawing.Point(1147, 707);
+            this.buttonSample.Name = "buttonSample";
+            this.buttonSample.Size = new System.Drawing.Size(136, 52);
+            this.buttonSample.TabIndex = 26;
+            this.buttonSample.Text = "Próbkuj";
+            this.buttonSample.UseVisualStyleBackColor = true;
+            this.buttonSample.Click += new System.EventHandler(this.buttonSample_Click);
             // 
             // Card
             // 
@@ -813,15 +787,13 @@ namespace DSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
-            this.Controls.Add(this.maskedTextBoxNumberOfSamplesSinc);
-            this.Controls.Add(this.label23);
-            this.Controls.Add(this.maskedTextBoxRecostructionFrequency);
+            this.Controls.Add(this.buttonSample);
+            this.Controls.Add(this.maskedTextBoxSampleFrequency);
             this.Controls.Add(this.label22);
-            this.Controls.Add(this.maskedTextBoxQuantizationFrequency);
+            this.Controls.Add(this.maskedTextBoxQuantizationLevels);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.buttonRecontruction);
             this.Controls.Add(this.buttonQuantization);
-            this.Controls.Add(this.comboBoxReconstructionType);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tableLayoutPanel3);
             this.Controls.Add(this.chart2Im);
@@ -837,7 +809,6 @@ namespace DSP
             this.Name = "Card";
             this.Text = "Karta 1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Card_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -905,15 +876,13 @@ namespace DSP
         private System.Windows.Forms.TextBox textBoxSignalNoiseRatio;
         private System.Windows.Forms.TextBox textBoxHighestSignalNoiseRatio;
         private System.Windows.Forms.TextBox textBoxMaxDifference;
-        private System.Windows.Forms.ComboBox comboBoxReconstructionType;
         private System.Windows.Forms.Button buttonRecontruction;
         private System.Windows.Forms.Button buttonQuantization;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxQuantizationFrequency;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxRecostructionFrequency;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxQuantizationLevels;
+        private System.Windows.Forms.MaskedTextBox maskedTextBoxSampleFrequency;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxNumberOfSamplesSinc;
-        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button buttonSample;
     }
 }
 

@@ -56,47 +56,26 @@ namespace DSP
             signal = basicSignal;
             this.reconstructedSignal = reconstructedSignal;
             this.quantizedSignal = quantizedSignal;
-            this.reconstructedSignal = reconstructedSignal;
+            this.sampledSignal = sampledSignal;
 
             InitializeComponent();
 
-            collection = new SeriesCollection
-            {
-                
-                new LineSeries
-                {
-                    Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
-                    PointForeground = null,
-                    PointGeometry = null,
-                    LineSmoothness = 0.7,
-                    Fill = System.Windows.Media.Brushes.Transparent
-                },
-                new LineSeries
-                {
-                    Values = new ChartValues<ObservablePoint>(basicSignal.GetRealPointsToChart()),
-                    PointForeground = null,
-                    PointGeometry = null,
-                    LineSmoothness = 1,
-                    Fill = System.Windows.Media.Brushes.Transparent
-                },
-                new LineSeries
-                {
-                    Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
-                    Stroke = System.Windows.Media.Brushes.Transparent,
-                    Fill = System.Windows.Media.Brushes.Transparent,
-                }
-            };
+            ChartExistence[0] = signal != null;
+            ChartExistence[1] = sampledSignal != null;
+            ChartExistence[2] = quantizedSignal != null;
+            ChartExistence[3] = reconstructedSignal != null;
 
-            if (quantizedSignal != null)
-                collection.Add(new StepLineSeries
-                {
-                    Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
-                    PointGeometry = null
-                });
-            
+            if (reconstructedSignal != null)
+            {
+                textBoxMeanSquareError.Text = reconstructedSignal.MSE.ToString();
+                textBoxSignalNoiseRatio.Text = reconstructedSignal.SNR.ToString();
+                textBoxHighestSignalNoiseRatio.Text = reconstructedSignal.PSNR.ToString();
+                textBoxMaxDifference.Text = reconstructedSignal.MD.ToString();
+            }
 
             DisableTextBoxes();
 
+            UpdateChartCollection();
 
             ShowCharts(ref chart1Real, ref chart2Real, collection, reconstructedSignal);
 
@@ -114,36 +93,9 @@ namespace DSP
 
             this.removeCardCallback = removeCardCallback;
 
-            
-            if (signal.isContinuous)
-            {
-                collection = new SeriesCollection
-                {
-                    new LineSeries
-                    {
-                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                        PointForeground = null,
-                        PointGeometry = null,
-                        LineSmoothness = 1,
-                        Fill = System.Windows.Media.Brushes.Transparent
-                    }
-                };
-            }
-            else
-            {
-                collection = new SeriesCollection
-                {
-                    new LineSeries
-                    {
-                        Values = new ChartValues<ObservablePoint>(signal.PointsReal),
+            ChartExistence[0] = signal != null;
 
-                        PointGeometrySize = 8,
-                        Fill = System.Windows.Media.Brushes.Transparent,
-                        StrokeThickness = 0,
-
-                    }
-                };
-            }
+            UpdateChartCollection();
 
             
             ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
@@ -185,19 +137,7 @@ namespace DSP
                         float.Parse(maskedTextBoxDuration.Text),
                         int.Parse(maskedTextBoxFrequency.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
-
-
+                    
                     break;
 
                 case 1:
@@ -207,18 +147,7 @@ namespace DSP
                         float.Parse(maskedTextBoxDuration.Text),
                         int.Parse(maskedTextBoxFrequency.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
-
+                    
 
                     break;
 
@@ -231,20 +160,7 @@ namespace DSP
                         float.Parse(maskedTextBoxPeriod.Text),
                         int.Parse(maskedTextBoxFrequency.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Title = "Sin(t) * A",
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 1,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
-
-
+                    
                     break;
 
                 case 3:
@@ -255,19 +171,6 @@ namespace DSP
                         float.Parse(maskedTextBoxPeriod.Text),
                         int.Parse(maskedTextBoxFrequency.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 1,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
-
-
                     break;
 
                 case 4:
@@ -277,18 +180,6 @@ namespace DSP
                         float.Parse(maskedTextBoxDuration.Text),
                         float.Parse(maskedTextBoxPeriod.Text),
                         int.Parse(maskedTextBoxFrequency.Text));
-
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0.5,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
 
 
                     break;
@@ -302,19 +193,7 @@ namespace DSP
                         int.Parse(maskedTextBoxFrequency.Text),
                         float.Parse(maskedTextBoxFilling.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
-
-
+                    
                     break;
 
                 case 6:
@@ -325,18 +204,6 @@ namespace DSP
                         float.Parse(maskedTextBoxPeriod.Text),
                         int.Parse(maskedTextBoxFrequency.Text),
                         float.Parse(maskedTextBoxFilling.Text));
-
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
 
 
                     break;
@@ -350,19 +217,6 @@ namespace DSP
                         int.Parse(maskedTextBoxFrequency.Text),
                         float.Parse(maskedTextBoxFilling.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
-
-
                     break;
 
                 case 8:
@@ -372,18 +226,6 @@ namespace DSP
                         float.Parse(maskedTextBoxDuration.Text),
                         int.Parse(maskedTextBoxFrequency.Text),
                         float.Parse(maskedTextBoxJumpTime.Text));
-
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            PointForeground = null,
-                            PointGeometry = null,
-                            LineSmoothness = 0,
-                            Fill = System.Windows.Media.Brushes.Transparent
-                        }
-                    };
 
 
                     break;
@@ -396,20 +238,7 @@ namespace DSP
                         int.Parse(maskedTextBoxFrequency.Text), 
                         int.Parse(maskedTextBoxSampleNumber.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-                            
-                            PointGeometrySize = 8,
-                            Fill = System.Windows.Media.Brushes.Transparent,
-                            StrokeThickness = 0,
-                            
-                        }
-                    };
-
-
+                    
                     break;
 
 
@@ -421,25 +250,16 @@ namespace DSP
                         int.Parse(maskedTextBoxFrequency.Text),
                         float.Parse(maskedTextBoxProbability.Text));
 
-                    collection = new SeriesCollection
-                    {
-                        new LineSeries
-                        {
-                            Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
-
-                            PointGeometrySize = 8,
-                            Fill = System.Windows.Media.Brushes.Transparent,
-                            StrokeThickness = 0,
-
-                        }
-                    };
-
-
                     break;
             }
 
             if (collection != null && signal != null)
             {
+                ChartExistence[0] = true;
+                ChartVisibility[0] = true;
+
+                UpdateChartCollection();
+
                 ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
             }
         }
@@ -635,14 +455,9 @@ namespace DSP
             quantizedSignal = new QuantizedSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
                 signal.PointsReal, int.Parse(maskedTextBoxQuantizationLevels.Text));
 
-            if (collection.Count > 1)
-                collection.RemoveAt(1);
+            ChartExistence[2] = ChartVisibility[2] = true;
 
-            collection.Add(new StepLineSeries
-            {
-                Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
-                PointGeometry = null
-            });
+            UpdateChartCollection();
 
             textBoxMeanSquareError.Text = quantizedSignal.MSE.ToString();
             textBoxSignalNoiseRatio.Text = quantizedSignal.SNR.ToString();
@@ -671,15 +486,9 @@ namespace DSP
             sampledSignal = new SampledSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
                 signal.PointsReal, int.Parse(maskedTextBoxSampleFrequency.Text), signal.Func);
 
-            if (collection.Count > 1)
-                collection.RemoveAt(1);
+            ChartExistence[1] = ChartVisibility[1] = true;
 
-            collection.Add(new LineSeries
-            {
-                Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
-                Stroke = System.Windows.Media.Brushes.Transparent,
-                Fill = System.Windows.Media.Brushes.Transparent,
-            }); 
+            UpdateChartCollection();
 
             textBoxMeanSquareError.Text = sampledSignal.MSE.ToString();
             textBoxSignalNoiseRatio.Text = sampledSignal.SNR.ToString();
@@ -697,7 +506,96 @@ namespace DSP
 
         private void changeChartsVisibility(bool[] visibility)
         {
+            ChartVisibility = visibility;
 
+            UpdateChartCollection();
+        }
+
+        private void UpdateChartCollection()
+        {
+            if (collection == null)
+                collection = new SeriesCollection();
+
+            collection.Clear();
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (ChartVisibility[i])
+                {
+                    switch (i)
+                    {
+                        case 0:
+
+                            if (signal != null)
+                            {
+                                if (signal.isContinuous)
+                                {
+                                    collection.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                                        PointForeground = null,
+                                        PointGeometry = null,
+                                        LineSmoothness = 0,
+                                        Fill = System.Windows.Media.Brushes.Transparent
+                                    });
+                                }
+                                else
+                                {
+                                    collection.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+
+                                        PointGeometrySize = 8,
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        StrokeThickness = 0,
+
+                                    });
+                                }
+                            }
+                            
+                            break;
+
+                        case 1:
+
+                            if (sampledSignal != null)
+                                collection.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
+                                    Stroke = System.Windows.Media.Brushes.Transparent,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                });
+
+                            break;
+
+                        case 2:
+
+                            if (quantizedSignal != null)
+                                collection.Add(new StepLineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
+                                    PointGeometry = null
+                                });
+
+                            break;
+
+                        case 3:
+
+                            if (reconstructedSignal != null)
+                                collection.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0.7,
+                                    Fill = System.Windows.Media.Brushes.Transparent
+                                });
+
+                            break;
+                    }
+                }
+            }
+
+            ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
         }
     }
 }

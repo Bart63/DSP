@@ -47,3 +47,4 @@ C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cach
 C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.exe
 C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.pdb
 C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.ChartOptions.resources
+D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.ChartOptions.resources

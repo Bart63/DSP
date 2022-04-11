@@ -10,15 +10,21 @@ namespace DSP.Signals
 {
     public class ReconstructedSignal : Signal
     {
+
         public List<ObservablePoint> reconstructedSignalPointsReal;
 
         public ReconstructedSignal(float a, float t1, float d, float t, bool isContinuous, int methodIndex, int quantizationFrequency, int reconstructionFrequency,
-            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, int n = 0)
+            List<ObservablePoint> pointsReal, List<ObservablePoint> originalPointsReal ,List<ObservablePoint> pointsIm = null, int n = 0)
             : base(a, t1, d, t, reconstructionFrequency, isContinuous, pointsReal, pointsIm, false)
         {
             reconstructedSignalPointsReal = new List<ObservablePoint>();
 
             Reconstruct(methodIndex, ref reconstructedSignalPointsReal, PointsReal, quantizationFrequency, reconstructionFrequency, n);
+
+            MSE = CalculateMSE(originalPointsReal, reconstructedSignalPointsReal);
+            SNR = CalculateSNR(originalPointsReal, reconstructedSignalPointsReal);
+            PSNR = CalculatePSNR(originalPointsReal);
+            MD = CalculateMD(originalPointsReal, reconstructedSignalPointsReal);
 
             PointsReal = reconstructedSignalPointsReal;
         }
@@ -66,9 +72,32 @@ namespace DSP.Signals
 
                         float value = 0;
 
-                        for (int j = 0; j < n; j++)
+                        ObservablePoint closestPoint = points.Aggregate((x1, x2) => Math.Abs(x1.X - t) < Math.Abs(x2.X - t) ? x1 : x2);
+                        int closestPointIndex = points.IndexOf(closestPoint);
+
+                        List<ObservablePoint> leftSide = points.GetRange(0, closestPointIndex);
+                        List<ObservablePoint> rightSide = points.GetRange(closestPointIndex, points.Count - closestPointIndex);
+
+                        List<ObservablePoint> closestPoints = new List<ObservablePoint>();
+
+                        if (leftSide.Count != 0)
                         {
-                            value += (float)(points[j].Y * sinc((t / (1 / (float)quantizationFrequency)) - j));
+                            int index = (leftSide.Count - n) < 0 ? 0 : (leftSide.Count - n);
+                            int count = (leftSide.Count - n) < 0 ? leftSide.Count : (leftSide.Count - n);
+                            closestPoints.AddRange(leftSide.GetRange(index, count));
+                        }
+
+                        if (rightSide.Count != 0)
+                        {
+                            int index = 0;
+                            int count = n > rightSide.Count ? rightSide.Count : n;
+                            closestPoints.AddRange(rightSide.GetRange(index, count));
+                        }
+                        
+
+                        for (int j = 0; j < closestPoints.Count; j++)
+                        {
+                            value += (float)(closestPoints[j].Y * sinc((t / (1 / (float)quantizationFrequency)) - j));
                         }
 
                         reconstructedSignal.Add(new ObservablePoint(t, value));

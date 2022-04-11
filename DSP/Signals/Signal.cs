@@ -27,8 +27,11 @@ namespace DSP.Signals
         public float EffectiveValue;
         public float endTime;
 
-        
-        
+        public float MSE;
+        public float SNR;
+        public float PSNR;
+        public float MD;
+
 
         public bool isContinuous;
 
@@ -275,6 +278,54 @@ namespace DSP.Signals
 
             return signal;
         
+        }
+
+        public float CalculateMSE(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)
+        {
+            float value = 0;
+
+            for (int i = 0; i < originalPoints.Count; i++)
+            {
+                value += (float)Math.Pow((originalPoints[i].Y - quantizedPoints[i].Y), 2);
+            }
+
+            return value / originalPoints.Count;
+        }
+
+        public float CalculateSNR(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)
+        {
+            float nom = 0;
+            float denom = 0;
+
+            for (int i = 0; i < originalPoints.Count; i++)
+            {
+                nom += (float)Math.Pow(originalPoints[i].Y, 2);
+                denom += (float)Math.Pow(originalPoints[i].Y - quantizedPoints[i].Y, 2);
+            }
+
+            return (float)(10 * Math.Log10(nom / denom));
+        }
+
+        public float CalculatePSNR(List<ObservablePoint> originalPoints)
+        {
+            float max = (float)originalPoints.Max(x => x.Y);
+
+            return (float)(10 * Math.Log10(max / MSE));
+        }
+
+        public float CalculateMD(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)
+        {
+            float max = (float)Math.Abs(originalPoints[0].Y - quantizedPoints[0].Y);
+
+            for (int i = 1; i < originalPoints.Count; i++)
+            {
+                float newMax = (float)Math.Abs(originalPoints[i].Y - quantizedPoints[i].Y);
+
+                if (newMax > max)
+                    max = newMax;
+            }
+
+            return max;
         }
     }
 }

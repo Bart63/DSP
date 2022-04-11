@@ -11,10 +11,7 @@ namespace DSP.Signals
     {
         private List<ObservablePoint> quantizedSignalPoints;
 
-        public float MSE;
-        public float SNR;
-        public float PSNR;
-        public float MD;
+        
 
         public int quantizationLevels;
         
@@ -42,10 +39,10 @@ namespace DSP.Signals
 
             }
 
-            CalculateMSE(pointsReal, allQuantizedPoints);
-            CalculateSNR(pointsReal, allQuantizedPoints);
-            CalculatePSNR(pointsReal);
-            CalculateMD(pointsReal, allQuantizedPoints);
+            MSE = CalculateMSE(pointsReal, allQuantizedPoints);
+            SNR = CalculateSNR(pointsReal, allQuantizedPoints);
+            PSNR = CalculatePSNR(pointsReal);
+            MD= CalculateMD(pointsReal, allQuantizedPoints);
 
             PointsReal = quantizedSignalPoints;
         }
@@ -71,57 +68,11 @@ namespace DSP.Signals
 
             }
 
-            quantizedSignal.RemoveAt(quantizedSignal.Count - 1);
+            //quantizedSignal.RemoveAt(quantizedSignal.Count - 1);
             
         }
 
-        private void CalculateMSE(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)
-        {
-            float value = 0;
-
-            for (int i = 0; i < originalPoints.Count; i++)
-            {
-                value += (float)Math.Pow((originalPoints[i].Y - quantizedPoints[i].Y), 2);
-            }
-
-            MSE = value / originalPoints.Count;
-        }
         
-        private void CalculateSNR(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)
-        {
-            float nom = 0;
-            float denom = 0;
-
-            for (int i = 0; i < originalPoints.Count; i++)
-            {
-                nom += (float)Math.Pow(originalPoints[i].Y, 2);
-                denom += (float)Math.Pow(originalPoints[i].Y - quantizedPoints[i].Y, 2);
-            }
-
-            SNR = (float)(10 * Math.Log10(nom / denom));
-        }
-
-        private void CalculatePSNR(List<ObservablePoint> originalPoints)
-        {
-            float max = (float)originalPoints.Max(x => x.Y);
-
-            PSNR = (float)(10 * Math.Log10(max / MSE));
-        }
-
-        private void CalculateMD(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)
-        {
-            float max = (float)Math.Abs(originalPoints[0].Y - quantizedPoints[0].Y);
-
-            for (int i = 1; i < originalPoints.Count; i++)
-            {
-                float newMax = (float)Math.Abs(originalPoints[i].Y - quantizedPoints[i].Y);
-
-                if (newMax > max)
-                    max = newMax;
-            }
-
-            MD = max;
-        }
         
     }
 }

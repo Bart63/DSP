@@ -15,8 +15,9 @@ namespace DSP
     public partial class ChartOptions : Form
     {
         private Action<bool[]> callback;
-        string[] charts;
-        bool[] visibility;
+        private string[] charts;
+        private bool[] visibility;
+        private bool[] existing;
         public ChartOptions(string[] charts, bool[] visibility, bool[] existing, Action<bool[]> callback)
         {
             InitializeComponent();
@@ -24,21 +25,9 @@ namespace DSP
             this.callback = callback;
             this.charts = charts;
             this.visibility = visibility;
+            this.existing = existing;
 
-            int i = 0;
-            foreach(string s in charts)
-            {
-                if (existing[i])
-                {
-                    CheckBox checkBox = new CheckBox();
-                    checkBox.Text = s;
-                    checkBox.Checked = visibility[i];
-                    checkBox.CheckedChanged += change;
-                    panel1.Container.Add(checkBox);
-                    
-                }
-                i++;
-            }
+            
         }
 
         private void change(object sender, EventArgs e)
@@ -53,7 +42,23 @@ namespace DSP
 
         private void ChartOptions_Load(object sender, EventArgs e)
         {
+            
+            int i = 0;
+            foreach (string s in charts)
+            {
+                if (existing[i])
+                {
+                    CheckBox checkBox = new CheckBox();
+                    checkBox.Text = s;
+                    checkBox.Checked = visibility[i];
+                    checkBox.Width = 300;
+                    checkBox.CheckedChanged += change;
 
+                    flowLayoutPanel1.Controls.Add(checkBox);
+
+                }
+                i++;
+            }
         }
 
         private void button_Click(object sender, EventArgs e)

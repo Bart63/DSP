@@ -39,18 +39,16 @@ namespace DSP
         private void buttonRecontruction_Click(object sender, EventArgs e)
         {
             ReconstructedSignal reconstructedSignal = null;
-            Card card = null;
-
             switch (comboBoxSignalToReconstruct.SelectedIndex)
             {
                 case 1:
 
                     reconstructedSignal = new ReconstructedSignal(quantizedSignal.A, quantizedSignal.t1, quantizedSignal.d,
                 quantizedSignal.T, quantizedSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
-                quantizedSignal.quantizationLevels, quantizedSignal.f, quantizedSignal.PointsReal, null,
+                quantizedSignal.quantizationLevels, quantizedSignal.f, quantizedSignal.PointsReal, null, basicSignal.PointsReal, 
                 comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
 
-                    card = new Card(basicSignal, sampledSignal, quantizedSignal, reconstructedSignal);
+                    
 
                     break;
 
@@ -58,15 +56,15 @@ namespace DSP
 
                     reconstructedSignal = new ReconstructedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d,
                 sampledSignal.T, sampledSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
-                sampledSignal.sampleFrequency, sampledSignal.f, sampledSignal.PointsReal, null,
+                sampledSignal.sampleFrequency, sampledSignal.f, sampledSignal.PointsReal, basicSignal.PointsReal, null,
                 comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
 
-                    card = new Card(basicSignal, sampledSignal, quantizedSignal, reconstructedSignal);
+                    
 
                     break;
             }
 
-
+            Card card = new Card(basicSignal, sampledSignal, quantizedSignal, reconstructedSignal);
             card.Show();
         }
     }

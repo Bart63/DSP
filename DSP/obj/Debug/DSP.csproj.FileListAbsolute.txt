@@ -22,3 +22,28 @@ D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.exe
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.pdb
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.csproj.AssemblyReference.cache
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.ReconstructionOptions.resources
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\DSP.exe.config
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\DSP.exe
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\DSP.pdb
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.dll
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\MathNet.Numerics.dll
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.pdb
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.xml
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\Szymon\Source\Repos\DSP\DSP\bin\Debug\MathNet.Numerics.xml
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.csproj.AssemblyReference.cache
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.Card.resources
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.Menu.resources
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.Operations.resources
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.ReconstructionOptions.resources
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.Properties.Resources.resources
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.csproj.GenerateResource.cache
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cache
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.exe
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.pdb
+C:\Users\Szymon\Source\Repos\DSP\DSP\obj\Debug\DSP.ChartOptions.resources

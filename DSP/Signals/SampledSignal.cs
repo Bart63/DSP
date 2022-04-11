@@ -16,7 +16,7 @@ namespace DSP.Signals
 
         private Func<float, float> func;
 
-        private int sampleFrequency;
+        public int sampleFrequency;
 
         public SampledSignal(float a, float t1, float d, float t, int f, bool isContinuous,
             List<ObservablePoint> pointsReal, int sampleFrequency, Func<float, float> func, List<ObservablePoint> pointsIm = null)
@@ -75,7 +75,7 @@ namespace DSP.Signals
 
                 }
 
-                sampledSignal.RemoveAt(sampledSignal.Count - 1);
+                //sampledSignal.RemoveAt(sampledSignal.Count - 1);
             }
             else
             {

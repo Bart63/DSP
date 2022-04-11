@@ -71,6 +71,12 @@
     <Compile Include="Forms\Card.Designer.cs">
       <DependentUpon>Card.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ChartOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ChartOptions.Designer.cs">
+      <DependentUpon>ChartOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     <Compile Include="Signals\UnitJumpSignal.cs" />
     <EmbeddedResource Include="Forms\Card.resx">
       <DependentUpon>Card.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ChartOptions.resx">
+      <DependentUpon>ChartOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>

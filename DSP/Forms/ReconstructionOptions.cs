@@ -14,16 +14,19 @@ namespace DSP
 {
     public partial class ReconstructionOptions : Form
     {
-        private SampledSignal signal;
+        private Signal basicSignal;
+        private SampledSignal sampledSignal;
         private QuantizedSignal quantizedSignal;
 
-        public ReconstructionOptions(SampledSignal signal, QuantizedSignal quantizedSignal)
+        public ReconstructionOptions(Signal basicSignal, SampledSignal signal,
+            QuantizedSignal quantizedSignal)
         {
             
             InitializeComponent();
 
-            this.signal = signal;
+            this.sampledSignal = signal;
             this.quantizedSignal = quantizedSignal;
+            this.basicSignal = basicSignal;
 
             comboBoxSignalToReconstruct.Items.Add("Sygnał spróbkowany");
 
@@ -47,18 +50,18 @@ namespace DSP
                 quantizedSignal.quantizationLevels, quantizedSignal.f, quantizedSignal.PointsReal, null,
                 comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
 
-                    card = new Card(quantizedSignal, reconstructedSignal);
+                    card = new Card(basicSignal, sampledSignal, quantizedSignal, reconstructedSignal);
 
                     break;
 
                 case 0:
 
-                    reconstructedSignal = new ReconstructedSignal(signal.A, signal.t1, signal.d,
-                signal.T, signal.isContinuous, comboBoxReconstructionType.SelectedIndex,
-                signal.f, signal.f, signal.PointsReal, null,
+                    reconstructedSignal = new ReconstructedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d,
+                sampledSignal.T, sampledSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
+                sampledSignal.sampleFrequency, sampledSignal.f, sampledSignal.PointsReal, null,
                 comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
 
-                    card = new Card(signal, reconstructedSignal);
+                    card = new Card(basicSignal, sampledSignal, quantizedSignal, reconstructedSignal);
 
                     break;
             }

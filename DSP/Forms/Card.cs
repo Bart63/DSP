@@ -24,10 +24,19 @@ namespace DSP
 
         public ReconstructedSignal reconstructedSignal;
 
+        public SampledSignal sampledSignal;
+
         private Action<Card> removeCardCallback;
 
+        private bool[] ChartVisibility = new bool[4] { true, true, true, true };
+
+        private bool[] ChartExistence = new bool[4] { false, false, false, false };
+
+        private string[] ChartNames = new string[4] { "Sygnał oryginalny", "Sygnał spróbkowany",
+        "Sygnał skwantowany", "Sygnał zrekonstruowany"};
+
         SeriesCollection collection = null;
-        private SampledSignal sampledSignal;
+        
 
         public Card(int n, Action<Card> removeCardCallback)
         {
@@ -42,9 +51,11 @@ namespace DSP
             DisableTextBoxes();
         }
 
-        public Card(Signal basicSignal, ReconstructedSignal reconstructedSignal)
+        public Card(Signal basicSignal, SampledSignal sampledSignal, QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
         {
-            this.signal = basicSignal;
+            signal = basicSignal;
+            this.reconstructedSignal = reconstructedSignal;
+            this.quantizedSignal = quantizedSignal;
             this.reconstructedSignal = reconstructedSignal;
 
             InitializeComponent();
@@ -68,62 +79,29 @@ namespace DSP
                     LineSmoothness = 1,
                     Fill = System.Windows.Media.Brushes.Transparent
                 },
+                new LineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
+                    Stroke = System.Windows.Media.Brushes.Transparent,
+                    Fill = System.Windows.Media.Brushes.Transparent,
+                }
             };
 
+            if (quantizedSignal != null)
+                collection.Add(new StepLineSeries
+                {
+                    Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
+                    PointGeometry = null
+                });
+            
+
             DisableTextBoxes();
 
 
             ShowCharts(ref chart1Real, ref chart2Real, collection, reconstructedSignal);
 
         }
-        public Card(QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
-        {
-            InitializeComponent();
-
-            this.quantizedSignal = quantizedSignal;
-            this.reconstructedSignal = reconstructedSignal;
-
-            if (reconstructedSignal.isContinuous)
-            {
-                collection = new SeriesCollection
-                {
-                    new StepLineSeries
-                    {
-                        Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
-                        StrokeThickness = 1,
-                        PointGeometry = null
-                    },
-                    new LineSeries
-                    {
-                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
-                        PointForeground = null,
-                        PointGeometry = null,
-                        LineSmoothness = 0.7,
-                        Fill = System.Windows.Media.Brushes.Transparent
-                    },
-                    
-                };
-            }
-            else
-            {
-                collection = new SeriesCollection
-                {
-                    new LineSeries
-                    {
-                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.reconstructedSignalPointsReal),
-
-                        PointGeometrySize = 8,
-                        Fill = System.Windows.Media.Brushes.Transparent,
-                        StrokeThickness = 0,
-
-                    }
-                };
-            }
-
-            DisableTextBoxes();
-
-            ShowCharts(ref chart1Real, ref chart2Real, collection, reconstructedSignal);
-        }
+        
 
 
         public Card(int n, Action<Card> removeCardCallback, Signal signal)
@@ -674,7 +652,8 @@ namespace DSP
 
         private void buttonRecontruction_Click(object sender, EventArgs e)
         {
-            ReconstructionOptions reconstructionOption = new ReconstructionOptions(sampledSignal, quantizedSignal);
+            ReconstructionOptions reconstructionOption =
+                new ReconstructionOptions(signal, sampledSignal, quantizedSignal);
 
             reconstructionOption.ShowDialog();
         }
@@ -706,6 +685,19 @@ namespace DSP
             textBoxSignalNoiseRatio.Text = sampledSignal.SNR.ToString();
             textBoxHighestSignalNoiseRatio.Text = sampledSignal.PSNR.ToString();
             textBoxMaxDifference.Text = sampledSignal.MD.ToString();
+        }
+
+        private void buttonChartOptions_Click(object sender, EventArgs e)
+        {
+            ChartOptions chartOptions = new ChartOptions(ChartNames, ChartVisibility,
+                ChartExistence, changeChartsVisibility);
+
+            chartOptions.ShowDialog();
+        }
+
+        private void changeChartsVisibility(bool[] visibility)
+        {
+
         }
     }
 }

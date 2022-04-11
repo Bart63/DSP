@@ -88,6 +88,7 @@ namespace DSP
             this.maskedTextBoxSampleFrequency = new System.Windows.Forms.MaskedTextBox();
             this.label22 = new System.Windows.Forms.Label();
             this.buttonSample = new System.Windows.Forms.Button();
+            this.buttonChartOptions = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
@@ -411,9 +412,9 @@ namespace DSP
             // buttonGenerateSignal
             // 
             this.buttonGenerateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 566);
+            this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 535);
             this.buttonGenerateSignal.Name = "buttonGenerateSignal";
-            this.buttonGenerateSignal.Size = new System.Drawing.Size(211, 52);
+            this.buttonGenerateSignal.Size = new System.Drawing.Size(211, 32);
             this.buttonGenerateSignal.TabIndex = 12;
             this.buttonGenerateSignal.Text = "Generuj";
             this.buttonGenerateSignal.UseVisualStyleBackColor = true;
@@ -435,7 +436,7 @@ namespace DSP
             "skok jednostkowy",
             "impuls jednostkowy",
             "szum impulsowy"});
-            this.comboBoxSignalType.Location = new System.Drawing.Point(1095, 501);
+            this.comboBoxSignalType.Location = new System.Drawing.Point(1095, 470);
             this.comboBoxSignalType.Name = "comboBoxSignalType";
             this.comboBoxSignalType.Size = new System.Drawing.Size(409, 28);
             this.comboBoxSignalType.TabIndex = 13;
@@ -445,9 +446,9 @@ namespace DSP
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSave.Location = new System.Drawing.Point(1312, 566);
+            this.buttonSave.Location = new System.Drawing.Point(1312, 535);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(192, 52);
+            this.buttonSave.Size = new System.Drawing.Size(192, 32);
             this.buttonSave.TabIndex = 14;
             this.buttonSave.Text = "Zapisz";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -462,7 +463,7 @@ namespace DSP
             "10",
             "15",
             "20"});
-            this.comboBoxNumberOfSections.Location = new System.Drawing.Point(1095, 531);
+            this.comboBoxNumberOfSections.Location = new System.Drawing.Point(1095, 500);
             this.comboBoxNumberOfSections.Name = "comboBoxNumberOfSections";
             this.comboBoxNumberOfSections.Size = new System.Drawing.Size(409, 28);
             this.comboBoxNumberOfSections.TabIndex = 15;
@@ -752,7 +753,7 @@ namespace DSP
             // 
             this.maskedTextBoxSampleFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxSampleFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxSampleFrequency.Location = new System.Drawing.Point(1385, 669);
+            this.maskedTextBoxSampleFrequency.Location = new System.Drawing.Point(1417, 669);
             this.maskedTextBoxSampleFrequency.Mask = "0000000";
             this.maskedTextBoxSampleFrequency.Name = "maskedTextBoxSampleFrequency";
             this.maskedTextBoxSampleFrequency.Size = new System.Drawing.Size(87, 29);
@@ -763,7 +764,7 @@ namespace DSP
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label22.Location = new System.Drawing.Point(1141, 669);
+            this.label22.Location = new System.Drawing.Point(1173, 669);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(236, 24);
             this.label22.TabIndex = 24;
@@ -773,7 +774,7 @@ namespace DSP
             // buttonSample
             // 
             this.buttonSample.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSample.Location = new System.Drawing.Point(1147, 707);
+            this.buttonSample.Location = new System.Drawing.Point(1368, 709);
             this.buttonSample.Name = "buttonSample";
             this.buttonSample.Size = new System.Drawing.Size(136, 52);
             this.buttonSample.TabIndex = 26;
@@ -781,12 +782,24 @@ namespace DSP
             this.buttonSample.UseVisualStyleBackColor = true;
             this.buttonSample.Click += new System.EventHandler(this.buttonSample_Click);
             // 
+            // buttonChartOptions
+            // 
+            this.buttonChartOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonChartOptions.Location = new System.Drawing.Point(580, 712);
+            this.buttonChartOptions.Name = "buttonChartOptions";
+            this.buttonChartOptions.Size = new System.Drawing.Size(104, 52);
+            this.buttonChartOptions.TabIndex = 27;
+            this.buttonChartOptions.Text = "Opcje";
+            this.buttonChartOptions.UseVisualStyleBackColor = true;
+            this.buttonChartOptions.Click += new System.EventHandler(this.buttonChartOptions_Click);
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.buttonChartOptions);
             this.Controls.Add(this.buttonSample);
             this.Controls.Add(this.maskedTextBoxSampleFrequency);
             this.Controls.Add(this.label22);
@@ -883,6 +896,7 @@ namespace DSP
         private System.Windows.Forms.MaskedTextBox maskedTextBoxSampleFrequency;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button buttonSample;
+        private System.Windows.Forms.Button buttonChartOptions;
     }
 }
 

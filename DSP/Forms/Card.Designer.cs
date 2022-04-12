@@ -31,7 +31,6 @@ namespace DSP
         {
             this.chart1Real = new LiveCharts.WinForms.CartesianChart();
             this.chart1Im = new LiveCharts.WinForms.CartesianChart();
-            this.chart2Real = new LiveCharts.WinForms.CartesianChart();
             this.maskedTextBoxFrequency = new System.Windows.Forms.MaskedTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.maskedTextBoxProbability = new System.Windows.Forms.MaskedTextBox();
@@ -59,28 +58,6 @@ namespace DSP
             this.buttonGenerateSignal = new System.Windows.Forms.Button();
             this.comboBoxSignalType = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.comboBoxNumberOfSections = new System.Windows.Forms.ComboBox();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.TextBoxAverageSignal = new System.Windows.Forms.TextBox();
-            this.TextBoxAverageAbsSignal = new System.Windows.Forms.TextBox();
-            this.TextBoxAveragePower = new System.Windows.Forms.TextBox();
-            this.TextBoxVariance = new System.Windows.Forms.TextBox();
-            this.TextBoxEffectiveValue = new System.Windows.Forms.TextBox();
-            this.chart2Im = new LiveCharts.WinForms.CartesianChart();
-            this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.textBoxMeanSquareError = new System.Windows.Forms.TextBox();
-            this.textBoxSignalNoiseRatio = new System.Windows.Forms.TextBox();
-            this.textBoxHighestSignalNoiseRatio = new System.Windows.Forms.TextBox();
-            this.textBoxMaxDifference = new System.Windows.Forms.TextBox();
             this.buttonRecontruction = new System.Windows.Forms.Button();
             this.buttonQuantization = new System.Windows.Forms.Button();
             this.label20 = new System.Windows.Forms.Label();
@@ -89,10 +66,10 @@ namespace DSP
             this.label22 = new System.Windows.Forms.Label();
             this.buttonSample = new System.Windows.Forms.Button();
             this.buttonChartOptions = new System.Windows.Forms.Button();
+            this.buttonShowCalculatedParams = new System.Windows.Forms.Button();
+            this.buttonShowHistograms = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
-            this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1Real
@@ -100,9 +77,9 @@ namespace DSP
             this.chart1Real.BackColor = System.Drawing.Color.DarkRed;
             this.chart1Real.BackColorTransparent = true;
             this.chart1Real.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.chart1Real.Location = new System.Drawing.Point(12, 15);
+            this.chart1Real.Location = new System.Drawing.Point(16, 12);
             this.chart1Real.Name = "chart1Real";
-            this.chart1Real.Size = new System.Drawing.Size(679, 335);
+            this.chart1Real.Size = new System.Drawing.Size(1020, 335);
             this.chart1Real.TabIndex = 0;
             this.chart1Real.Text = "cartesianChart1";
             // 
@@ -111,22 +88,11 @@ namespace DSP
             this.chart1Im.BackColor = System.Drawing.Color.DarkRed;
             this.chart1Im.BackColorTransparent = true;
             this.chart1Im.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.chart1Im.Location = new System.Drawing.Point(12, 356);
+            this.chart1Im.Location = new System.Drawing.Point(16, 353);
             this.chart1Im.Name = "chart1Im";
-            this.chart1Im.Size = new System.Drawing.Size(679, 342);
+            this.chart1Im.Size = new System.Drawing.Size(1020, 338);
             this.chart1Im.TabIndex = 5;
             this.chart1Im.Text = "cartesianChart1";
-            // 
-            // chart2Real
-            // 
-            this.chart2Real.BackColor = System.Drawing.Color.ForestGreen;
-            this.chart2Real.BackColorTransparent = true;
-            this.chart2Real.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.chart2Real.Location = new System.Drawing.Point(697, 15);
-            this.chart2Real.Name = "chart2Real";
-            this.chart2Real.Size = new System.Drawing.Size(375, 185);
-            this.chart2Real.TabIndex = 6;
-            this.chart2Real.Text = "cartesianChart1";
             // 
             // maskedTextBoxFrequency
             // 
@@ -454,257 +420,6 @@ namespace DSP
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // comboBoxNumberOfSections
-            // 
-            this.comboBoxNumberOfSections.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxNumberOfSections.FormattingEnabled = true;
-            this.comboBoxNumberOfSections.Items.AddRange(new object[] {
-            "5",
-            "10",
-            "15",
-            "20"});
-            this.comboBoxNumberOfSections.Location = new System.Drawing.Point(1095, 500);
-            this.comboBoxNumberOfSections.Name = "comboBoxNumberOfSections";
-            this.comboBoxNumberOfSections.Size = new System.Drawing.Size(409, 28);
-            this.comboBoxNumberOfSections.TabIndex = 15;
-            this.comboBoxNumberOfSections.Text = "Wybierz liczbę przedziałów histogramu";
-            // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.AutoSize = true;
-            this.tableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.24601F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
-            this.tableLayoutPanel3.Controls.Add(this.label6, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.label10, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.label12, 0, 3);
-            this.tableLayoutPanel3.Controls.Add(this.label13, 0, 4);
-            this.tableLayoutPanel3.Controls.Add(this.label11, 0, 2);
-            this.tableLayoutPanel3.Controls.Add(this.TextBoxAverageSignal, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.TextBoxAverageAbsSignal, 1, 1);
-            this.tableLayoutPanel3.Controls.Add(this.TextBoxAveragePower, 1, 2);
-            this.tableLayoutPanel3.Controls.Add(this.TextBoxVariance, 1, 3);
-            this.tableLayoutPanel3.Controls.Add(this.TextBoxEffectiveValue, 1, 4);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(697, 396);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 5;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.29578F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.70422F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(377, 173);
-            this.tableLayoutPanel3.TabIndex = 16;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(3, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(219, 24);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Wartość średnia sygnału";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label10.Location = new System.Drawing.Point(3, 35);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(262, 24);
-            this.label10.TabIndex = 7;
-            this.label10.Text = "Wartość średnia bezwzględna";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label12.Location = new System.Drawing.Point(3, 106);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(167, 24);
-            this.label12.TabIndex = 11;
-            this.label12.Text = "Wariancja sygnału";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label13.Location = new System.Drawing.Point(3, 139);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(167, 24);
-            this.label13.TabIndex = 13;
-            this.label13.Text = "Wartość skuteczna";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label11.Location = new System.Drawing.Point(3, 70);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(188, 24);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Moc średnia sygnału";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // TextBoxAverageSignal
-            // 
-            this.TextBoxAverageSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TextBoxAverageSignal.Location = new System.Drawing.Point(271, 3);
-            this.TextBoxAverageSignal.Name = "TextBoxAverageSignal";
-            this.TextBoxAverageSignal.Size = new System.Drawing.Size(100, 29);
-            this.TextBoxAverageSignal.TabIndex = 14;
-            // 
-            // TextBoxAverageAbsSignal
-            // 
-            this.TextBoxAverageAbsSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TextBoxAverageAbsSignal.Location = new System.Drawing.Point(271, 38);
-            this.TextBoxAverageAbsSignal.Name = "TextBoxAverageAbsSignal";
-            this.TextBoxAverageAbsSignal.Size = new System.Drawing.Size(100, 29);
-            this.TextBoxAverageAbsSignal.TabIndex = 15;
-            // 
-            // TextBoxAveragePower
-            // 
-            this.TextBoxAveragePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TextBoxAveragePower.Location = new System.Drawing.Point(271, 73);
-            this.TextBoxAveragePower.Name = "TextBoxAveragePower";
-            this.TextBoxAveragePower.Size = new System.Drawing.Size(100, 29);
-            this.TextBoxAveragePower.TabIndex = 16;
-            // 
-            // TextBoxVariance
-            // 
-            this.TextBoxVariance.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TextBoxVariance.Location = new System.Drawing.Point(271, 109);
-            this.TextBoxVariance.Name = "TextBoxVariance";
-            this.TextBoxVariance.Size = new System.Drawing.Size(100, 29);
-            this.TextBoxVariance.TabIndex = 17;
-            // 
-            // TextBoxEffectiveValue
-            // 
-            this.TextBoxEffectiveValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.TextBoxEffectiveValue.Location = new System.Drawing.Point(271, 142);
-            this.TextBoxEffectiveValue.Name = "TextBoxEffectiveValue";
-            this.TextBoxEffectiveValue.Size = new System.Drawing.Size(100, 29);
-            this.TextBoxEffectiveValue.TabIndex = 18;
-            // 
-            // chart2Im
-            // 
-            this.chart2Im.BackColor = System.Drawing.Color.ForestGreen;
-            this.chart2Im.BackColorTransparent = true;
-            this.chart2Im.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.chart2Im.Location = new System.Drawing.Point(697, 214);
-            this.chart2Im.Name = "chart2Im";
-            this.chart2Im.Size = new System.Drawing.Size(375, 185);
-            this.chart2Im.TabIndex = 17;
-            this.chart2Im.Text = "cartesianChart1";
-            // 
-            // tableLayoutPanel4
-            // 
-            this.tableLayoutPanel4.AutoSize = true;
-            this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.tableLayoutPanel4.ColumnCount = 2;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.24601F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
-            this.tableLayoutPanel4.Controls.Add(this.label17, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.label18, 0, 1);
-            this.tableLayoutPanel4.Controls.Add(this.label19, 0, 3);
-            this.tableLayoutPanel4.Controls.Add(this.label21, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.textBoxMeanSquareError, 1, 0);
-            this.tableLayoutPanel4.Controls.Add(this.textBoxSignalNoiseRatio, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.textBoxHighestSignalNoiseRatio, 1, 2);
-            this.tableLayoutPanel4.Controls.Add(this.textBoxMaxDifference, 1, 3);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(697, 621);
-            this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 4;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.29578F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.70422F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(426, 140);
-            this.tableLayoutPanel4.TabIndex = 18;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label17.Location = new System.Drawing.Point(3, 0);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(182, 24);
-            this.label17.TabIndex = 5;
-            this.label17.Text = "Błąd średnio. (MSE)";
-            this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label18.Location = new System.Drawing.Point(3, 35);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(296, 24);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "Stosunek sygnał-szum (SNR) [dB]";
-            this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label19.Location = new System.Drawing.Point(3, 106);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(226, 24);
-            this.label19.TabIndex = 11;
-            this.label19.Text = "Maksymalna różnica (MD)";
-            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label21.Location = new System.Drawing.Point(3, 70);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(311, 24);
-            this.label21.TabIndex = 9;
-            this.label21.Text = "Szczytowy stosunek s-s (PSNR) [db]";
-            this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // textBoxMeanSquareError
-            // 
-            this.textBoxMeanSquareError.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxMeanSquareError.Location = new System.Drawing.Point(320, 3);
-            this.textBoxMeanSquareError.Name = "textBoxMeanSquareError";
-            this.textBoxMeanSquareError.Size = new System.Drawing.Size(100, 29);
-            this.textBoxMeanSquareError.TabIndex = 14;
-            // 
-            // textBoxSignalNoiseRatio
-            // 
-            this.textBoxSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxSignalNoiseRatio.Location = new System.Drawing.Point(320, 38);
-            this.textBoxSignalNoiseRatio.Name = "textBoxSignalNoiseRatio";
-            this.textBoxSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
-            this.textBoxSignalNoiseRatio.TabIndex = 15;
-            // 
-            // textBoxHighestSignalNoiseRatio
-            // 
-            this.textBoxHighestSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxHighestSignalNoiseRatio.Location = new System.Drawing.Point(320, 73);
-            this.textBoxHighestSignalNoiseRatio.Name = "textBoxHighestSignalNoiseRatio";
-            this.textBoxHighestSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
-            this.textBoxHighestSignalNoiseRatio.TabIndex = 16;
-            // 
-            // textBoxMaxDifference
-            // 
-            this.textBoxMaxDifference.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxMaxDifference.Location = new System.Drawing.Point(320, 109);
-            this.textBoxMaxDifference.Name = "textBoxMaxDifference";
-            this.textBoxMaxDifference.Size = new System.Drawing.Size(100, 29);
-            this.textBoxMaxDifference.TabIndex = 17;
-            // 
             // buttonRecontruction
             // 
             this.buttonRecontruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -753,7 +468,7 @@ namespace DSP
             // 
             this.maskedTextBoxSampleFrequency.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxSampleFrequency.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxSampleFrequency.Location = new System.Drawing.Point(1417, 669);
+            this.maskedTextBoxSampleFrequency.Location = new System.Drawing.Point(1275, 724);
             this.maskedTextBoxSampleFrequency.Mask = "0000000";
             this.maskedTextBoxSampleFrequency.Name = "maskedTextBoxSampleFrequency";
             this.maskedTextBoxSampleFrequency.Size = new System.Drawing.Size(87, 29);
@@ -764,17 +479,17 @@ namespace DSP
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label22.Location = new System.Drawing.Point(1173, 669);
+            this.label22.Location = new System.Drawing.Point(995, 724);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(236, 24);
+            this.label22.Size = new System.Drawing.Size(274, 24);
             this.label22.TabIndex = 24;
-            this.label22.Text = "Częstotliwość próbkowania";
+            this.label22.Text = "Częstotliwość próbkowania [Hz]\r\n";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonSample
             // 
             this.buttonSample.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSample.Location = new System.Drawing.Point(1368, 709);
+            this.buttonSample.Location = new System.Drawing.Point(1368, 712);
             this.buttonSample.Name = "buttonSample";
             this.buttonSample.Size = new System.Drawing.Size(136, 52);
             this.buttonSample.TabIndex = 26;
@@ -793,12 +508,36 @@ namespace DSP
             this.buttonChartOptions.UseVisualStyleBackColor = true;
             this.buttonChartOptions.Click += new System.EventHandler(this.buttonChartOptions_Click);
             // 
+            // buttonShowCalculatedParams
+            // 
+            this.buttonShowCalculatedParams.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonShowCalculatedParams.Location = new System.Drawing.Point(697, 712);
+            this.buttonShowCalculatedParams.Name = "buttonShowCalculatedParams";
+            this.buttonShowCalculatedParams.Size = new System.Drawing.Size(224, 52);
+            this.buttonShowCalculatedParams.TabIndex = 28;
+            this.buttonShowCalculatedParams.Text = "Pokaż właściwości";
+            this.buttonShowCalculatedParams.UseVisualStyleBackColor = true;
+            this.buttonShowCalculatedParams.Click += new System.EventHandler(this.buttonShowCalculatedParams_Click);
+            // 
+            // buttonShowHistograms
+            // 
+            this.buttonShowHistograms.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonShowHistograms.Location = new System.Drawing.Point(1094, 596);
+            this.buttonShowHistograms.Name = "buttonShowHistograms";
+            this.buttonShowHistograms.Size = new System.Drawing.Size(212, 52);
+            this.buttonShowHistograms.TabIndex = 29;
+            this.buttonShowHistograms.Text = "Pokaż histogramy";
+            this.buttonShowHistograms.UseVisualStyleBackColor = true;
+            this.buttonShowHistograms.Click += new System.EventHandler(this.buttonShowHistograms_Click);
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.buttonShowHistograms);
+            this.Controls.Add(this.buttonShowCalculatedParams);
             this.Controls.Add(this.buttonChartOptions);
             this.Controls.Add(this.buttonSample);
             this.Controls.Add(this.maskedTextBoxSampleFrequency);
@@ -807,16 +546,11 @@ namespace DSP
             this.Controls.Add(this.label20);
             this.Controls.Add(this.buttonRecontruction);
             this.Controls.Add(this.buttonQuantization);
-            this.Controls.Add(this.tableLayoutPanel4);
-            this.Controls.Add(this.tableLayoutPanel3);
-            this.Controls.Add(this.chart2Im);
-            this.Controls.Add(this.comboBoxNumberOfSections);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.comboBoxSignalType);
             this.Controls.Add(this.buttonGenerateSignal);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.chart2Real);
             this.Controls.Add(this.chart1Im);
             this.Controls.Add(this.chart1Real);
             this.Name = "Card";
@@ -826,10 +560,6 @@ namespace DSP
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
-            this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -839,7 +569,6 @@ namespace DSP
 
         private LiveCharts.WinForms.CartesianChart chart1Real;
         private LiveCharts.WinForms.CartesianChart chart1Im;
-        private LiveCharts.WinForms.CartesianChart chart2Real;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxFrequency;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxProbability;
@@ -859,36 +588,14 @@ namespace DSP
         private System.Windows.Forms.Button buttonGenerateSignal;
         private System.Windows.Forms.ComboBox comboBoxSignalType;
         private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.ComboBox comboBoxNumberOfSections;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
-        private LiveCharts.WinForms.CartesianChart chart2Im;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxDuration;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxPeriod;
-        private System.Windows.Forms.TextBox TextBoxAverageSignal;
-        private System.Windows.Forms.TextBox TextBoxAverageAbsSignal;
-        private System.Windows.Forms.TextBox TextBoxAveragePower;
-        private System.Windows.Forms.TextBox TextBoxVariance;
-        private System.Windows.Forms.TextBox TextBoxEffectiveValue;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxSampleNumber;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxFirstSampleNumber;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxNuberOfSamples;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox textBoxMeanSquareError;
-        private System.Windows.Forms.TextBox textBoxSignalNoiseRatio;
-        private System.Windows.Forms.TextBox textBoxHighestSignalNoiseRatio;
-        private System.Windows.Forms.TextBox textBoxMaxDifference;
         private System.Windows.Forms.Button buttonRecontruction;
         private System.Windows.Forms.Button buttonQuantization;
         private System.Windows.Forms.Label label20;
@@ -897,6 +604,8 @@ namespace DSP
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Button buttonSample;
         private System.Windows.Forms.Button buttonChartOptions;
+        private System.Windows.Forms.Button buttonShowCalculatedParams;
+        private System.Windows.Forms.Button buttonShowHistograms;
     }
 }
 

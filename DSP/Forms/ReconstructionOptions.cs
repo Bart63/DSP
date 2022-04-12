@@ -45,7 +45,7 @@ namespace DSP
 
                     reconstructedSignal = new ReconstructedSignal(quantizedSignal.A, quantizedSignal.t1, quantizedSignal.d,
                 quantizedSignal.T, quantizedSignal.isContinuous, comboBoxReconstructionType.SelectedIndex,
-                quantizedSignal.quantizationLevels, quantizedSignal.f, quantizedSignal.PointsReal, null, basicSignal.PointsReal, 
+                sampledSignal.sampleFrequency, quantizedSignal.f, quantizedSignal.PointsReal, basicSignal.PointsReal, null, 
                 comboBoxReconstructionType.SelectedIndex == 0 ? 0 : int.Parse(maskedTextBoxNumberOfSamplesSinc.Text));
 
                     

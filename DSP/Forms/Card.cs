@@ -65,23 +65,27 @@ namespace DSP
             ChartExistence[2] = quantizedSignal != null;
             ChartExistence[3] = reconstructedSignal != null;
 
-            if (reconstructedSignal != null)
-            {
-                textBoxMeanSquareError.Text = reconstructedSignal.MSE.ToString();
-                textBoxSignalNoiseRatio.Text = reconstructedSignal.SNR.ToString();
-                textBoxHighestSignalNoiseRatio.Text = reconstructedSignal.PSNR.ToString();
-                textBoxMaxDifference.Text = reconstructedSignal.MD.ToString();
-            }
-
+            
             DisableTextBoxes();
 
             UpdateChartCollection();
 
-            ShowCharts(ref chart1Real, ref chart2Real, collection, reconstructedSignal);
+            ShowCharts(ref chart1Real, collection, reconstructedSignal);
 
+            ShowStats();
         }
         
+        private void ShowStats()
+        {
+            if (signal == null)
+                return;
 
+            maskedTextBoxAmplitude.Text = signal.A.ToString();
+            maskedTextBoxDuration.Text = signal.d.ToString();
+            maskedTextBoxFrequency.Text = signal.f.ToString();
+            maskedTextBoxPeriod.Text = signal.T.ToString();
+            maskedTextBoxStartTime.Text = signal.t1.ToString();
+        }
 
         public Card(int n, Action<Card> removeCardCallback, Signal signal)
         {
@@ -98,8 +102,9 @@ namespace DSP
             UpdateChartCollection();
 
             
-            ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
-            
+            ShowCharts(ref chart1Real, collection, signal);
+
+            ShowStats();
 
             DisableTextBoxes();
         }
@@ -253,19 +258,20 @@ namespace DSP
                     break;
             }
 
-            if (collection != null && signal != null)
+            if (signal != null)
             {
                 ChartExistence[0] = true;
                 ChartVisibility[0] = true;
 
                 UpdateChartCollection();
 
-                ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+                ShowCharts(ref chart1Real, collection, signal);
+
+                ShowStats();
             }
         }
 
         private void ShowCharts (ref LiveCharts.WinForms.CartesianChart chart, 
-            ref LiveCharts.WinForms.CartesianChart histogramChart, 
             SeriesCollection collection, Signal signal)
         {
             chart.AxisX.Clear();
@@ -275,7 +281,7 @@ namespace DSP
             {
                 Title = "t [s]",
                 Foreground = System.Windows.Media.Brushes.Black,
-
+                
             });
 
             chart.AxisY.Add(new Axis
@@ -286,57 +292,10 @@ namespace DSP
 
             chart.Series = collection;
 
-            TextBoxAverageSignal.Text = signal.AverageSignalValue.ToString();
-            TextBoxAverageAbsSignal.Text = signal.AverageSignalAbsValue.ToString();
-            TextBoxAveragePower.Text = signal.AverageSignalPower.ToString();
-            TextBoxVariance.Text = signal.Variance.ToString();
-            TextBoxEffectiveValue.Text = signal.EffectiveValue.ToString();
+            chart.LegendLocation = LegendLocation.Right;
 
-            maskedTextBoxAmplitude.Text = signal.A.ToString();
-            maskedTextBoxDuration.Text = signal.d.ToString();
-            maskedTextBoxFrequency.Text = signal.f.ToString();
-            maskedTextBoxPeriod.Text = signal.T.ToString();
-            maskedTextBoxStartTime.Text = signal.t1.ToString();
-
-            int numberOfSections = 5;
-            if (comboBoxNumberOfSections.SelectedItem != null)
-            {
-                numberOfSections = int.Parse(comboBoxNumberOfSections.SelectedItem.ToString());
-            }
-
-
-            var histogram = Histogram.CreateHistogram((signal.isContinuous) ? signal.GetRealPointsWithTime
-                (signal.t1, signal.endTime) : signal.PointsReal, numberOfSections);
-
-            SeriesCollection histogramCollectionReal = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Values = new ChartValues<int>(histogram.data)
-                    }
-                };
-
-            
-
-            histogramChart.AxisX.Clear();
-            histogramChart.AxisY.Clear();
-
-            
-
-            histogramChart.AxisX.Add(new Axis
-            {
-                Labels = histogram.labels,
-                Foreground = System.Windows.Media.Brushes.Black,
-                Separator = new Separator { Step = 1 },
-            });
-            histogramChart.AxisY.Add(new Axis
-            {
-                MinValue = 0,
-                MaxValue = histogram.data.ToList().Max() + 1,
-                Foreground = System.Windows.Media.Brushes.Black,
-            });
-            histogramChart.Series = histogramCollectionReal;
-
+            chart.Hoverable = false;
+            chart.DisableAnimations = true;
         }
 
         private void Card_FormClosing(object sender, FormClosingEventArgs e)
@@ -449,20 +408,17 @@ namespace DSP
 
         private void buttonQuantization_Click(object sender, EventArgs e)
         {
-            if (signal == null || maskedTextBoxQuantizationLevels.Text == "")
+            if (sampledSignal == null || maskedTextBoxQuantizationLevels.Text == "")
                 return;
 
-            quantizedSignal = new QuantizedSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
-                signal.PointsReal, int.Parse(maskedTextBoxQuantizationLevels.Text));
+            quantizedSignal = new QuantizedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d, sampledSignal.T,
+                sampledSignal.f, sampledSignal.isContinuous,
+                sampledSignal.PointsReal, int.Parse(maskedTextBoxQuantizationLevels.Text));
 
             ChartExistence[2] = ChartVisibility[2] = true;
 
             UpdateChartCollection();
 
-            textBoxMeanSquareError.Text = quantizedSignal.MSE.ToString();
-            textBoxSignalNoiseRatio.Text = quantizedSignal.SNR.ToString();
-            textBoxHighestSignalNoiseRatio.Text = quantizedSignal.PSNR.ToString();
-            textBoxMaxDifference.Text = quantizedSignal.MD.ToString();
         }
 
         private void buttonRecontruction_Click(object sender, EventArgs e)
@@ -478,10 +434,13 @@ namespace DSP
             if (maskedTextBoxSampleFrequency.Text == "")
                 return;
 
+
             if (signal == null)
             {
                 buttonGenerateSignal_Click(null, null);
             }
+
+            ChartExistence[2] = ChartVisibility[2] = false;
 
             sampledSignal = new SampledSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
                 signal.PointsReal, int.Parse(maskedTextBoxSampleFrequency.Text), signal.Func);
@@ -490,10 +449,6 @@ namespace DSP
 
             UpdateChartCollection();
 
-            textBoxMeanSquareError.Text = sampledSignal.MSE.ToString();
-            textBoxSignalNoiseRatio.Text = sampledSignal.SNR.ToString();
-            textBoxHighestSignalNoiseRatio.Text = sampledSignal.PSNR.ToString();
-            textBoxMaxDifference.Text = sampledSignal.MD.ToString();
         }
 
         private void buttonChartOptions_Click(object sender, EventArgs e)
@@ -536,8 +491,9 @@ namespace DSP
                                         PointForeground = null,
                                         PointGeometry = null,
                                         LineSmoothness = 0,
-                                        Fill = System.Windows.Media.Brushes.Transparent
-                                    });
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        Title = ChartNames[0]
+                                    }); 
                                 }
                                 else
                                 {
@@ -548,9 +504,11 @@ namespace DSP
                                         PointGeometrySize = 8,
                                         Fill = System.Windows.Media.Brushes.Transparent,
                                         StrokeThickness = 0,
-
+                                        Title = ChartNames[0]
                                     });
                                 }
+
+                                
                             }
                             
                             break;
@@ -563,39 +521,82 @@ namespace DSP
                                     Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
                                     Stroke = System.Windows.Media.Brushes.Transparent,
                                     Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = ChartNames[1]
                                 });
+                            
 
                             break;
 
                         case 2:
 
                             if (quantizedSignal != null)
+                            {
+                                
                                 collection.Add(new StepLineSeries
                                 {
                                     Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
-                                    PointGeometry = null
+                                    PointGeometry = null,
+                                    Title = ChartNames[2]
                                 });
+                                
+                            }
 
                             break;
 
                         case 3:
 
                             if (reconstructedSignal != null)
-                                collection.Add(new LineSeries
-                                {
-                                    Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
-                                    PointForeground = null,
-                                    PointGeometry = null,
-                                    LineSmoothness = 0.7,
-                                    Fill = System.Windows.Media.Brushes.Transparent
-                                });
+                            {
+                                if (reconstructedSignal.isContinuous)
+                                    collection.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
+                                        PointForeground = null,
+                                        PointGeometry = null,
+                                        LineSmoothness = 0.7,
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        Title = ChartNames[3],
+                                        
+                                    });
+                                else
+                                    collection.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
+                                        
+                                        PointGeometrySize = 8,
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        StrokeThickness = 0,
+                                        Title = ChartNames[3]
+                                    });
+                            }
 
                             break;
                     }
                 }
             }
 
-            ShowCharts(ref chart1Real, ref chart2Real, collection, signal);
+            ShowCharts(ref chart1Real, collection, signal);
+        }
+
+        private void buttonShowCalculatedParams_Click(object sender, EventArgs e)
+        {
+            CalculatedParameters calculatedParameters = new CalculatedParameters(new Signal[]
+            {
+                signal, sampledSignal, quantizedSignal, reconstructedSignal
+            }, ChartNames);
+
+            calculatedParameters.Show();
+        }
+
+        private void buttonShowHistograms_Click(object sender, EventArgs e)
+        {
+            
+            HistogramsWindow histogramsWindow = new HistogramsWindow(new Signal[]
+            {
+                signal, sampledSignal, quantizedSignal, reconstructedSignal
+            }, ChartNames);
+
+            histogramsWindow.Show();
         }
     }
 }

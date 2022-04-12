@@ -21,12 +21,19 @@ namespace DSP.Signals
 
             Reconstruct(methodIndex, ref reconstructedSignalPointsReal, PointsReal, quantizationFrequency, reconstructionFrequency, n);
 
+
             MSE = CalculateMSE(originalPointsReal, reconstructedSignalPointsReal);
             SNR = CalculateSNR(originalPointsReal, reconstructedSignalPointsReal);
             PSNR = CalculatePSNR(originalPointsReal);
             MD = CalculateMD(originalPointsReal, reconstructedSignalPointsReal);
 
             PointsReal = reconstructedSignalPointsReal;
+
+            CalculateAverageSignalAbsValue(isContinuous);
+            CalculateAverageSignalValue(isContinuous);
+            CalculateAverageSignalPower(isContinuous);
+            CalculateVariance(isContinuous);
+            CalculateEffectiveValue();
         }
 
         private void Reconstruct(int method, ref List<ObservablePoint> reconstructedSignal, List<ObservablePoint> points, int quantizationFrequency, int reconstructionFrequency, int n)
@@ -44,9 +51,11 @@ namespace DSP.Signals
                         int index = points.FindIndex(x => x.X > t);
 
                         if (index == -1)
-                            break;
-
-                        index--;
+                        {
+                            index = points.Count - 2;
+                        }
+                        else
+                            index--;
 
                         
                         Tuple<double, double> parameters = Fit.Line(new double[] { points[index].X, points[index + 1].X },
@@ -68,7 +77,7 @@ namespace DSP.Signals
 
                     for (int i = 0; i < (d * f); i++)
                     {
-                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 3);
+                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 4);
 
                         float value = 0;
 

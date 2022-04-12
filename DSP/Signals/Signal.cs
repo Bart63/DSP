@@ -210,7 +210,7 @@ namespace DSP.Signals
             }
             else
             {
-                int d = PointsReal.Count / 1000;
+                int d = PointsReal.Count / 2000;
 
                 return PointsReal.Where((x, i) => i % d == 0).ToList();
             }

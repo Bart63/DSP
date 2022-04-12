@@ -22,20 +22,22 @@ namespace DSP.Signals
             quantizedSignalPoints = new List<ObservablePoint>();
 
             this.quantizationLevels = quantizationLevels;
-            Quantize(pointsReal, ref quantizedSignalPoints);
+            Quantize(pointsReal, ref quantizedSignalPoints, quantizationLevels);
 
             List<ObservablePoint> allQuantizedPoints = new List<ObservablePoint>();
 
-            for (int i = 0; i < pointsReal.Count; i++)
+            for (int i = 0; i < (d * f); i++)
             {
-                int index = quantizedSignalPoints.FindIndex(x => x.X > pointsReal[i].X);
+                float actualT = (float)Math.Round((float)i / f + t1, 4);
+
+                int index = quantizedSignalPoints.FindIndex(x => x.X > actualT);
 
                 if (index == -1)
                     index = quantizedSignalPoints.Count - 1;
                 else
                     index--;
 
-                allQuantizedPoints.Add(new ObservablePoint(pointsReal[i].X, quantizedSignalPoints[index].Y));
+                allQuantizedPoints.Add(new ObservablePoint(actualT, quantizedSignalPoints[index].Y));
 
             }
 
@@ -45,31 +47,29 @@ namespace DSP.Signals
             MD= CalculateMD(pointsReal, allQuantizedPoints);
 
             PointsReal = quantizedSignalPoints;
+
+
+            CalculateAverageSignalAbsValue(isContinuous);
+            CalculateAverageSignalValue(isContinuous);
+            CalculateAverageSignalPower(isContinuous);
+            CalculateVariance(isContinuous);
+            CalculateEffectiveValue();
+
         }
 
-        private void Quantize(List<ObservablePoint> points, ref List<ObservablePoint> quantizedSignal)
+        private void Quantize(List<ObservablePoint> points, ref List<ObservablePoint> quantizedSignal, int levels)
         {
-            float difference = 1 / (float)quantizationLevels;
+            levels--;
+            float step = A * 2 / levels;
 
 
-            for (float i = 0; i < points.Count * ((float)1/f); i += difference)
+            for (int i = 0; i < points.Count; i++)
             {
-                
-                int index = points.FindIndex(x => x.X == i);
+                float value = (float)(step * Math.Floor(points[i].Y / step + 0.5));
 
-                if (index == -1)
-                {
-                    ObservablePoint closestPoint = points.Aggregate((x1, x2) => Math.Abs(x1.X - i) < Math.Abs(x2.X - i) ? x1 : x2);
-
-                    index = points.IndexOf(closestPoint);
-                }
-
-                quantizedSignal.Add(points[index]);
-
+                quantizedSignal.Add(new ObservablePoint(points[i].X, value));
             }
 
-            //quantizedSignal.RemoveAt(quantizedSignal.Count - 1);
-            
         }
 
         

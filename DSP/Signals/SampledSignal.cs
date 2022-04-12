@@ -39,12 +39,21 @@ namespace DSP.Signals
 
             }
 
+
             MSE = CalculateMSE(pointsReal, allSampledPoints);
             SNR = CalculateSNR(pointsReal, allSampledPoints);
             PSNR = CalculatePSNR(pointsReal);
             MD = CalculateMD(pointsReal, allSampledPoints);
 
             PointsReal = sampledSignalPoints;
+
+
+            CalculateAverageSignalAbsValue(isContinuous);
+            CalculateAverageSignalValue(isContinuous);
+            CalculateAverageSignalPower(isContinuous);
+            CalculateVariance(isContinuous);
+            CalculateEffectiveValue();
+
         }
 
         private void Sample(ref List<ObservablePoint> sampledSignal, List<ObservablePoint> points)

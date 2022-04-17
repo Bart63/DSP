@@ -31,7 +31,7 @@ namespace DSP.Signals
         public float SNR;
         public float PSNR;
         public float MD;
-
+        public float ENOB;
 
         public bool isContinuous;
 
@@ -326,6 +326,11 @@ namespace DSP.Signals
             }
 
             return max;
+        }
+
+        public float CalculateENOB()
+        {
+            return (SNR - 1.76f) / 6.02f;
         }
     }
 }

@@ -44,6 +44,7 @@ namespace DSP.Signals
             SNR = CalculateSNR(pointsReal, allSampledPoints);
             PSNR = CalculatePSNR(pointsReal);
             MD = CalculateMD(pointsReal, allSampledPoints);
+            ENOB = CalculateENOB();
 
             PointsReal = sampledSignalPoints;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -588,6 +589,23 @@ namespace DSP
             calculatedParameters.Show();
         }
 
+        private void SaveChart(LiveCharts.WinForms.CartesianChart chart)
+        {
+            Bitmap bmp = new Bitmap(chart.Width, chart.Height);
+            chart.DrawToBitmap(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height));
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "jpeg files (*.jpeg)|*.jpeg";
+            saveFileDialog.FilterIndex = 0;
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                bmp.Save(saveFileDialog.FileName, ImageFormat.Jpeg);
+            }
+        }
+
         private void buttonShowHistograms_Click(object sender, EventArgs e)
         {
             
@@ -597,6 +615,11 @@ namespace DSP
             }, ChartNames);
 
             histogramsWindow.Show();
+        }
+
+        private void buttonSaveChart_Click(object sender, EventArgs e)
+        {
+            SaveChart(chart1Real);
         }
     }
 }

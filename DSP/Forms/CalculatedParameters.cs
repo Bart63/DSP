@@ -64,6 +64,7 @@ namespace DSP
             textBoxSignalNoiseRatio.Text = s.SNR.ToString();
             textBoxHighestSignalNoiseRatio.Text = s.PSNR.ToString();
             textBoxMaxDifference.Text = s.MD.ToString();
+            textBoxENOB.Text = s.ENOB.ToString();
         }
     }
 }

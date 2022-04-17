@@ -68,6 +68,7 @@ namespace DSP
             this.buttonChartOptions = new System.Windows.Forms.Button();
             this.buttonShowCalculatedParams = new System.Windows.Forms.Button();
             this.buttonShowHistograms = new System.Windows.Forms.Button();
+            this.buttonSaveChart = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -378,7 +379,7 @@ namespace DSP
             // buttonGenerateSignal
             // 
             this.buttonGenerateSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 535);
+            this.buttonGenerateSignal.Location = new System.Drawing.Point(1095, 504);
             this.buttonGenerateSignal.Name = "buttonGenerateSignal";
             this.buttonGenerateSignal.Size = new System.Drawing.Size(211, 32);
             this.buttonGenerateSignal.TabIndex = 12;
@@ -412,7 +413,7 @@ namespace DSP
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSave.Location = new System.Drawing.Point(1312, 535);
+            this.buttonSave.Location = new System.Drawing.Point(1312, 504);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(192, 32);
             this.buttonSave.TabIndex = 14;
@@ -522,13 +523,24 @@ namespace DSP
             // buttonShowHistograms
             // 
             this.buttonShowHistograms.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonShowHistograms.Location = new System.Drawing.Point(1094, 596);
+            this.buttonShowHistograms.Location = new System.Drawing.Point(1312, 553);
             this.buttonShowHistograms.Name = "buttonShowHistograms";
-            this.buttonShowHistograms.Size = new System.Drawing.Size(212, 52);
+            this.buttonShowHistograms.Size = new System.Drawing.Size(192, 52);
             this.buttonShowHistograms.TabIndex = 29;
             this.buttonShowHistograms.Text = "Pokaż histogramy";
             this.buttonShowHistograms.UseVisualStyleBackColor = true;
             this.buttonShowHistograms.Click += new System.EventHandler(this.buttonShowHistograms_Click);
+            // 
+            // buttonSaveChart
+            // 
+            this.buttonSaveChart.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonSaveChart.Location = new System.Drawing.Point(1095, 553);
+            this.buttonSaveChart.Name = "buttonSaveChart";
+            this.buttonSaveChart.Size = new System.Drawing.Size(211, 52);
+            this.buttonSaveChart.TabIndex = 30;
+            this.buttonSaveChart.Text = "Zapisz wykres";
+            this.buttonSaveChart.UseVisualStyleBackColor = true;
+            this.buttonSaveChart.Click += new System.EventHandler(this.buttonSaveChart_Click);
             // 
             // Card
             // 
@@ -536,6 +548,7 @@ namespace DSP
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.buttonSaveChart);
             this.Controls.Add(this.buttonShowHistograms);
             this.Controls.Add(this.buttonShowCalculatedParams);
             this.Controls.Add(this.buttonChartOptions);
@@ -606,6 +619,7 @@ namespace DSP
         private System.Windows.Forms.Button buttonChartOptions;
         private System.Windows.Forms.Button buttonShowCalculatedParams;
         private System.Windows.Forms.Button buttonShowHistograms;
+        private System.Windows.Forms.Button buttonSaveChart;
     }
 }
 

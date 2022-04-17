@@ -50,6 +50,8 @@ namespace DSP
             this.textBoxHighestSignalNoiseRatio = new System.Windows.Forms.TextBox();
             this.textBoxMaxDifference = new System.Windows.Forms.TextBox();
             this.comboBoxSignalType = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxENOB = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.SuspendLayout();
@@ -181,12 +183,13 @@ namespace DSP
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.AutoSize = true;
             this.tableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel4.BackColor = System.Drawing.Color.Tan;
             this.tableLayoutPanel4.ColumnCount = 2;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.24601F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
+            this.tableLayoutPanel4.Controls.Add(this.textBoxENOB, 1, 4);
+            this.tableLayoutPanel4.Controls.Add(this.label1, 0, 4);
             this.tableLayoutPanel4.Controls.Add(this.label17, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.label18, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.label19, 0, 3);
@@ -197,12 +200,13 @@ namespace DSP
             this.tableLayoutPanel4.Controls.Add(this.textBoxMaxDifference, 1, 3);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(12, 291);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
-            this.tableLayoutPanel4.RowCount = 4;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 49.29578F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50.70422F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(426, 140);
+            this.tableLayoutPanel4.RowCount = 5;
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 47.36842F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.63158F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(426, 173);
             this.tableLayoutPanel4.TabIndex = 19;
             // 
             // label17
@@ -220,7 +224,7 @@ namespace DSP
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label18.Location = new System.Drawing.Point(3, 35);
+            this.label18.Location = new System.Drawing.Point(3, 33);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(296, 24);
             this.label18.TabIndex = 7;
@@ -231,7 +235,7 @@ namespace DSP
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label19.Location = new System.Drawing.Point(3, 106);
+            this.label19.Location = new System.Drawing.Point(3, 103);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(226, 24);
             this.label19.TabIndex = 11;
@@ -242,7 +246,7 @@ namespace DSP
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label21.Location = new System.Drawing.Point(3, 70);
+            this.label21.Location = new System.Drawing.Point(3, 69);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(311, 24);
             this.label21.TabIndex = 9;
@@ -260,7 +264,7 @@ namespace DSP
             // textBoxSignalNoiseRatio
             // 
             this.textBoxSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxSignalNoiseRatio.Location = new System.Drawing.Point(320, 38);
+            this.textBoxSignalNoiseRatio.Location = new System.Drawing.Point(320, 36);
             this.textBoxSignalNoiseRatio.Name = "textBoxSignalNoiseRatio";
             this.textBoxSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
             this.textBoxSignalNoiseRatio.TabIndex = 15;
@@ -268,7 +272,7 @@ namespace DSP
             // textBoxHighestSignalNoiseRatio
             // 
             this.textBoxHighestSignalNoiseRatio.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxHighestSignalNoiseRatio.Location = new System.Drawing.Point(320, 73);
+            this.textBoxHighestSignalNoiseRatio.Location = new System.Drawing.Point(320, 72);
             this.textBoxHighestSignalNoiseRatio.Name = "textBoxHighestSignalNoiseRatio";
             this.textBoxHighestSignalNoiseRatio.Size = new System.Drawing.Size(100, 29);
             this.textBoxHighestSignalNoiseRatio.TabIndex = 16;
@@ -276,7 +280,7 @@ namespace DSP
             // textBoxMaxDifference
             // 
             this.textBoxMaxDifference.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBoxMaxDifference.Location = new System.Drawing.Point(320, 109);
+            this.textBoxMaxDifference.Location = new System.Drawing.Point(320, 106);
             this.textBoxMaxDifference.Name = "textBoxMaxDifference";
             this.textBoxMaxDifference.Size = new System.Drawing.Size(100, 29);
             this.textBoxMaxDifference.TabIndex = 17;
@@ -292,11 +296,30 @@ namespace DSP
             this.comboBoxSignalType.Text = "Wybierz sygnał";
             this.comboBoxSignalType.SelectedIndexChanged += new System.EventHandler(this.comboBoxSignalType_SelectedIndexChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(3, 137);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 24);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "ENOB";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxENOB
+            // 
+            this.textBoxENOB.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.textBoxENOB.Location = new System.Drawing.Point(320, 140);
+            this.textBoxENOB.Name = "textBoxENOB";
+            this.textBoxENOB.Size = new System.Drawing.Size(100, 29);
+            this.textBoxENOB.TabIndex = 21;
+            // 
             // CalculatedParameters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(456, 450);
+            this.ClientSize = new System.Drawing.Size(456, 477);
             this.Controls.Add(this.comboBoxSignalType);
             this.Controls.Add(this.tableLayoutPanel4);
             this.Controls.Add(this.tableLayoutPanel3);
@@ -334,5 +357,7 @@ namespace DSP
         private System.Windows.Forms.TextBox textBoxHighestSignalNoiseRatio;
         private System.Windows.Forms.TextBox textBoxMaxDifference;
         private System.Windows.Forms.ComboBox comboBoxSignalType;
+        private System.Windows.Forms.TextBox textBoxENOB;
+        private System.Windows.Forms.Label label1;
     }
 }

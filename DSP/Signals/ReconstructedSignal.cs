@@ -26,6 +26,7 @@ namespace DSP.Signals
             SNR = CalculateSNR(originalPointsReal, reconstructedSignalPointsReal);
             PSNR = CalculatePSNR(originalPointsReal);
             MD = CalculateMD(originalPointsReal, reconstructedSignalPointsReal);
+            ENOB = CalculateENOB();
 
             PointsReal = reconstructedSignalPointsReal;
 
@@ -91,8 +92,8 @@ namespace DSP.Signals
 
                         if (leftSide.Count != 0)
                         {
-                            int index = (leftSide.Count - n) < 0 ? 0 : (leftSide.Count - n);
-                            int count = (leftSide.Count - n) < 0 ? leftSide.Count : (leftSide.Count - n);
+                            int index = (leftSide.Count - n - 1) < 0 ? 0 : (leftSide.Count - n);
+                            int count = (leftSide.Count - index - 1) < n ? leftSide.Count - index : (leftSide.Count - index);
                             closestPoints.AddRange(leftSide.GetRange(index, count));
                         }
 
@@ -116,6 +117,7 @@ namespace DSP.Signals
                     break;
             }
         }
+
 
         private double sinc(double t)
         {

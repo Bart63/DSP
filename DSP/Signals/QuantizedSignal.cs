@@ -24,27 +24,11 @@ namespace DSP.Signals
             this.quantizationLevels = quantizationLevels;
             Quantize(pointsReal, ref quantizedSignalPoints, quantizationLevels);
 
-            List<ObservablePoint> allQuantizedPoints = new List<ObservablePoint>();
 
-            for (int i = 0; i < (d * f); i++)
-            {
-                float actualT = (float)Math.Round((float)i / f + t1, 4);
-
-                int index = quantizedSignalPoints.FindIndex(x => x.X > actualT);
-
-                if (index == -1)
-                    index = quantizedSignalPoints.Count - 1;
-                else
-                    index--;
-
-                allQuantizedPoints.Add(new ObservablePoint(actualT, quantizedSignalPoints[index].Y));
-
-            }
-
-            MSE = CalculateMSE(pointsReal, allQuantizedPoints);
-            SNR = CalculateSNR(pointsReal, allQuantizedPoints);
+            MSE = CalculateMSE(pointsReal, quantizedSignalPoints);
+            SNR = CalculateSNR(pointsReal, quantizedSignalPoints);
             PSNR = CalculatePSNR(pointsReal);
-            MD= CalculateMD(pointsReal, allQuantizedPoints);
+            MD= CalculateMD(pointsReal, quantizedSignalPoints);
             ENOB = CalculateENOB();
 
             PointsReal = quantizedSignalPoints;

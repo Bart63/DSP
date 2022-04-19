@@ -47,7 +47,7 @@ namespace DSP.Signals
 
                     for (int i = 0; i < (d * f); i++)
                     {
-                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 4);
+                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 5);
 
                         int index = points.FindIndex(x => x.X > t);
 
@@ -78,7 +78,7 @@ namespace DSP.Signals
 
                     for (int i = 0; i < (d * f); i++)
                     {
-                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 4);
+                        float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 5);
 
                         float value = 0;
 

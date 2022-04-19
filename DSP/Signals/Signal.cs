@@ -96,7 +96,7 @@ namespace DSP.Signals
         {
             for (int i = 0; i < (d * f); i++)
             {
-                float t = (float)Math.Round((float)i / f + t1, 3);
+                float t = (float)Math.Round((float)i / f + t1, 5);
 
                 PointsReal.Add(new ObservablePoint(t, Func(t)));
             }
@@ -210,7 +210,10 @@ namespace DSP.Signals
             }
             else
             {
-                int d = PointsReal.Count / 2000;
+                int d = (int)((float)PointsReal.Count / 2000);
+
+                if (d == 0)
+                    return PointsReal;
 
                 return PointsReal.Where((x, i) => i % d == 0).ToList();
             }

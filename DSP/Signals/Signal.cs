@@ -210,7 +210,7 @@ namespace DSP.Signals
             }
             else
             {
-                int d = (int)((float)PointsReal.Count / 2000);
+                int d = (int)((float)PointsReal.Count / 1000);
 
                 if (d == 0)
                     return PointsReal;

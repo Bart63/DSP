@@ -38,6 +38,12 @@ namespace DSP
 
         SeriesCollection collection = null;
         
+        public enum ParamsTypes
+        {
+            A, t1, d, T, basicFrequency, samplingFrequency, p, kw, numberOfFirstSample, ns, l, ts, k
+        };
+
+        private Dictionary<ParamsTypes, MaskedTextBox> paramsTextBoxes;
 
         public Card(int n, Action<Card> removeCardCallback)
         {
@@ -50,6 +56,8 @@ namespace DSP
             maskedTextBoxFrequency.Text = "10000";
 
             DisableTextBoxes();
+            SetParamsTextBoxes();
+
         }
 
         public Card(Signal basicSignal, SampledSignal sampledSignal, QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
@@ -74,6 +82,8 @@ namespace DSP
             ShowCharts(ref chart1Real, collection, reconstructedSignal);
 
             ShowStats();
+            SetParamsTextBoxes();
+
         }
         
         private void ShowStats()
@@ -108,6 +118,27 @@ namespace DSP
             ShowStats();
 
             DisableTextBoxes();
+
+            SetParamsTextBoxes();
+        }
+
+        private void SetParamsTextBoxes()
+        {
+            paramsTextBoxes = new Dictionary<ParamsTypes, MaskedTextBox>();
+
+            paramsTextBoxes.Add(ParamsTypes.A, maskedTextBoxAmplitude);
+            paramsTextBoxes.Add(ParamsTypes.basicFrequency, maskedTextBoxFrequency);
+            paramsTextBoxes.Add(ParamsTypes.d, maskedTextBoxDuration);
+            paramsTextBoxes.Add(ParamsTypes.k, maskedTextBoxQuantizationLevels);
+            paramsTextBoxes.Add(ParamsTypes.kw, maskedTextBoxFilling);
+            paramsTextBoxes.Add(ParamsTypes.l, maskedTextBoxNuberOfSamples);
+            paramsTextBoxes.Add(ParamsTypes.ns, maskedTextBoxSampleNumber);
+            paramsTextBoxes.Add(ParamsTypes.numberOfFirstSample, maskedTextBoxFirstSampleNumber);
+            paramsTextBoxes.Add(ParamsTypes.p, maskedTextBoxProbability);
+            paramsTextBoxes.Add(ParamsTypes.samplingFrequency, maskedTextBoxSampleFrequency);
+            paramsTextBoxes.Add(ParamsTypes.T, maskedTextBoxPeriod);
+            paramsTextBoxes.Add(ParamsTypes.t1, maskedTextBoxStartTime);
+            paramsTextBoxes.Add(ParamsTypes.ts, maskedTextBoxJumpTime);
         }
 
         private void DisableTextBoxes()
@@ -128,121 +159,205 @@ namespace DSP
         }
 
 
-        
+        private bool ParseToNum(ref float value, string text)
+        {
+            return float.TryParse(text, out value);
+        }
 
+        private void ShowErrorBox(string text)
+        {
+            MessageBox.Show(this, "Błąd", text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private float[] GetParams(ParamsTypes[] paramsTypes, ref bool result)
+        {
+            float[] values = new float[paramsTypes.Length];
+
+            result = true;
+
+            int i = 0;
+            foreach (var item in paramsTypes)
+            {
+                if (!ParseToNum(ref values[i], paramsTextBoxes[item].Text))
+                {
+                    result = false;
+                    return null;
+                }
+
+                i++;
+            }
+
+            return values;
+        }
+        
         private void buttonGenerateSignal_Click(object sender, EventArgs e)
         {
-            
+            for (int i = 1; i < 4; i++)
+            {
+                ChartExistence[i] = ChartVisibility[i] = false;
+            }
+
+            bool result = false;
 
             switch (comboBoxSignalType.SelectedIndex)
             {
                 case 0:
 
-                    signal = new NoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        int.Parse(maskedTextBoxFrequency.Text));
+
+                    float[] values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.basicFrequency },
+                        ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+                    
+                    signal = new NoiseSignal(values[0], values[1], values[2], (int)values[3]);
 
                     
                     break;
 
                 case 1:
 
-                    signal = new GaussianNoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        int.Parse(maskedTextBoxFrequency.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.basicFrequency },
+                       ref result);
 
-                    
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new GaussianNoiseSignal(values[0], values[1], values[2], (int)values[3]);
+
+
 
                     break;
 
 
                 case 2:
 
-                    signal = new SinSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
+                       ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new SinSignal(values[0], values[1], values[2], values[3], (int)values[4]);
 
                     
                     break;
 
                 case 3:
 
-                    signal = new SinSignal2(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
+                       ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new SinSignal2(values[0], values[1], values[2], values[3], (int)values[4]);
 
                     break;
 
                 case 4:
 
-                    signal = new SinSignal3(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
+                       ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new SinSignal3(values[0], values[1], values[2], values[3], (int)values[4]);
 
 
                     break;
 
                 case 5:
 
-                    signal = new RectSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text),
-                        float.Parse(maskedTextBoxFilling.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency,
+                    ParamsTypes.kw}, ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new RectSignal(values[0], values[1], values[2], values[3], (int)values[4], values[5]);
 
                     
                     break;
 
                 case 6:
 
-                    signal = new RectSimSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text),
-                        float.Parse(maskedTextBoxFilling.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency,
+                    ParamsTypes.kw}, ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new RectSimSignal(values[0], values[1], values[2], values[3], (int)values[4], values[5]);
 
 
                     break;
 
                 case 7:
 
-                    signal = new TrianSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        float.Parse(maskedTextBoxPeriod.Text),
-                        int.Parse(maskedTextBoxFrequency.Text),
-                        float.Parse(maskedTextBoxFilling.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency,
+                    ParamsTypes.kw}, ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new TrianSignal(values[0], values[1], values[2], values[3], (int)values[4], values[5]);
 
                     break;
 
                 case 8:
 
-                    signal = new UnitJumpSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        int.Parse(maskedTextBoxFrequency.Text),
-                        float.Parse(maskedTextBoxJumpTime.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.basicFrequency,
+                    ParamsTypes.ts}, ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new UnitJumpSignal(values[0], values[1], values[2], (int)values[3], values[4]);
 
 
                     break;
 
                 case 9:
 
-                    signal = new UnitImpulseSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        int.Parse(maskedTextBoxFirstSampleNumber.Text),
-                        int.Parse(maskedTextBoxNuberOfSamples.Text),
-                        int.Parse(maskedTextBoxFrequency.Text), 
-                        int.Parse(maskedTextBoxSampleNumber.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.numberOfFirstSample, ParamsTypes.l, ParamsTypes.basicFrequency,
+                    ParamsTypes.ns}, ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new UnitImpulseSignal(values[0], (int)values[1], (int)values[2], (int)values[3], (int)values[4]);
 
                     
                     break;
@@ -250,11 +365,16 @@ namespace DSP
 
                 case 10:
 
-                    signal = new ImpulseNoiseSignal(float.Parse(maskedTextBoxAmplitude.Text),
-                        float.Parse(maskedTextBoxStartTime.Text),
-                        float.Parse(maskedTextBoxDuration.Text),
-                        int.Parse(maskedTextBoxFrequency.Text),
-                        float.Parse(maskedTextBoxProbability.Text));
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.basicFrequency,
+                    ParamsTypes.p}, ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new ImpulseNoiseSignal(values[0], values[1], values[2], (int)values[3], values[4]);
 
                     break;
             }
@@ -409,12 +529,24 @@ namespace DSP
 
         private void buttonQuantization_Click(object sender, EventArgs e)
         {
-            if (sampledSignal == null || maskedTextBoxQuantizationLevels.Text == "")
+            if (sampledSignal == null)
+            {
+                ShowErrorBox("Brak sygnału!");
                 return;
+            }
+
+            bool result = false;
+            float[] values = GetParams(new ParamsTypes[] { ParamsTypes.k }, ref result);
+
+            if (!result)
+            {
+                ShowErrorBox("Nieprawidłowa wartość!");
+                return;
+            }
 
             quantizedSignal = new QuantizedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d, sampledSignal.T,
                 sampledSignal.f, sampledSignal.isContinuous,
-                sampledSignal.PointsReal, int.Parse(maskedTextBoxQuantizationLevels.Text));
+                sampledSignal.PointsReal, (int)values[0]);
 
             ChartExistence[2] = ChartVisibility[2] = true;
 
@@ -432,19 +564,27 @@ namespace DSP
 
         private void buttonSample_Click(object sender, EventArgs e)
         {
-            if (maskedTextBoxSampleFrequency.Text == "")
+            bool result = false;
+            float[] values = GetParams(new ParamsTypes[] { ParamsTypes.samplingFrequency }, ref result);
+            
+            if (!result)
+            {
+                ShowErrorBox("Nieprawidłowe wartości!");
                 return;
-
+            }
 
             if (signal == null)
             {
                 buttonGenerateSignal_Click(null, null);
             }
 
+            if (signal == null)
+                return;
+
             ChartExistence[2] = ChartVisibility[2] = false;
 
             sampledSignal = new SampledSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
-                signal.PointsReal, int.Parse(maskedTextBoxSampleFrequency.Text), signal.Func);
+                signal.PointsReal, (int)values[0], signal.Func);
 
             ChartExistence[1] = ChartVisibility[1] = true;
 

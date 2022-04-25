@@ -59,7 +59,9 @@ namespace DSP.Signals
 
         private void Sample(ref List<ObservablePoint> sampledSignal, List<ObservablePoint> points)
         {
-            if (func.Target.GetType() == typeof(Signal))
+            if (func.Target.GetType() == typeof(Signal) 
+                || func.Target.GetType() == typeof(GaussianNoiseSignal) ||
+                func.Target.GetType() == typeof(NoiseSignal))
             {
                 float difference = 1 / (float)sampleFrequency;
 

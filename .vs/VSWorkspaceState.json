@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\DSP",
-    "\\DSP\\Signals"
+    "\\DSP\\Forms"
   ],
-  "SelectedNode": "\\DSP\\DSP.sln",
+  "SelectedNode": "\\DSP\\Forms\\ChartOptions.cs",
   "PreviewInSolutionExplorer": false
 }

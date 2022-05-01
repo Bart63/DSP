@@ -11,7 +11,7 @@ namespace DSP.Signals
         public float kw;
 
         private int k;
-        public RectSimSignal(float a, float t1, float d, float t, int f, float kw) : base(a, t1, d, t, f, true)
+        public RectSimSignal(float a, float t1, float d, float t, int f, float kw) : base(a, t1, d, t, f, true, SignalType.original)
         {
             this.kw = kw;
             k = 0;

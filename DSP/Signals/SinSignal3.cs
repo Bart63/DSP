@@ -8,7 +8,7 @@ namespace DSP.Signals
 {
     public class SinSignal3 : Signal
     {
-        public SinSignal3(float a, float t1, float d, float t, int f) : base(a, t1, d, t, f, true)
+        public SinSignal3(float a, float t1, float d, float t, int f) : base(a, t1, d, t, f, true, SignalType.original)
         {
             GeneratePoints(isContinuous);
         }

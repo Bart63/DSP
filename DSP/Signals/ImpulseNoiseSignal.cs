@@ -13,7 +13,7 @@ namespace DSP.Signals
 
         private Random random;
 
-        public ImpulseNoiseSignal(float a, float t1, float d, int f, float p) : base(a, t1, d, 0, f, false)
+        public ImpulseNoiseSignal(float a, float t1, float d, int f, float p) : base(a, t1, d, 0, f, false, SignalType.original)
         {
             this.p = p;
             random = new Random();

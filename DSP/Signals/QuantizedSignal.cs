@@ -12,12 +12,9 @@ namespace DSP.Signals
         private List<ObservablePoint> quantizedSignalPoints;
 
         
-
-        public int quantizationLevels;
-        
         public QuantizedSignal(float a, float t1, float d, float t, int f, bool isContinuous,
             List<ObservablePoint> pointsReal, int quantizationLevels, List<ObservablePoint> pointsIm = null)
-            : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, true)
+            : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, SignalType.quantized)
         {
             quantizedSignalPoints = new List<ObservablePoint>();
 
@@ -42,7 +39,7 @@ namespace DSP.Signals
 
         }
 
-        private void Quantize(List<ObservablePoint> points, ref List<ObservablePoint> quantizedSignal, int levels)
+        protected override void Quantize(List<ObservablePoint> points, ref List<ObservablePoint> quantizedSignal, int levels)
         {
             levels--;
             float step = A * 2 / levels;
@@ -56,8 +53,6 @@ namespace DSP.Signals
             }
 
         }
-
-        
         
     }
 }

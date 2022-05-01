@@ -35,10 +35,24 @@ namespace DSP.Signals
 
         public bool isContinuous;
 
-        public bool isQuantized;
+        public SignalType signalType;
 
+        protected List<ObservablePoint> sampledSignalPoints;
 
-        protected Signal(float a, float t1, float d, float t, int f, bool isContinuous)
+        protected Func<float, float> func;
+
+        public int sampleFrequency;
+
+        protected int quantizationLevels;
+
+        protected List<ObservablePoint> reconstructedSignalPointsReal;
+
+        public enum SignalType
+        {
+            original, sampled, quantized, reconstructed
+        };
+
+        protected Signal(float a, float t1, float d, float t, int f, bool isContinuous, SignalType signalType)
         {
             PointsReal = new List<ObservablePoint>();
             PointsIm = new List<ObservablePoint>();
@@ -49,17 +63,18 @@ namespace DSP.Signals
             T = t;
             this.f = f;
             this.isContinuous = isContinuous;
+            this.signalType = signalType;
 
             endTime = (((int)(d / T)) * T) + t1;
 
             if (endTime == t1)
                 endTime = t1 + d;
 
-            isQuantized = false;
+            
         }
 
         public Signal (float a, float t1, float d, float t, int f, bool isContinuous,
-            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, bool isQuantized = false)
+            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, SignalType signalType = SignalType.original)
         {
             A = a;
             this.t1 = t1;
@@ -81,7 +96,7 @@ namespace DSP.Signals
             if (endTime == t1)
                 endTime = t1 + d;
 
-            this.isQuantized = isQuantized;
+            this.signalType = signalType;
 
             CalculateAverageSignalAbsValue(isContinuous);
             CalculateAverageSignalValue(isContinuous);
@@ -334,6 +349,29 @@ namespace DSP.Signals
         public float CalculateENOB()
         {
             return (SNR - 1.76f) / 6.02f;
+        }
+
+        protected virtual void Sample(ref List<ObservablePoint> sampledSignal, List<ObservablePoint> points)
+        {
+
+        }
+
+        protected virtual void Reconstruct(int method, ref List<ObservablePoint> reconstructedSignal, List<ObservablePoint> points, int quantizationFrequency, int reconstructionFrequency, int n)
+        {
+
+        }
+
+        protected double sinc(double t)
+        {
+            if (t == 0)
+                return 1;
+            else
+                return Math.Sin(Math.PI * t) / (Math.PI * t);
+        }
+
+        protected virtual void Quantize(List<ObservablePoint> points, ref List<ObservablePoint> quantizedSignal, int levels)
+        {
+
         }
     }
 }

@@ -14,56 +14,47 @@ namespace DSP
 {
     public partial class ChartOptions : Form
     {
-        private Action<bool[]> callback;
-        private string[] charts;
-        private bool[] visibility;
-        private bool[] existing;
-        public ChartOptions(string[] charts, bool[] visibility, bool[] existing, Action<bool[]> callback)
+        private Action callback;
+        private List<Card.SignalToShow> signals;
+        public ChartOptions(ref List<Card.SignalToShow> signals, Action callback)
         {
             InitializeComponent();
 
             this.callback = callback;
-            this.charts = charts;
-            this.visibility = visibility;
-            this.existing = existing;
-
-            
+            this.signals = signals;
         }
 
         private void change(object sender, EventArgs e)
         {
             CheckBox checkBox = sender as CheckBox;
-            int index = charts.ToList().FindIndex(x => x == checkBox.Text);
+            int index = signals.ToList().FindIndex(x => x.signalName == checkBox.Text);
 
-            visibility[index] = !visibility[index];
+            signals[index].visibility = !signals[index].visibility;
 
-            
         }
 
         private void ChartOptions_Load(object sender, EventArgs e)
         {
             
             int i = 0;
-            foreach (string s in charts)
+            foreach (string s in signals.Select(x => x.signalName))
             {
-                if (existing[i])
-                {
-                    CheckBox checkBox = new CheckBox();
-                    checkBox.Text = s;
-                    checkBox.Checked = visibility[i];
-                    checkBox.Width = 300;
-                    checkBox.CheckedChanged += change;
+                
+                CheckBox checkBox = new CheckBox();
+                checkBox.Text = s;
+                checkBox.Checked = signals[i].visibility;
+                checkBox.Width = 300;
+                checkBox.CheckedChanged += change;
 
-                    flowLayoutPanel1.Controls.Add(checkBox);
+                flowLayoutPanel1.Controls.Add(checkBox);
 
-                }
                 i++;
             }
         }
 
         private void button_Click(object sender, EventArgs e)
         {
-            callback(visibility);
+            callback();
             Close();
         }
     }

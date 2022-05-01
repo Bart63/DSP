@@ -23,7 +23,7 @@ namespace DSP
             this.signals = signals;
             this.names = names;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < signals.Length; i++)
             {
                 if (signals[i] != null)
                     comboBoxSignalType.Items.Add(names[i]);
@@ -42,7 +42,7 @@ namespace DSP
 
             Signal s = null;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < signals.Length; i++)
             {
                 if (names[i] == comboBoxSignalType.SelectedItem.ToString())
                 {

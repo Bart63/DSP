@@ -78,7 +78,8 @@ namespace DSP
                 case 0:
 
                     Signal s;
-                    s = selectedCards[0].signal + selectedCards[1].signal;
+                    s = selectedCards[0].GetSignal(Signal.SignalType.original) +
+                        selectedCards[1].GetSignal(Signal.SignalType.original);
 
                     DSP.Menu.Instance.ShowCard(s);
 
@@ -89,7 +90,8 @@ namespace DSP
                 case 1:
 
                     
-                    s = selectedCards[0].signal - selectedCards[1].signal;
+                    s = selectedCards[0].GetSignal(Signal.SignalType.original) -
+                        selectedCards[1].GetSignal(Signal.SignalType.original);
 
                     DSP.Menu.Instance.ShowCard(s);
 
@@ -99,7 +101,8 @@ namespace DSP
 
                 case 2:
 
-                    s = selectedCards[0].signal * selectedCards[1].signal;
+                    s = selectedCards[0].GetSignal(Signal.SignalType.original) *
+                        selectedCards[1].GetSignal(Signal.SignalType.original);
 
                     DSP.Menu.Instance.ShowCard(s);
 
@@ -109,7 +112,8 @@ namespace DSP
 
                 case 3:
 
-                    s = selectedCards[0].signal / selectedCards[1].signal;
+                    s = selectedCards[0].GetSignal(Signal.SignalType.original) /
+                        selectedCards[1].GetSignal(Signal.SignalType.original);
 
                     DSP.Menu.Instance.ShowCard(s);
 

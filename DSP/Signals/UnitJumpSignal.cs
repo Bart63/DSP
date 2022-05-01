@@ -10,7 +10,7 @@ namespace DSP.Signals
     {
 
         public float ts;
-        public UnitJumpSignal(float a, float t1, float d, int f, float ts) : base(a, t1, d, 0, f, true)
+        public UnitJumpSignal(float a, float t1, float d, int f, float ts) : base(a, t1, d, 0, f, true, SignalType.original)
         {
             this.ts = ts;
 

@@ -7,15 +7,10 @@ namespace DSP.Signals
 {
     public class SampledSignal : Signal
     {
-        private List<ObservablePoint> sampledSignalPoints;
-
-        private Func<float, float> func;
-
-        public int sampleFrequency;
-
+       
         public SampledSignal(float a, float t1, float d, float t, int f, bool isContinuous,
             List<ObservablePoint> pointsReal, int sampleFrequency, Func<float, float> func, List<ObservablePoint> pointsIm = null)
-            : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, true)
+            : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, SignalType.sampled)
         {
             sampledSignalPoints = new List<ObservablePoint>();
 
@@ -57,7 +52,7 @@ namespace DSP.Signals
 
         }
 
-        private void Sample(ref List<ObservablePoint> sampledSignal, List<ObservablePoint> points)
+        protected override void Sample(ref List<ObservablePoint> sampledSignal, List<ObservablePoint> points)
         {
             if (func.Target.GetType() == typeof(Signal) 
                 || func.Target.GetType() == typeof(GaussianNoiseSignal) ||

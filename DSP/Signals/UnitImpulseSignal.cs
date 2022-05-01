@@ -14,7 +14,7 @@ namespace DSP.Signals
         public int l;
 
 
-        public UnitImpulseSignal(float a, int n1, int l, int f, int ns) : base(a, 0, 0, 0, f, false)
+        public UnitImpulseSignal(float a, int n1, int l, int f, int ns) : base(a, 0, 0, 0, f, false, SignalType.original)
         {
             this.ns = ns;
             this.n1 = n1;

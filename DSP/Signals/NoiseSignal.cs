@@ -11,7 +11,7 @@ namespace DSP.Signals
     {
         Random r;
 
-        public NoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true)
+        public NoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true, SignalType.original)
         {
             r = new Random();
 

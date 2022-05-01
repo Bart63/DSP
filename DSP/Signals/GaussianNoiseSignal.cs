@@ -13,7 +13,7 @@ namespace DSP.Signals
         MathNet.Numerics.Distributions.Normal normal;
 
         
-        public GaussianNoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true)
+        public GaussianNoiseSignal(float a, float t1, float d, int f) : base(a, t1, d, 0, f, true, SignalType.original)
         {
             
             normal = new MathNet.Numerics.Distributions.Normal(0, a);

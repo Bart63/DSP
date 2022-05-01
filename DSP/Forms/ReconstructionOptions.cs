@@ -15,11 +15,13 @@ namespace DSP
     public partial class ReconstructionOptions : Form
     {
         private Signal basicSignal;
-        private SampledSignal sampledSignal;
-        private QuantizedSignal quantizedSignal;
+        private Signal sampledSignal;
+        private Signal quantizedSignal;
 
-        public ReconstructionOptions(Signal basicSignal, SampledSignal signal,
-            QuantizedSignal quantizedSignal)
+        private Action<Signal> callback;
+
+        public ReconstructionOptions(Signal basicSignal, Signal signal,
+            Signal quantizedSignal, Action<Signal> callback)
         {
             
             InitializeComponent();
@@ -27,6 +29,8 @@ namespace DSP
             this.sampledSignal = signal;
             this.quantizedSignal = quantizedSignal;
             this.basicSignal = basicSignal;
+
+            this.callback = callback;
 
             comboBoxSignalToReconstruct.Items.Add("Sygnał spróbkowany");
 
@@ -64,8 +68,11 @@ namespace DSP
                     break;
             }
 
-            Card card = new Card(basicSignal, sampledSignal, quantizedSignal, reconstructedSignal);
-            card.Show();
+            if (reconstructedSignal != null)
+            {
+                callback(reconstructedSignal);
+                Close();
+            }
         }
     }
 }

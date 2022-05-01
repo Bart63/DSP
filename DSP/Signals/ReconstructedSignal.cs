@@ -10,12 +10,9 @@ namespace DSP.Signals
 {
     public class ReconstructedSignal : Signal
     {
-
-        public List<ObservablePoint> reconstructedSignalPointsReal;
-
         public ReconstructedSignal(float a, float t1, float d, float t, bool isContinuous, int methodIndex, int quantizationFrequency, int reconstructionFrequency,
             List<ObservablePoint> pointsReal, List<ObservablePoint> originalPointsReal ,List<ObservablePoint> pointsIm = null, int n = 0)
-            : base(a, t1, d, t, reconstructionFrequency, isContinuous, pointsReal, pointsIm, false)
+            : base(a, t1, d, t, reconstructionFrequency, isContinuous, pointsReal, pointsIm, SignalType.reconstructed)
         {
             reconstructedSignalPointsReal = new List<ObservablePoint>();
 
@@ -37,7 +34,7 @@ namespace DSP.Signals
             CalculateEffectiveValue();
         }
 
-        private void Reconstruct(int method, ref List<ObservablePoint> reconstructedSignal, List<ObservablePoint> points, int quantizationFrequency, int reconstructionFrequency, int n)
+        protected override void Reconstruct(int method, ref List<ObservablePoint> reconstructedSignal, List<ObservablePoint> points, int quantizationFrequency, int reconstructionFrequency, int n)
         {
             
 
@@ -119,13 +116,7 @@ namespace DSP.Signals
         }
 
 
-        private double sinc(double t)
-        {
-            if (t == 0)
-                return 1;
-            else
-                return Math.Sin(Math.PI * t) / (Math.PI * t);
-        }
+       
         
     }
 }

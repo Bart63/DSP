@@ -19,25 +19,31 @@ namespace DSP
 {
     public partial class Card : Form
     {
-        public Signal signal;
-
-        public QuantizedSignal quantizedSignal;
-
-        public ReconstructedSignal reconstructedSignal;
-
-        public SampledSignal sampledSignal;
-
         private Action<Card> removeCardCallback;
 
-        private bool[] ChartVisibility = new bool[4] { true, true, true, true };
-
-        private bool[] ChartExistence = new bool[4] { false, false, false, false };
-
-        private string[] ChartNames = new string[4] { "Sygnał oryginalny", "Sygnał spróbkowany",
-        "Sygnał skwantowany", "Sygnał zrekonstruowany"};
-
         SeriesCollection collection = null;
-        
+
+        private string[] chartsNames = new string[5] { "Sygnał oryginalny", "Sygnał spróbkowany",
+        "Sygnał skwantyzowany", "Sygnał zrekonstruowany", "Sygnał przetworzony"};
+
+        public class SignalToShow
+        {
+            public SignalToShow(Signal signal, bool visibility, string signalName)
+            {
+                this.signal = signal;
+                this.visibility = visibility;
+                this.signalName = signalName;
+            }
+
+            public Signal signal { get; set; }
+            public bool visibility { get; set; }
+            public string signalName { get; set; }
+
+
+        }
+
+        private List<SignalToShow> signals;
+
         public enum ParamsTypes
         {
             A, t1, d, T, basicFrequency, samplingFrequency, p, kw, numberOfFirstSample, ns, l, ts, k
@@ -48,6 +54,8 @@ namespace DSP
         public Card(int n, Action<Card> removeCardCallback)
         {
             InitializeComponent();
+
+            signals = new List<SignalToShow>();
 
             this.Text = "Karta " + n;
 
@@ -60,26 +68,16 @@ namespace DSP
 
         }
 
-        public Card(Signal basicSignal, SampledSignal sampledSignal, QuantizedSignal quantizedSignal, ReconstructedSignal reconstructedSignal)
+        public Card(List<SignalToShow> signals)
         {
-            signal = basicSignal;
-            this.reconstructedSignal = reconstructedSignal;
-            this.quantizedSignal = quantizedSignal;
-            this.sampledSignal = sampledSignal;
-
             InitializeComponent();
-
-            ChartExistence[0] = signal != null;
-            ChartExistence[1] = sampledSignal != null;
-            ChartExistence[2] = quantizedSignal != null;
-            ChartExistence[3] = reconstructedSignal != null;
-
             
+            this.signals = signals;
+
             DisableTextBoxes();
 
             UpdateChartCollection();
 
-            ShowCharts(ref chart1Real, collection, reconstructedSignal);
 
             ShowStats();
             SetParamsTextBoxes();
@@ -88,38 +86,42 @@ namespace DSP
         
         private void ShowStats()
         {
-            if (signal == null)
+            Signal s = signals.Find(x => x.signalName == "Sygnał oryginalny").signal;
+            if (s == null)
                 return;
 
-            maskedTextBoxAmplitude.Text = signal.A.ToString();
-            maskedTextBoxDuration.Text = signal.d.ToString();
-            maskedTextBoxFrequency.Text = signal.f.ToString();
-            maskedTextBoxPeriod.Text = signal.T.ToString();
-            maskedTextBoxStartTime.Text = signal.t1.ToString();
+            maskedTextBoxAmplitude.Text = s.A.ToString();
+            maskedTextBoxDuration.Text = s.d.ToString();
+            maskedTextBoxFrequency.Text = s.f.ToString();
+            maskedTextBoxPeriod.Text = s.T.ToString();
+            maskedTextBoxStartTime.Text = s.t1.ToString();
         }
 
         public Card(int n, Action<Card> removeCardCallback, Signal signal)
         {
             InitializeComponent();
 
-            this.signal = signal;
+            signals = new List<SignalToShow>();
 
-            this.Text = "Karta " + n;
+            signals.Add(new SignalToShow(signal, true, chartsNames[0]));
+
+            Text = "Karta " + n;
 
             this.removeCardCallback = removeCardCallback;
 
-            ChartExistence[0] = signal != null;
-
             UpdateChartCollection();
 
-            
-            ShowCharts(ref chart1Real, collection, signal);
 
             ShowStats();
 
             DisableTextBoxes();
 
             SetParamsTextBoxes();
+        }
+
+        public Signal GetSignal(Signal.SignalType type)
+        {
+            return signals.Find(x => x.signal.signalType == type)?.signal;
         }
 
         private void SetParamsTextBoxes()
@@ -192,9 +194,11 @@ namespace DSP
         
         private void buttonGenerateSignal_Click(object sender, EventArgs e)
         {
+            Signal signal = null;
+
             for (int i = 1; i < 4; i++)
             {
-                ChartExistence[i] = ChartVisibility[i] = false;
+                //ChartExistence[i] = ChartVisibility[i] = false;
             }
 
             bool result = false;
@@ -381,19 +385,20 @@ namespace DSP
 
             if (signal != null)
             {
-                ChartExistence[0] = true;
-                ChartVisibility[0] = true;
+                signals.Clear();
+
+                signals.Add(new SignalToShow(signal, true, chartsNames[0]));
 
                 UpdateChartCollection();
 
-                ShowCharts(ref chart1Real, collection, signal);
+                ShowCharts(ref chart1Real, collection);
 
                 ShowStats();
             }
         }
 
         private void ShowCharts (ref LiveCharts.WinForms.CartesianChart chart, 
-            SeriesCollection collection, Signal signal)
+            SeriesCollection collection)
         {
             chart.AxisX.Clear();
             chart.AxisY.Clear();
@@ -427,8 +432,8 @@ namespace DSP
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (signal != null)
-                FileManager.Save(signal);
+            //if (signal != null)
+                //FileManager.Save(signal);
         }
 
         private void comboBoxSignalType_SelectedIndexChanged(object sender, EventArgs e)
@@ -529,6 +534,7 @@ namespace DSP
 
         private void buttonQuantization_Click(object sender, EventArgs e)
         {
+            Signal sampledSignal = signals.Find(x => x.signal.signalType == Signal.SignalType.sampled)?.signal;
             if (sampledSignal == null)
             {
                 ShowErrorBox("Brak sygnału!");
@@ -544,11 +550,18 @@ namespace DSP
                 return;
             }
 
-            quantizedSignal = new QuantizedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d, sampledSignal.T,
+            Signal quantizedSignal = new QuantizedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d, sampledSignal.T,
                 sampledSignal.f, sampledSignal.isContinuous,
                 sampledSignal.PointsReal, (int)values[0]);
 
-            ChartExistence[2] = ChartVisibility[2] = true;
+            List<SignalToShow> oldSignals = signals.FindAll(x => x.signal.signalType == Signal.SignalType.quantized
+                || x.signal.signalType == Signal.SignalType.reconstructed).ToList();
+
+            if (oldSignals.Count > 0)
+                signals.RemoveAll(x => oldSignals.Contains(x));
+
+            
+            signals.Add(new SignalToShow(quantizedSignal, true, chartsNames[2]));
 
             UpdateChartCollection();
 
@@ -556,8 +569,21 @@ namespace DSP
 
         private void buttonRecontruction_Click(object sender, EventArgs e)
         {
+            Signal signal = signals.Find(x => x.signal.signalType == Signal.SignalType.original)?.signal;
+            Signal sampledSignal = signals.Find(x => x.signal.signalType 
+            == Signal.SignalType.sampled)?.signal;
+            Signal quantizedSignal = signals.Find(x => x.signal.signalType == Signal.SignalType.quantized)?.signal;
+
             ReconstructionOptions reconstructionOption =
-                new ReconstructionOptions(signal, sampledSignal, quantizedSignal);
+                new ReconstructionOptions(signal, sampledSignal, quantizedSignal, delegate (Signal reconstructed)
+                {
+                    
+                    signals.Add(new SignalToShow(reconstructed, true,
+                        (signals.Find(x => x.signal.signalType == Signal.SignalType.reconstructed) == null)
+                        ? chartsNames[3] : chartsNames[3] + " 2"));
+
+                    UpdateChartCollection();
+                });
 
             reconstructionOption.ShowDialog();
         }
@@ -573,20 +599,34 @@ namespace DSP
                 return;
             }
 
+            Signal signal = signals.Find(x => x.signal.signalType == Signal.SignalType.original)?.signal;
+
             if (signal == null)
             {
                 buttonGenerateSignal_Click(null, null);
             }
 
+            signal = signals.Find(x => x.signal.signalType == Signal.SignalType.original)?.signal;
+
             if (signal == null)
                 return;
 
-            ChartExistence[2] = ChartVisibility[2] = false;
 
-            sampledSignal = new SampledSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
+
+            List<SignalToShow> oldSignals = signals.FindAll(x => x.signal.signalType == Signal.SignalType.sampled || 
+            x.signal.signalType == Signal.SignalType.quantized || x.signal.signalType == Signal.SignalType.reconstructed).ToList();
+
+            if (oldSignals.Count > 0)
+                signals.RemoveAll(x => oldSignals.Contains(x));
+
+            //ChartExistence[2] = ChartVisibility[2] = false;
+
+            Signal sampledSignal = new SampledSignal(signal.A, signal.t1, signal.d, signal.T, signal.f, signal.isContinuous,
                 signal.PointsReal, (int)values[0], signal.Func);
 
-            ChartExistence[1] = ChartVisibility[1] = true;
+            //ChartExistence[1] = ChartVisibility[1] = true;
+
+            signals.Add(new SignalToShow(sampledSignal, true, chartsNames[1]));
 
             UpdateChartCollection();
 
@@ -594,16 +634,13 @@ namespace DSP
 
         private void buttonChartOptions_Click(object sender, EventArgs e)
         {
-            ChartOptions chartOptions = new ChartOptions(ChartNames, ChartVisibility,
-                ChartExistence, changeChartsVisibility);
+            ChartOptions chartOptions = new ChartOptions(ref signals, changeChartsVisibility);
 
             chartOptions.ShowDialog();
         }
 
-        private void changeChartsVisibility(bool[] visibility)
+        private void changeChartsVisibility()
         {
-            ChartVisibility = visibility;
-
             UpdateChartCollection();
         }
 
@@ -611,120 +648,115 @@ namespace DSP
         {
             if (collection == null)
                 collection = new SeriesCollection();
+            else 
+                collection.Clear();
 
-            collection.Clear();
-
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < signals.Count; i++)
             {
-                if (ChartVisibility[i])
+                if (signals[i].visibility)
                 {
-                    switch (i)
+                    switch (signals[i].signal.signalType)
                     {
-                        case 0:
+                        case Signal.SignalType.original:
 
-                            if (signal != null)
-                            {
-                                if (signal.isContinuous)
+                            
+                                if (signals[i].signal.isContinuous)
                                 {
                                     collection.Add(new LineSeries
                                     {
-                                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                                        Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
                                         PointForeground = null,
                                         PointGeometry = null,
                                         LineSmoothness = 0,
                                         Fill = System.Windows.Media.Brushes.Transparent,
-                                        Title = ChartNames[0]
+                                        Title = signals[i].signalName
                                     }); 
                                 }
                                 else
                                 {
                                     collection.Add(new LineSeries
                                     {
-                                        Values = new ChartValues<ObservablePoint>(signal.GetRealPointsToChart()),
+                                        Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
 
                                         PointGeometrySize = 8,
                                         Fill = System.Windows.Media.Brushes.Transparent,
                                         StrokeThickness = 0,
-                                        Title = ChartNames[0]
+                                        Title = signals[i].signalName
                                     });
                                 }
 
                                 
-                            }
+                            
                             
                             break;
 
-                        case 1:
+                        case Signal.SignalType.sampled:
 
-                            if (sampledSignal != null)
+                            
+                            collection.Add(new LineSeries
+                            {
+                                Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                Stroke = System.Windows.Media.Brushes.Transparent,
+                                Fill = System.Windows.Media.Brushes.Transparent,
+                                Title = signals[i].signalName
+                            });
+                            
+
+                            break;
+
+                        case Signal.SignalType.quantized:
+
+                            
+                                
+                            collection.Add(new StepLineSeries
+                            {
+                                Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                PointGeometry = null,
+                                Title = signals[i].signalName
+                            });
+                                
+                            
+
+                            break;
+
+                        case Signal.SignalType.reconstructed:
+
+                            
+                            if (signals[i].signal.isContinuous)
                                 collection.Add(new LineSeries
                                 {
-                                    Values = new ChartValues<ObservablePoint>(sampledSignal.GetRealPointsToChart()),
-                                    Stroke = System.Windows.Media.Brushes.Transparent,
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0.7,
                                     Fill = System.Windows.Media.Brushes.Transparent,
-                                    Title = ChartNames[1]
+                                    Title = signals[i].signalName
+                                        
+                                });
+                            else
+                                collection.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                        
+                                    PointGeometrySize = 8,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    StrokeThickness = 0,
+                                    Title = signals[i].signalName
                                 });
                             
-
-                            break;
-
-                        case 2:
-
-                            if (quantizedSignal != null)
-                            {
-                                
-                                collection.Add(new StepLineSeries
-                                {
-                                    Values = new ChartValues<ObservablePoint>(quantizedSignal.GetRealPointsToChart()),
-                                    PointGeometry = null,
-                                    Title = ChartNames[2]
-                                });
-                                
-                            }
-
-                            break;
-
-                        case 3:
-
-                            if (reconstructedSignal != null)
-                            {
-                                if (reconstructedSignal.isContinuous)
-                                    collection.Add(new LineSeries
-                                    {
-                                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
-                                        PointForeground = null,
-                                        PointGeometry = null,
-                                        LineSmoothness = 0.7,
-                                        Fill = System.Windows.Media.Brushes.Transparent,
-                                        Title = ChartNames[3],
-                                        
-                                    });
-                                else
-                                    collection.Add(new LineSeries
-                                    {
-                                        Values = new ChartValues<ObservablePoint>(reconstructedSignal.GetRealPointsToChart()),
-                                        
-                                        PointGeometrySize = 8,
-                                        Fill = System.Windows.Media.Brushes.Transparent,
-                                        StrokeThickness = 0,
-                                        Title = ChartNames[3]
-                                    });
-                            }
 
                             break;
                     }
                 }
             }
 
-            ShowCharts(ref chart1Real, collection, signal);
+            ShowCharts(ref chart1Real, collection);
         }
 
         private void buttonShowCalculatedParams_Click(object sender, EventArgs e)
         {
-            CalculatedParameters calculatedParameters = new CalculatedParameters(new Signal[]
-            {
-                signal, sampledSignal, quantizedSignal, reconstructedSignal
-            }, ChartNames);
+            CalculatedParameters calculatedParameters = new CalculatedParameters(
+                signals.Select(x => x.signal).ToArray(), signals.Select(x =>x.signalName).ToArray());
 
             calculatedParameters.Show();
         }
@@ -749,10 +781,8 @@ namespace DSP
         private void buttonShowHistograms_Click(object sender, EventArgs e)
         {
             
-            HistogramsWindow histogramsWindow = new HistogramsWindow(new Signal[]
-            {
-                signal, sampledSignal, quantizedSignal, reconstructedSignal
-            }, ChartNames);
+            HistogramsWindow histogramsWindow = new HistogramsWindow(signals.Select(x => x.signal).ToArray(),
+                signals.Select(x => x.signalName).ToArray());
 
             histogramsWindow.Show();
         }

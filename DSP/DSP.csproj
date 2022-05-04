@@ -80,6 +80,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\Filter.cs" />
     <Compile Include="Forms\CalculatedParameters.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,7 +124,9 @@
       <DependentUpon>ReconstructionOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileManager.cs" />
+    <Compile Include="Helpers\FilterOperations.cs" />
     <Compile Include="Helpers\Histogram.cs" />
+    <Compile Include="Helpers\SignalOperations.cs" />
     <Compile Include="MathExtensions\Integration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

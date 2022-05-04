@@ -552,7 +552,7 @@ namespace DSP
 
             Signal quantizedSignal = new QuantizedSignal(sampledSignal.A, sampledSignal.t1, sampledSignal.d, sampledSignal.T,
                 sampledSignal.f, sampledSignal.isContinuous,
-                sampledSignal.PointsReal, (int)values[0]);
+                sampledSignal.PointsReal, (int)values[0], sampledSignal.sampleFrequency);
 
             List<SignalToShow> oldSignals = signals.FindAll(x => x.signal.signalType == Signal.SignalType.quantized
                 || x.signal.signalType == Signal.SignalType.reconstructed).ToList();

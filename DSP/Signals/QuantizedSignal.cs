@@ -13,10 +13,12 @@ namespace DSP.Signals
 
         
         public QuantizedSignal(float a, float t1, float d, float t, int f, bool isContinuous,
-            List<ObservablePoint> pointsReal, int quantizationLevels, List<ObservablePoint> pointsIm = null)
+            List<ObservablePoint> pointsReal, int quantizationLevels, int sampleFrequency, List<ObservablePoint> pointsIm = null)
             : base(a, t1, d, t, f, isContinuous, pointsReal, pointsIm, SignalType.quantized)
         {
             quantizedSignalPoints = new List<ObservablePoint>();
+
+            this.sampleFrequency = sampleFrequency;
 
             this.quantizationLevels = quantizationLevels;
             Quantize(pointsReal, ref quantizedSignalPoints, quantizationLevels);

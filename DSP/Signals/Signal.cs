@@ -62,6 +62,7 @@ namespace DSP.Signals
             this.d = d;
             T = t;
             this.f = f;
+            sampleFrequency = f;
             this.isContinuous = isContinuous;
             this.signalType = signalType;
 
@@ -81,7 +82,13 @@ namespace DSP.Signals
             this.d = d;
             T = t;
             this.f = f;
+            sampleFrequency = f;
             this.isContinuous = isContinuous;
+
+            float newA = (float)pointsReal.Select(x => Math.Abs(x.Y)).Max();
+
+            if (newA > a)
+                A = newA;
 
             PointsReal = new List<ObservablePoint>();
             if (pointsReal != null)

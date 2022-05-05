@@ -69,6 +69,7 @@ namespace DSP
             this.buttonShowCalculatedParams = new System.Windows.Forms.Button();
             this.buttonShowHistograms = new System.Windows.Forms.Button();
             this.buttonSaveChart = new System.Windows.Forms.Button();
+            this.buttonFilterGenerator = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -542,12 +543,24 @@ namespace DSP
             this.buttonSaveChart.UseVisualStyleBackColor = true;
             this.buttonSaveChart.Click += new System.EventHandler(this.buttonSaveChart_Click);
             // 
+            // buttonFilterGenerator
+            // 
+            this.buttonFilterGenerator.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonFilterGenerator.Location = new System.Drawing.Point(1094, 611);
+            this.buttonFilterGenerator.Name = "buttonFilterGenerator";
+            this.buttonFilterGenerator.Size = new System.Drawing.Size(211, 52);
+            this.buttonFilterGenerator.TabIndex = 31;
+            this.buttonFilterGenerator.Text = "Generuj filtr";
+            this.buttonFilterGenerator.UseVisualStyleBackColor = true;
+            this.buttonFilterGenerator.Click += new System.EventHandler(this.buttonFilterGenerator_Click);
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.buttonFilterGenerator);
             this.Controls.Add(this.buttonSaveChart);
             this.Controls.Add(this.buttonShowHistograms);
             this.Controls.Add(this.buttonShowCalculatedParams);
@@ -620,6 +633,7 @@ namespace DSP
         private System.Windows.Forms.Button buttonShowCalculatedParams;
         private System.Windows.Forms.Button buttonShowHistograms;
         private System.Windows.Forms.Button buttonSaveChart;
+        private System.Windows.Forms.Button buttonFilterGenerator;
     }
 }
 

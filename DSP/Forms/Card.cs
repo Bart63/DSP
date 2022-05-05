@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DSP.Filters;
 using DSP.Helpers;
 using DSP.Signals;
 using LiveCharts;
@@ -42,6 +43,8 @@ namespace DSP
 
         }
 
+        private List<Filter> filters;
+
         private List<SignalToShow> signals;
 
         public enum ParamsTypes
@@ -56,6 +59,7 @@ namespace DSP
             InitializeComponent();
 
             signals = new List<SignalToShow>();
+            filters = new List<Filter>();
 
             this.Text = "Karta " + n;
 
@@ -73,6 +77,7 @@ namespace DSP
             InitializeComponent();
             
             this.signals = signals;
+            filters = new List<Filter>();
 
             DisableTextBoxes();
 
@@ -102,6 +107,7 @@ namespace DSP
             InitializeComponent();
 
             signals = new List<SignalToShow>();
+            filters = new List<Filter>();
 
             signals.Add(new SignalToShow(signal, true, chartsNames[0]));
 
@@ -790,6 +796,17 @@ namespace DSP
         private void buttonSaveChart_Click(object sender, EventArgs e)
         {
             SaveChart(chart1Real);
+        }
+
+        private void AddFilter(Filter filter)
+        {
+            filters.Add(filter);
+        }
+
+        private void buttonFilterGenerator_Click(object sender, EventArgs e)
+        {
+            FilterGenerator filterGenerator = new FilterGenerator(AddFilter, signals);
+            filterGenerator.ShowDialog();
         }
     }
 }

@@ -70,6 +70,7 @@ namespace DSP
             this.buttonShowHistograms = new System.Windows.Forms.Button();
             this.buttonSaveChart = new System.Windows.Forms.Button();
             this.buttonFilterGenerator = new System.Windows.Forms.Button();
+            this.buttonSignalFilter = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -554,12 +555,24 @@ namespace DSP
             this.buttonFilterGenerator.UseVisualStyleBackColor = true;
             this.buttonFilterGenerator.Click += new System.EventHandler(this.buttonFilterGenerator_Click);
             // 
+            // buttonSignalFilter
+            // 
+            this.buttonSignalFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonSignalFilter.Location = new System.Drawing.Point(1311, 611);
+            this.buttonSignalFilter.Name = "buttonSignalFilter";
+            this.buttonSignalFilter.Size = new System.Drawing.Size(193, 52);
+            this.buttonSignalFilter.TabIndex = 32;
+            this.buttonSignalFilter.Text = "Zastosuj filtr";
+            this.buttonSignalFilter.UseVisualStyleBackColor = true;
+            this.buttonSignalFilter.Click += new System.EventHandler(this.buttonSignalFilter_Click);
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.buttonSignalFilter);
             this.Controls.Add(this.buttonFilterGenerator);
             this.Controls.Add(this.buttonSaveChart);
             this.Controls.Add(this.buttonShowHistograms);
@@ -634,6 +647,7 @@ namespace DSP
         private System.Windows.Forms.Button buttonShowHistograms;
         private System.Windows.Forms.Button buttonSaveChart;
         private System.Windows.Forms.Button buttonFilterGenerator;
+        private System.Windows.Forms.Button buttonSignalFilter;
     }
 }
 

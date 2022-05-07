@@ -8,25 +8,27 @@ using System.Threading.Tasks;
 
 namespace DSP.Filters
 {
-    public class Filter
+    public abstract class Filter
     {
         public List<float> coefficients;
-        private Signal signal;
+        public int sampleFrequency;
+        
+        public string filterName { get; private set; }
 
         public List<ObservablePoint> filteredSignal;
 
-        public Filter(List<float> coefficients)
+        public Filter(List<float> coefficients, string name, int sampleFrequency)
         {
             this.coefficients = coefficients;
-
+            filterName = name;
+            this.sampleFrequency = sampleFrequency;
         }
 
-        public List<ObservablePoint> GetFilteredSignal(List<float> x,
-            float sampleFrequency, float t0)
+        public List<ObservablePoint> GetFilteredSignal(List<float> x, float t0)
         {
             List<ObservablePoint> result = new List<ObservablePoint>();
 
-            float diff = 1 / sampleFrequency;
+            float diff = 1 / (float)sampleFrequency;
 
             int n = coefficients.Count + x.Count - 1;
 
@@ -48,6 +50,14 @@ namespace DSP.Filters
             }
 
             return result;
+        }
+
+        public virtual string GetInfo()
+        {
+            return "Nazwa: " + filterName + "\n" +
+                "Współczynniki: " + string.Join(" || ", coefficients.Select(x => x.ToString())) + "\n"
+                + "Częstotliwość próbkowania: " + sampleFrequency + "\n";
+
         }
     }
 }

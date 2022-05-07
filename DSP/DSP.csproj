@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Filters\Filter.cs" />
+    <Compile Include="Filters\LowPassFilter.cs" />
     <Compile Include="Forms\CalculatedParameters.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +130,12 @@
     <Compile Include="Forms\ReconstructionOptions.Designer.cs">
       <DependentUpon>ReconstructionOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UseFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UseFilter.Designer.cs">
+      <DependentUpon>UseFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\FileManager.cs" />
     <Compile Include="Helpers\FilterOperations.cs" />
     <Compile Include="Helpers\Histogram.cs" />
@@ -174,6 +181,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReconstructionOptions.resx">
       <DependentUpon>ReconstructionOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UseFilter.resx">
+      <DependentUpon>UseFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -49,7 +49,7 @@ namespace DSP.Signals
 
         public enum SignalType
         {
-            original, sampled, quantized, reconstructed
+            original, sampled, quantized, reconstructed, filtered
         };
 
         protected Signal(float a, float t1, float d, float t, int f, bool isContinuous, SignalType signalType)

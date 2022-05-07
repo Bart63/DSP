@@ -34,7 +34,6 @@ namespace DSP
             this.panel = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonCalculate = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.comboBoxSignal = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // comboBoxFilterType
@@ -66,9 +65,9 @@ namespace DSP
             // panel
             // 
             this.panel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panel.Location = new System.Drawing.Point(13, 90);
+            this.panel.Location = new System.Drawing.Point(13, 51);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(441, 197);
+            this.panel.Size = new System.Drawing.Size(441, 236);
             this.panel.TabIndex = 2;
             // 
             // buttonCalculate
@@ -90,28 +89,16 @@ namespace DSP
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
-            // comboBoxSignal
-            // 
-            this.comboBoxSignal.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxSignal.FormattingEnabled = true;
-            this.comboBoxSignal.Location = new System.Drawing.Point(12, 51);
-            this.comboBoxSignal.Name = "comboBoxSignal";
-            this.comboBoxSignal.Size = new System.Drawing.Size(442, 33);
-            this.comboBoxSignal.TabIndex = 5;
-            this.comboBoxSignal.Text = "Wybierz sygnał";
-            this.comboBoxSignal.SelectedIndexChanged += new System.EventHandler(this.comboBoxSignal_SelectedIndexChanged);
-            // 
             // FilterGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(466, 450);
-            this.Controls.Add(this.comboBoxSignal);
+            this.Controls.Add(this.comboBoxFilterType);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonCalculate);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.buttonAccept);
-            this.Controls.Add(this.comboBoxFilterType);
             this.Name = "FilterGenerator";
             this.Text = "Generuj filtr";
             this.ResumeLayout(false);
@@ -125,6 +112,5 @@ namespace DSP
         private System.Windows.Forms.FlowLayoutPanel panel;
         private System.Windows.Forms.Button buttonCalculate;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.ComboBox comboBoxSignal;
     }
 }

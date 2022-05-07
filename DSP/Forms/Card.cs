@@ -752,6 +752,32 @@ namespace DSP
                             
 
                             break;
+
+                        case Signal.SignalType.filtered:
+
+                            if (signals[i].signal.isContinuous)
+                                collection.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0.7,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = signals[i].signalName
+
+                                });
+                            else
+                                collection.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+
+                                    PointGeometrySize = 8,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    StrokeThickness = 0,
+                                    Title = signals[i].signalName
+                                });
+
+                            break;
                     }
                 }
             }
@@ -805,8 +831,21 @@ namespace DSP
 
         private void buttonFilterGenerator_Click(object sender, EventArgs e)
         {
-            FilterGenerator filterGenerator = new FilterGenerator(AddFilter, signals);
+            FilterGenerator filterGenerator = new FilterGenerator(AddFilter, filters.Select(x => x.filterName).ToList());
             filterGenerator.ShowDialog();
+        }
+
+        private void buttonSignalFilter_Click(object sender, EventArgs e)
+        {
+            UseFilter useFilter = new UseFilter(filters, signals, AddFilteredSignal);
+            useFilter.ShowDialog();
+        }
+
+        private void AddFilteredSignal(Signal signal, string originalSignalName, string filterName)
+        {
+            signals.Add(new SignalToShow(signal, true, chartsNames[4] + "[" + originalSignalName
+                + " || " + filterName + "]"));
+            UpdateChartCollection();
         }
     }
 }

@@ -84,7 +84,7 @@ namespace DSP.Signals
 
                 for (int i = 0; i < (d * sampleFrequency); i++)
                 {
-                    float t = (float)Math.Round((float)i / sampleFrequency + t1, 3);
+                    float t = (float)Math.Round((float)i / sampleFrequency + t1, 5);
 
                     sampledSignal.Add(new ObservablePoint(t, func(t)));
                 }

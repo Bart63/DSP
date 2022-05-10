@@ -438,8 +438,12 @@ namespace DSP
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            //if (signal != null)
-                //FileManager.Save(signal);
+            SignalToShow signal = signals.Find(x => x.signal.signalType == Signal.SignalType.original);
+
+            if (signal != null)
+            {
+                FileManager.Save(signal.signal);
+            }
         }
 
         private void comboBoxSignalType_SelectedIndexChanged(object sender, EventArgs e)

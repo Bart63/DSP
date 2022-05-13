@@ -30,7 +30,7 @@ namespace DSP
 
             comboBoxNumberOfSections.SelectedIndex = 0;
             
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < signals.Count(); i++)
             {
                 if (signals[i] != null)
                     comboBoxSignalType.Items.Add(names[i]);
@@ -86,7 +86,7 @@ namespace DSP
         private void comboBoxSignalType_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < names.Count(); i++)
             {
                 if (names[i] == comboBoxSignalType.SelectedItem.ToString())
                 {

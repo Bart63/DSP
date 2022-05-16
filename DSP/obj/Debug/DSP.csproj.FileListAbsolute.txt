@@ -54,3 +54,5 @@ C:\Users\Szymon\source\repos\DSP\DSP\obj\Debug\DSP.CalculatedParameters.resource
 C:\Users\Szymon\source\repos\DSP\DSP\obj\Debug\DSP.HistogramsWindow.resources
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.FilterGenerator.resources
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.UseFilter.resources
+C:\Users\Szymon\source\repos\DSP\DSP\obj\Debug\DSP.FilterGenerator.resources
+C:\Users\Szymon\source\repos\DSP\DSP\obj\Debug\DSP.UseFilter.resources

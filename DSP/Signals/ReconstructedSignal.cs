@@ -73,6 +73,7 @@ namespace DSP.Signals
                     // 1 2 3 4 5
                 case 1:
 
+                   
                     for (int i = 0; i < (d * f); i++)
                     {
                         float t = (float)Math.Round((float)i / reconstructionFrequency + t1, 5);
@@ -82,9 +83,17 @@ namespace DSP.Signals
                         ObservablePoint closestPoint = points.Aggregate((x1, x2) => Math.Abs(x1.X - t) < Math.Abs(x2.X - t) ? x1 : x2);
                         int closestPointIndex = points.IndexOf(closestPoint);
 
-                        int leftStartIndex = (closestPointIndex - n) < 0 ? 0 : closestPointIndex - n;
+                        if (points[closestPointIndex].X - t > (i / reconstructionFrequency))
+                        {
+                            closestPointIndex--;
+                        }
 
-                        int leftCount = closestPointIndex - leftStartIndex + 1;
+                        if (closestPointIndex < 0)
+                            closestPointIndex = 0;
+
+                        int leftStartIndex = closestPointIndex;
+
+                        int leftCount = (points.Count - leftStartIndex) < n ? closestPointIndex - leftStartIndex : n;
 
                         int rightStartIndex = (closestPointIndex + 1) > points.Count - 1 ? points.Count - 1 : closestPointIndex + 1;
 

@@ -36,6 +36,7 @@ namespace DSP.Signals
         public bool isContinuous;
 
         public SignalType signalType;
+        public SignalType baseSignalType { get; set; }
 
         protected List<ObservablePoint> sampledSignalPoints;
 
@@ -75,7 +76,7 @@ namespace DSP.Signals
         }
 
         public Signal (float a, float t1, float d, float t, int f, bool isContinuous,
-            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, SignalType signalType = SignalType.original)
+            List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm = null, SignalType signalType = SignalType.original, bool calculateParams = true)
         {
             A = a;
             this.t1 = t1;
@@ -105,11 +106,14 @@ namespace DSP.Signals
 
             this.signalType = signalType;
 
-            CalculateAverageSignalAbsValue(isContinuous);
-            CalculateAverageSignalValue(isContinuous);
-            CalculateAverageSignalPower(isContinuous);
-            CalculateVariance(isContinuous);
-            CalculateEffectiveValue();
+            if (calculateParams)
+            {
+                CalculateAverageSignalAbsValue(isContinuous);
+                CalculateAverageSignalValue(isContinuous);
+                CalculateAverageSignalPower(isContinuous);
+                CalculateVariance(isContinuous);
+                CalculateEffectiveValue();
+            }
         }
 
        
@@ -287,7 +291,7 @@ namespace DSP.Signals
         {
             List<ObservablePoint> newPoints = new List<ObservablePoint>();
 
-            s2.PointsReal = s2.PointsReal.Select(x => new ObservablePoint(x.X, Math.Round(x.Y, 2))).ToList();
+            s2.PointsReal = s2.PointsReal.Select(x => new ObservablePoint(x.X, Math.Round(x.Y, 5))).ToList();
 
             for (int i = 0; i < s1.PointsReal.Count; i++)
             {
@@ -303,6 +307,98 @@ namespace DSP.Signals
 
             return signal;
         
+        }
+
+        public Signal Convolution(Signal s2)
+        {
+            List<float> points1 = PointsReal.Select(x => (float)x.Y).ToList();
+            List<float> points2 = s2.PointsReal.Select(x => (float)x.Y).ToList();
+
+            float diff = 1 / (float)sampleFrequency;
+
+
+            int n = points1.Count + points2.Count - 1;
+
+            List<ObservablePoint> result = new List<ObservablePoint>();
+
+            for (int i = 0; i < n; i++)
+            {
+                float value = 0;
+
+                for (int j = 0; j < points1.Count; j++)
+                {
+                    int xIndex = i - j;
+
+                    value += (float)(points1[j] * ((xIndex >= 0 && xIndex < points2.Count) ? points2[xIndex] : 0));
+
+                }
+
+                result.Add(new ObservablePoint((float)(t1 + (i * diff)), value));
+            }
+
+            Signal s = new Signal(A, t1, d, T, f, isContinuous, result, null, signalType);
+            s.baseSignalType = baseSignalType;
+
+            return s;
+
+        }
+
+        public Signal Corelation(Signal s2)
+        {
+            List<float> points1 = PointsReal.Select(x => (float)x.Y).ToList();
+            List<float> points2 = s2.PointsReal.Select(x => (float)x.Y).ToList();
+
+            float diff = 1 / (float)sampleFrequency;
+
+
+            int n = points1.Count + points2.Count - 1;
+
+            List<ObservablePoint> result = new List<ObservablePoint>();
+
+            for (int i = points2.Count - 1; i >= (-1) * points1.Count; i--)
+            {
+                float value = 0;
+
+                for (int j = 0; j < points1.Count; j++)
+                {
+                    int xIndex = i + j;
+
+                    value += (float)(points1[j] * ((xIndex >= 0 && xIndex < points2.Count) ? points2[xIndex] : 0));
+
+                }
+
+                result.Add(new ObservablePoint((float)(t1 + (i * diff)), value));
+            }
+
+            Signal s = new Signal(A, t1, d, T, f, isContinuous, result, null, signalType);
+            s.baseSignalType = baseSignalType;
+
+            return s;
+
+        }
+
+        public void Move(int numberOfSamples)
+        {
+            List<ObservablePoint> temporary = new List<ObservablePoint>();
+
+            foreach(var v in PointsReal)
+            {
+                temporary.Add(new ObservablePoint(v.X, v.Y));
+            }
+
+            PointsReal.RemoveRange(temporary.Count - numberOfSamples, numberOfSamples);
+
+            int i = 0;
+            foreach(var v in temporary.GetRange(temporary.Count - numberOfSamples, numberOfSamples))
+            {
+                PointsReal.Insert(i, new ObservablePoint(v.X, v.Y));
+                i++;
+            }
+
+            for (i = 0; i < PointsReal.Count; i++)
+            {
+                PointsReal[i].X = temporary[i].X;
+            }
         }
 
         public float CalculateMSE(List<ObservablePoint> originalPoints, List<ObservablePoint> quantizedPoints)

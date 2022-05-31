@@ -24,7 +24,6 @@ namespace DSP
         private int M;
         private int f0;
 
-        private int fd, fg;
 
         string filterName = "";
 
@@ -55,10 +54,24 @@ namespace DSP
 
             if (coefficients.Count != 0 && filterName != "")
             {
-                filter = new LowPassFilter(coefficients, filterName, sampleFrequency, f0);
-                addFilterCallback(filter);
-                MessageBox.Show(this, "Dodano filtr", "Super", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                names.Add(filterName);
+
+                int filterType = comboBoxFilterType.SelectedIndex;
+
+                if (filterType == 0)
+                {
+
+                    filter = new LowPassFilter(coefficients, filterName, sampleFrequency, f0);
+                    addFilterCallback(filter);
+                    MessageBox.Show(this, "Dodano filtr", "Super", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    names.Add(filterName);
+                }
+                if (filterType == 1)
+                {
+                    filter = new BandPassFilter(coefficients, filterName, sampleFrequency, f0);
+                    addFilterCallback(filter);
+                    MessageBox.Show(this, "Dodano filtr", "Super", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    names.Add(filterName);
+                }
             }
             else
             {
@@ -75,8 +88,13 @@ namespace DSP
                 return;
             }
 
-            coefficients = FilterOperations.GenerateLowPassFilter(sampleFrequency,
-                M, f0, comboBoxFilterType.SelectedIndex);
+            int windowIndex = comboBoxWindowType.SelectedIndex;
+
+            if (windowIndex == -1)
+                windowIndex = 0;
+
+            coefficients = FilterOperations.GenerateFilter(sampleFrequency,
+                M, f0, comboBoxFilterType.SelectedIndex, windowIndex);
 
             richTextBox1.Text = string.Join(" || ", coefficients.Select(x => x.ToString()));
         }
@@ -176,15 +194,82 @@ namespace DSP
 
                 case 1:
 
+                    label = new Label();
+                    label.Width = 350;
+                    label.Text = "Rząd filtru:";
+                    label.Font = font;
+                    panel.Controls.Add(label);
+
+                    textBox = new TextBox();
+                    textBox.TextChanged += delegate (object s, EventArgs args)
+                    {
+                        TextBox textBox1 = s as TextBox;
+
+                        bool result = int.TryParse(textBox1.Text, out M);
+
+                        if (!result)
+                            MessageBox.Show(this, "Błąd", "Tylko cyfry!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    };
+                    textBox.Font = font;
+                    panel.Controls.Add(textBox);
+
+                    label = new Label();
+                    label.Text = "Pasmo [Hz]:";
+                    label.Width = 350;
+                    label.Font = font;
+                    panel.Controls.Add(label);
+
+                    textBox = new TextBox();
+                    textBox.TextChanged += delegate (object s, EventArgs args)
+                    {
+                        TextBox textBox1 = s as TextBox;
+
+                        bool result = int.TryParse(textBox1.Text, out f0);
+
+                        if (!result && textBox1.Text != "")
+                            MessageBox.Show(this, "Błąd", "Tylko cyfry!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    };
+                    textBox.Font = font;
+                    panel.Controls.Add(textBox);
+
+
+                    label = new Label();
+                    label.Width = 350;
+                    label.Text = "Nazwa filtru:";
+                    label.Font = font;
+                    panel.Controls.Add(label);
+
+                    textBox = new TextBox();
+                    textBox.TextChanged += delegate (object s, EventArgs args)
+                    {
+                        TextBox textBox1 = s as TextBox;
+
+                        filterName = textBox1.Text;
+                    };
+                    textBox.Font = font;
+                    panel.Controls.Add(textBox);
+
+                    label = new Label();
+                    label.Width = 350;
+                    label.Text = "Częst. próbkowania [Hz]:";
+                    label.Font = font;
+                    panel.Controls.Add(label);
+
+                    textBox = new TextBox();
+                    textBox.TextChanged += delegate (object s, EventArgs args)
+                    {
+                        TextBox textBox1 = s as TextBox;
+
+                        bool result = int.TryParse(textBox1.Text, out sampleFrequency);
+
+                        if (!result && textBox1.Text != "")
+                            MessageBox.Show(this, "Błąd", "Tylko cyfry!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    };
+                    textBox.Font = font;
+                    panel.Controls.Add(textBox);
 
                     break;
 
-
-                case 2:
-
-                    break;
-
-            
             }
         }
     }

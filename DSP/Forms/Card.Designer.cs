@@ -254,7 +254,7 @@ namespace DSP
             // 
             this.maskedTextBoxFilling.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxFilling.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxFilling.Location = new System.Drawing.Point(307, 156);
+            this.maskedTextBoxFilling.Location = new System.Drawing.Point(308, 156);
             this.maskedTextBoxFilling.Name = "maskedTextBoxFilling";
             this.maskedTextBoxFilling.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxFilling.TabIndex = 12;
@@ -285,7 +285,7 @@ namespace DSP
             // 
             this.maskedTextBoxStartTime.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxStartTime.Location = new System.Drawing.Point(307, 39);
+            this.maskedTextBoxStartTime.Location = new System.Drawing.Point(308, 39);
             this.maskedTextBoxStartTime.Name = "maskedTextBoxStartTime";
             this.maskedTextBoxStartTime.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxStartTime.TabIndex = 6;
@@ -316,7 +316,7 @@ namespace DSP
             // 
             this.maskedTextBoxAmplitude.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxAmplitude.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxAmplitude.Location = new System.Drawing.Point(307, 3);
+            this.maskedTextBoxAmplitude.Location = new System.Drawing.Point(308, 3);
             this.maskedTextBoxAmplitude.Name = "maskedTextBoxAmplitude";
             this.maskedTextBoxAmplitude.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxAmplitude.TabIndex = 3;
@@ -364,7 +364,7 @@ namespace DSP
             // 
             this.maskedTextBoxDuration.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxDuration.Location = new System.Drawing.Point(307, 75);
+            this.maskedTextBoxDuration.Location = new System.Drawing.Point(308, 75);
             this.maskedTextBoxDuration.Name = "maskedTextBoxDuration";
             this.maskedTextBoxDuration.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxDuration.TabIndex = 10;
@@ -373,7 +373,7 @@ namespace DSP
             // 
             this.maskedTextBoxPeriod.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.maskedTextBoxPeriod.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.maskedTextBoxPeriod.Location = new System.Drawing.Point(307, 113);
+            this.maskedTextBoxPeriod.Location = new System.Drawing.Point(308, 113);
             this.maskedTextBoxPeriod.Name = "maskedTextBoxPeriod";
             this.maskedTextBoxPeriod.Size = new System.Drawing.Size(71, 29);
             this.maskedTextBoxPeriod.TabIndex = 8;
@@ -428,7 +428,7 @@ namespace DSP
             this.buttonRecontruction.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.buttonRecontruction.Location = new System.Drawing.Point(382, 712);
             this.buttonRecontruction.Name = "buttonRecontruction";
-            this.buttonRecontruction.Size = new System.Drawing.Size(192, 52);
+            this.buttonRecontruction.Size = new System.Drawing.Size(143, 52);
             this.buttonRecontruction.TabIndex = 21;
             this.buttonRecontruction.Text = "Rekonstruuj";
             this.buttonRecontruction.UseVisualStyleBackColor = true;
@@ -503,9 +503,9 @@ namespace DSP
             // buttonChartOptions
             // 
             this.buttonChartOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonChartOptions.Location = new System.Drawing.Point(580, 712);
+            this.buttonChartOptions.Location = new System.Drawing.Point(531, 712);
             this.buttonChartOptions.Name = "buttonChartOptions";
-            this.buttonChartOptions.Size = new System.Drawing.Size(104, 52);
+            this.buttonChartOptions.Size = new System.Drawing.Size(82, 52);
             this.buttonChartOptions.TabIndex = 27;
             this.buttonChartOptions.Text = "Opcje";
             this.buttonChartOptions.UseVisualStyleBackColor = true;
@@ -514,9 +514,9 @@ namespace DSP
             // buttonShowCalculatedParams
             // 
             this.buttonShowCalculatedParams.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonShowCalculatedParams.Location = new System.Drawing.Point(697, 712);
+            this.buttonShowCalculatedParams.Location = new System.Drawing.Point(619, 712);
             this.buttonShowCalculatedParams.Name = "buttonShowCalculatedParams";
-            this.buttonShowCalculatedParams.Size = new System.Drawing.Size(224, 52);
+            this.buttonShowCalculatedParams.Size = new System.Drawing.Size(204, 52);
             this.buttonShowCalculatedParams.TabIndex = 28;
             this.buttonShowCalculatedParams.Text = "Pokaż właściwości";
             this.buttonShowCalculatedParams.UseVisualStyleBackColor = true;

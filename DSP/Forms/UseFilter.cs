@@ -48,6 +48,8 @@ namespace DSP
                 filter.GetFilteredSignal(s.PointsReal.Select(x => (float)x.Y).ToList(), s.t1),
                 null, Signal.SignalType.filtered);
 
+            newSignal.baseSignalType = s.signalType;
+
             callback(newSignal, signal.signalName, filter.filterName);
 
             Close();

@@ -60,7 +60,7 @@ namespace DSP
             // buttonFilter
             // 
             this.buttonFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonFilter.Location = new System.Drawing.Point(12, 348);
+            this.buttonFilter.Location = new System.Drawing.Point(13, 415);
             this.buttonFilter.Name = "buttonFilter";
             this.buttonFilter.Size = new System.Drawing.Size(442, 40);
             this.buttonFilter.TabIndex = 8;
@@ -71,9 +71,9 @@ namespace DSP
             // richTextBox1
             // 
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.richTextBox1.Location = new System.Drawing.Point(13, 91);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 90);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(441, 251);
+            this.richTextBox1.Size = new System.Drawing.Size(441, 319);
             this.richTextBox1.TabIndex = 9;
             this.richTextBox1.Text = "";
             // 
@@ -81,7 +81,7 @@ namespace DSP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 400);
+            this.ClientSize = new System.Drawing.Size(466, 467);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonFilter);
             this.Controls.Add(this.comboBoxFilterType);

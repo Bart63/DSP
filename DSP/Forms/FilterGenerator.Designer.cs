@@ -34,6 +34,7 @@ namespace DSP
             this.panel = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonCalculate = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.comboBoxWindowType = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // comboBoxFilterType
@@ -42,8 +43,7 @@ namespace DSP
             this.comboBoxFilterType.FormattingEnabled = true;
             this.comboBoxFilterType.Items.AddRange(new object[] {
             "Filtr dolnoprzepustowy",
-            "Filtr górnoprzepustowy",
-            "Filtr pasmowy"});
+            "Filtr środkowoprzepustowy"});
             this.comboBoxFilterType.Location = new System.Drawing.Point(12, 12);
             this.comboBoxFilterType.Name = "comboBoxFilterType";
             this.comboBoxFilterType.Size = new System.Drawing.Size(442, 33);
@@ -54,7 +54,7 @@ namespace DSP
             // buttonAccept
             // 
             this.buttonAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonAccept.Location = new System.Drawing.Point(12, 398);
+            this.buttonAccept.Location = new System.Drawing.Point(12, 466);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(442, 40);
             this.buttonAccept.TabIndex = 1;
@@ -65,15 +65,15 @@ namespace DSP
             // panel
             // 
             this.panel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panel.Location = new System.Drawing.Point(13, 51);
+            this.panel.Location = new System.Drawing.Point(13, 90);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(441, 236);
+            this.panel.Size = new System.Drawing.Size(441, 246);
             this.panel.TabIndex = 2;
             // 
             // buttonCalculate
             // 
             this.buttonCalculate.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonCalculate.Location = new System.Drawing.Point(13, 352);
+            this.buttonCalculate.Location = new System.Drawing.Point(12, 420);
             this.buttonCalculate.Name = "buttonCalculate";
             this.buttonCalculate.Size = new System.Drawing.Size(442, 40);
             this.buttonCalculate.TabIndex = 3;
@@ -83,17 +83,34 @@ namespace DSP
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(13, 294);
+            this.richTextBox1.Location = new System.Drawing.Point(13, 342);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(441, 52);
+            this.richTextBox1.Size = new System.Drawing.Size(441, 72);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
+            // 
+            // comboBoxWindowType
+            // 
+            this.comboBoxWindowType.AutoCompleteCustomSource.AddRange(new string[] {
+            "Okno prostokątne",
+            "Okno Blackmana"});
+            this.comboBoxWindowType.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxWindowType.FormattingEnabled = true;
+            this.comboBoxWindowType.Items.AddRange(new object[] {
+            "Okno prostokątne",
+            "Okno Blackmana"});
+            this.comboBoxWindowType.Location = new System.Drawing.Point(13, 51);
+            this.comboBoxWindowType.Name = "comboBoxWindowType";
+            this.comboBoxWindowType.Size = new System.Drawing.Size(442, 33);
+            this.comboBoxWindowType.TabIndex = 5;
+            this.comboBoxWindowType.Text = "Wybierz rodzaj okna";
             // 
             // FilterGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 450);
+            this.ClientSize = new System.Drawing.Size(466, 518);
+            this.Controls.Add(this.comboBoxWindowType);
             this.Controls.Add(this.comboBoxFilterType);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.buttonCalculate);
@@ -112,5 +129,6 @@ namespace DSP
         private System.Windows.Forms.FlowLayoutPanel panel;
         private System.Windows.Forms.Button buttonCalculate;
         private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ComboBox comboBoxWindowType;
     }
 }

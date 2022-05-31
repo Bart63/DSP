@@ -32,6 +32,7 @@ namespace DSP
             this.buttonNewCard = new System.Windows.Forms.Button();
             this.buttonLoad = new System.Windows.Forms.Button();
             this.buttonOperations = new System.Windows.Forms.Button();
+            this.buttonSimulator = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonNewCard
@@ -67,12 +68,24 @@ namespace DSP
             this.buttonOperations.UseVisualStyleBackColor = true;
             this.buttonOperations.Click += new System.EventHandler(this.buttonOperations_Click);
             // 
+            // buttonSimulator
+            // 
+            this.buttonSimulator.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.buttonSimulator.Location = new System.Drawing.Point(12, 384);
+            this.buttonSimulator.Name = "buttonSimulator";
+            this.buttonSimulator.Size = new System.Drawing.Size(393, 118);
+            this.buttonSimulator.TabIndex = 16;
+            this.buttonSimulator.Text = "Symulator";
+            this.buttonSimulator.UseVisualStyleBackColor = true;
+            this.buttonSimulator.Click += new System.EventHandler(this.buttonSimulator_Click);
+            // 
             // Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(417, 391);
+            this.ClientSize = new System.Drawing.Size(417, 513);
+            this.Controls.Add(this.buttonSimulator);
             this.Controls.Add(this.buttonOperations);
             this.Controls.Add(this.buttonLoad);
             this.Controls.Add(this.buttonNewCard);
@@ -87,5 +100,6 @@ namespace DSP
         private System.Windows.Forms.Button buttonNewCard;
         private System.Windows.Forms.Button buttonLoad;
         private System.Windows.Forms.Button buttonOperations;
+        private System.Windows.Forms.Button buttonSimulator;
     }
 }

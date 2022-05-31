@@ -30,12 +30,11 @@ namespace DSP.Filters
 
             float diff = 1 / (float)sampleFrequency;
 
+            
             int n = coefficients.Count + x.Count - 1;
 
             for (int i = 0; i < n; i++)
             {
-                float t = t0 + i * diff;
-
                 float value = 0;
 
                 for (int j = 0; j < coefficients.Count; j++)
@@ -46,7 +45,7 @@ namespace DSP.Filters
 
                 }
 
-                result.Add(new ObservablePoint(t, value));
+                result.Add(new ObservablePoint((float)(t0 + (i * diff)), value));
             }
 
             return result;
@@ -59,5 +58,6 @@ namespace DSP.Filters
                 + "Częstotliwość próbkowania: " + sampleFrequency + "\n";
 
         }
+
     }
 }

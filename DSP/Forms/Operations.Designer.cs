@@ -42,7 +42,8 @@ namespace DSP
             "Dodawanie",
             "Odejmowanie",
             "Mnożenie",
-            "Dzielenie"});
+            "Dzielenie",
+            "Splot"});
             this.comboBox1.Location = new System.Drawing.Point(12, 12);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(302, 26);

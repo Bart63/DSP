@@ -759,18 +759,33 @@ namespace DSP
 
                         case Signal.SignalType.filtered:
 
-                            if (signals[i].signal.isContinuous)
-                                collection.Add(new LineSeries
-                                {
-                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-                                    PointForeground = null,
-                                    PointGeometry = null,
-                                    LineSmoothness = 0.7,
-                                    Fill = System.Windows.Media.Brushes.Transparent,
-                                    Title = signals[i].signalName
+
+                            if (signals[i].signal.isContinuous) {
+
+                                if (signals[i].signal.baseSignalType != Signal.SignalType.sampled)
+                                    collection.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                        PointForeground = null,
+                                        PointGeometry = null,
+                                        LineSmoothness = 0.7,
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        Title = signals[i].signalName
 
                                 });
+                                else
+                                    collection.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+
+                                        PointGeometrySize = 8,
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        StrokeThickness = 0,
+                                        Title = signals[i].signalName
+                                    });
+                                }
                             else
+                            {
                                 collection.Add(new LineSeries
                                 {
                                     Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
@@ -780,6 +795,7 @@ namespace DSP
                                     StrokeThickness = 0,
                                     Title = signals[i].signalName
                                 });
+                            }
 
                             break;
                     }
@@ -851,5 +867,7 @@ namespace DSP
                 + " || " + filterName + "]"));
             UpdateChartCollection();
         }
+
+        
     }
 }

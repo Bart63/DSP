@@ -63,5 +63,11 @@ namespace DSP
                 card.Show();
             }
         }
+
+        private void buttonSimulator_Click(object sender, EventArgs e)
+        {
+            Simulator simulator = new Simulator();
+            simulator.ShowDialog();
+        }
     }
 }

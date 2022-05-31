@@ -120,6 +120,15 @@ namespace DSP
                     Close();
 
                     break;
+
+                case 4:
+
+                    s = selectedCards[0].GetSignal(Signal.SignalType.original).Convolution(
+                        selectedCards[1].GetSignal(Signal.SignalType.original));
+
+                    DSP.Menu.Instance.ShowCard(s);
+
+                    break;
             }
         }
     }

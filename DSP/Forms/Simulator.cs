@@ -34,7 +34,7 @@ namespace DSP
 
         private bool stop;
        
-        private Thread thread;
+        
 
         public Simulator()
         {
@@ -59,14 +59,6 @@ namespace DSP
             if (ok1 && ok2) 
             {
 
-                Signal s1 = new SinSignal(1, 0, T * 4, T, frequency);
-                Signal s2 = new SinSignal(1.4f, 0, T * 4, T, frequency);
-                Signal s3 = new SinSignal3(0.5f, 0, T * 4, T, frequency);
-                Signal s4 = new TrianSignal(0.5f, 0, T * 4, T, frequency, 0.5f);
-
-                signal = (s1 + s2) * s3 - s4;
-
-                showChart(ref cartesianChartBaseSignal, signal);
             }
 
             int bufferLength;
@@ -101,17 +93,26 @@ namespace DSP
 
                             obj.speed = speed;
 
-                            bufferProbeSignal.AddValues(signal.PointsReal);
-
                             stop = false;
 
-                           
+                            signal = GenerateSignal(0, T, ((float)((float)bufferReceivedSignal.length / frequency)));
+
+                            showChart(ref cartesianChartBaseSignal, signal);
+
                             StartSimulating();
                         }
                     }
                 }
             }
 
+        }
+
+        private Signal GenerateSignal(float t1, float T, float d)
+        {
+            Signal s1 = new SinSignal(2, t1, d, T, frequency);
+            Signal s2 = new TrianSignal(1f, t1, d, T, frequency, 0.39f);
+
+            return s1 * s2;
         }
 
         private async void StartSimulating()
@@ -124,20 +125,26 @@ namespace DSP
 
                 showResult(v.real, v.calculated, v.diff);
 
-                showChart(ref cartesianChartBaseSignal, v.s);
+                showChart(ref cartesianChartBaseSignal, v.receivedSignal);
             }
         }
 
-        private async Task<(float real, float calculated, float diff, Signal s)> Simulate()
+        private async Task<(float real, float calculated, float diff, Signal receivedSignal)> Simulate()
         {
             obj.updateTime(timeToUpdate);
             obj.updateX();
 
-            int numberOfSamples = (int)(frequency * (obj.x / signalSpeed));
+            float duration = (float)bufferReceivedSignal.length / frequency;
 
-            signal.Move(numberOfSamples);
+            float propagationTime = 2 * obj.x / signalSpeed;
 
-            bufferReceivedSignal.AddValues(signal.PointsReal);
+
+            Signal sReceived = GenerateSignal(0, T, obj.time - propagationTime + duration);
+            bufferReceivedSignal.AddValues(sReceived.PointsReal.Where(
+                x => x.X >= obj.time - propagationTime).ToList());
+
+            Signal sProbe = GenerateSignal(obj.time - duration, T, duration);
+            bufferProbeSignal.AddValues(sProbe.PointsReal);
 
             Signal s1 = new Signal(0, 0, 0, T, frequency, true, bufferProbeSignal.values, 
                 null, Signal.SignalType.original, false);
@@ -145,24 +152,23 @@ namespace DSP
             Signal s2 = new Signal(0, 0, 0, T, frequency, true, bufferReceivedSignal.values,
                 null, Signal.SignalType.original, false);
 
-            Signal s12 = s1.Corelation(s2);
+            s1.PointsReal.Reverse();
+            Signal s12 = s2.Convolution(s1);
+            
 
-            int center = (s12.PointsReal.Count / 2) - 1;
-            int count = s12.PointsReal.Count - center; 
-            List<ObservablePoint> points = s12.PointsReal.GetRange(center, count);
+            List<ObservablePoint> points = s12.PointsReal.Skip((s12.PointsReal.Count / 2)).ToList();
 
-            float max = points.Max(x => (float)x.Y);
-            int indexMax = points.Select(x => x.Y).ToList().IndexOf(max);
+            int indexMax = points.Select(x => x.Y).ToList().IndexOf(points.Max(x => x.Y));
 
-            float timeDifference = (float)(points[indexMax].Y - points[0].Y);
+            float timeDifference = (float)indexMax / frequency;
 
-            float calculatedDistance = (timeDifference * signalSpeed) / 2;
+            float calculatedDistance = timeDifference * signalSpeed / 2;
 
             float realDistance = obj.x;
 
             float diff = calculatedDistance - realDistance;
 
-            return (realDistance, calculatedDistance, diff, signal);
+            return (realDistance, calculatedDistance, diff, s12);
 
         }
 

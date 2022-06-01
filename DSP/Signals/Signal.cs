@@ -370,7 +370,7 @@ namespace DSP.Signals
                 result.Add(new ObservablePoint((float)(t1 + (i * diff)), value));
             }
 
-            Signal s = new Signal(A, t1, d, T, f, isContinuous, result, null, signalType);
+            Signal s = new Signal(A, t1, d, T, f, isContinuous, result, null, signalType, false);
             s.baseSignalType = baseSignalType;
 
             return s;

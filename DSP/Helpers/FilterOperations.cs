@@ -12,7 +12,7 @@ namespace DSP.Helpers
         {
             int K = (int)Math.Round((decimal)(f / f0));
 
-            if (M % 2 == 0)
+            if (M % 2 != 0)
                 M++;
             
             List<float> coefficients = new List<float>();

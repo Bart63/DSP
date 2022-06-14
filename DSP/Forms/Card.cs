@@ -387,6 +387,22 @@ namespace DSP
                     signal = new ImpulseNoiseSignal(values[0], values[1], values[2], (int)values[3], values[4]);
 
                     break;
+
+
+                case 11:
+
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
+                       ref result);
+
+                    if (!result)
+                    {
+                        ShowErrorBox("Nieprawidłowe wartości!");
+                        return;
+                    }
+
+                    signal = new CustomSignal(values[0], values[1], values[2], values[3], (int)values[4]);
+
+                    break;
             }
 
             if (signal != null)
@@ -537,6 +553,14 @@ namespace DSP
                     maskedTextBoxAmplitude.Enabled =
                         maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
                         maskedTextBoxProbability.Enabled = true;
+
+                    break;
+
+                case 11:
+
+                    maskedTextBoxAmplitude.Enabled =
+                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                        maskedTextBoxPeriod.Enabled = true;
 
                     break;
             }

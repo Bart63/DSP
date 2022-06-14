@@ -30,3 +30,34 @@ D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cache
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.csproj.CopyComplete
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.exe
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.pdb
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\DSP.exe.config
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\DSP.exe
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\DSP.pdb
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.WinForms.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\MathNet.Numerics.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.pdb
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.WinForms.pdb
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.WinForms.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\MathNet.Numerics.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.csproj.AssemblyReference.cache
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.CalculatedParameters.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.Card.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.ChartOptions.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.FilterGenerator.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.HistogramsWindow.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.Menu.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.Operations.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.ReconstructionOptions.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.Simulator.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.UseFilter.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.Properties.Resources.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.csproj.GenerateResource.cache
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.csproj.CoreCompileInputs.cache
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.csproj.CopyComplete
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.exe
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.pdb

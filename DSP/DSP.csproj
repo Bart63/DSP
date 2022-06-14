@@ -150,6 +150,7 @@
     <Compile Include="MathExtensions\Integration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Signals\CustomSignal.cs" />
     <Compile Include="Signals\GaussianNoiseSignal.cs" />
     <Compile Include="Signals\ImpulseNoiseSignal.cs" />
     <Compile Include="Signals\NoiseSignal.cs" />

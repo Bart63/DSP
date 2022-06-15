@@ -137,6 +137,12 @@
     <Compile Include="Forms\Simulator.Designer.cs">
       <DependentUpon>Simulator.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Transformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Transformation.Designer.cs">
+      <DependentUpon>Transformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UseFilter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,7 @@
     <Compile Include="Helpers\FilterOperations.cs" />
     <Compile Include="Helpers\Histogram.cs" />
     <Compile Include="Helpers\SignalOperations.cs" />
+    <Compile Include="Helpers\TransformationManager.cs" />
     <Compile Include="MathExtensions\Integration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -195,6 +202,9 @@
     <EmbeddedResource Include="Forms\Simulator.resx">
       <DependentUpon>Simulator.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Transformation.resx">
+      <DependentUpon>Transformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\UseFilter.resx">
       <DependentUpon>UseFilter.cs</DependentUpon>
     </EmbeddedResource>
@@ -233,5 +243,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

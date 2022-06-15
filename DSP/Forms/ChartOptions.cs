@@ -14,14 +14,18 @@ namespace DSP
 {
     public partial class ChartOptions : Form
     {
-        private Action callback;
+        private Action signalsToShowCallback;
+        private Action<Card.ComplexSignalDisplayTypes> complexDisplayTypeCallback;
         private List<Card.SignalToShow> signals;
-        public ChartOptions(ref List<Card.SignalToShow> signals, Action callback)
+        public ChartOptions(ref List<Card.SignalToShow> signals, Action callback, Action<Card.ComplexSignalDisplayTypes> complexDisplayTypeCallback, int complexSelectedIndex)
         {
             InitializeComponent();
 
-            this.callback = callback;
+            this.signalsToShowCallback = callback;
             this.signals = signals;
+            this.complexDisplayTypeCallback = complexDisplayTypeCallback;
+
+            comboBoxComplexSignalDisplayType.SelectedIndex = complexSelectedIndex;
         }
 
         private void change(object sender, EventArgs e)
@@ -54,8 +58,14 @@ namespace DSP
 
         private void button_Click(object sender, EventArgs e)
         {
-            callback();
+            signalsToShowCallback();
             Close();
+        }
+
+        private void comboBoxComplexSignalDisplayType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            complexDisplayTypeCallback(comboBoxComplexSignalDisplayType.SelectedIndex == 0 ? Card.ComplexSignalDisplayTypes.W1
+                : Card.ComplexSignalDisplayTypes.W2);
         }
     }
 }

@@ -39,9 +39,16 @@ namespace DSP.Helpers
             text += (!isComplex) ? signal.PointsReal.Count.ToString() : (signal.PointsReal.Count * 2).ToString();
             text += "\n";
 
-            if (!isComplex)
+            foreach (var p in signal.PointsReal)
             {
-                foreach (var p in signal.PointsReal)
+                binary.AddRange(BitConverter.GetBytes((float)p.Y)); // 4 bytes
+
+                text += p.Y.ToString("00.##") + "\n";
+            }
+
+            if (isComplex)
+            {
+                foreach (var p in signal.PointsIm)
                 {
                     binary.AddRange(BitConverter.GetBytes((float)p.Y)); // 4 bytes
 
@@ -94,9 +101,15 @@ namespace DSP.Helpers
                 List<ObservablePoint> pointsReal = new List<ObservablePoint>();
                 List<ObservablePoint> pointsIm = new List<ObservablePoint>();
 
-               
+                for (int i = 0; i < (d * f); i++)
+                {
+                    float t = (float)i / f + t1;
 
-                if (!isComplex)
+
+                    pointsReal.Add(new ObservablePoint(t, (float)BitConverter.ToSingle(binary.GetRange(i * 4 + 14, 4).ToArray(), 0)));
+                }
+
+                if (isComplex)
                 {
                     
                     for (int i = 0; i < (d * f); i++)
@@ -104,16 +117,13 @@ namespace DSP.Helpers
                         float t = (float)i / f + t1;
 
 
-                        pointsReal.Add(new ObservablePoint(t, (float)BitConverter.ToSingle(binary.GetRange(i * 4 + 14, 4).ToArray(), 0)));
+                        pointsIm.Add(new ObservablePoint(t, (float)BitConverter.ToSingle(binary.GetRange(i * 4 + 14 + (pointsReal.Count * 4), 4).ToArray(), 0)));
                     }
 
                 }
-                else
-                {
-                    return null;
-                }
+                
 
-                Signal signal = new Signal((float)pointsReal.Max(x => x.Y), t1, d, T, f, isContinuous, pointsReal);
+                Signal signal = new Signal((float)pointsReal.Max(x => x.Y), t1, d, T, f, isContinuous, pointsReal, pointsIm, Signal.SignalType.original);
 
                 return signal;
             }

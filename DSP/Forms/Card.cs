@@ -21,8 +21,10 @@ namespace DSP
     public partial class Card : Form
     {
         private Action<Card> removeCardCallback;
+        private ComplexSignalDisplayTypes complexSignalDisplayType = ComplexSignalDisplayTypes.W1;
 
-        SeriesCollection collection = null;
+        SeriesCollection collectionReal = null;
+        SeriesCollection collectionImaginary = null;
 
         private string[] chartsNames = new string[5] { "Sygnał oryginalny", "Sygnał spróbkowany",
         "Sygnał skwantyzowany", "Sygnał zrekonstruowany", "Sygnał przetworzony"};
@@ -50,6 +52,11 @@ namespace DSP
         public enum ParamsTypes
         {
             A, t1, d, T, basicFrequency, samplingFrequency, p, kw, numberOfFirstSample, ns, l, ts, k
+        };
+
+        public enum ComplexSignalDisplayTypes
+        {
+            W1, W2
         };
 
         private Dictionary<ParamsTypes, MaskedTextBox> paramsTextBoxes;
@@ -391,7 +398,7 @@ namespace DSP
 
                 case 11:
 
-                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
                        ref result);
 
                     if (!result)
@@ -400,7 +407,7 @@ namespace DSP
                         return;
                     }
 
-                    signal = new CustomSignal(values[0], values[1], values[2], values[3], (int)values[4]);
+                    signal = new CustomSignal(0, values[0], values[1], values[2], (int)values[3]);
 
                     break;
             }
@@ -413,28 +420,28 @@ namespace DSP
 
                 UpdateChartCollection();
 
-                ShowCharts(ref chart1Real, collection);
+                ShowCharts(ref chart1Real, collectionReal);
 
                 ShowStats();
             }
         }
 
         private void ShowCharts (ref LiveCharts.WinForms.CartesianChart chart, 
-            SeriesCollection collection)
+            SeriesCollection collection, string titleAxisX = "t [s]", string titleAxisY = "A")
         {
             chart.AxisX.Clear();
             chart.AxisY.Clear();
 
             chart.AxisX.Add(new Axis
             {
-                Title = "t [s]",
+                Title = titleAxisX,
                 Foreground = System.Windows.Media.Brushes.Black,
                 
             });
 
             chart.AxisY.Add(new Axis
             {
-                Title = "A",
+                Title = titleAxisY,
                 Foreground = System.Windows.Media.Brushes.Black
             });
 
@@ -558,7 +565,6 @@ namespace DSP
 
                 case 11:
 
-                    maskedTextBoxAmplitude.Enabled =
                         maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
                         maskedTextBoxPeriod.Enabled = true;
 
@@ -668,7 +674,7 @@ namespace DSP
 
         private void buttonChartOptions_Click(object sender, EventArgs e)
         {
-            ChartOptions chartOptions = new ChartOptions(ref signals, changeChartsVisibility);
+            ChartOptions chartOptions = new ChartOptions(ref signals, changeChartsVisibility, ChangeComplexSignalDisplayType, ((int)complexSignalDisplayType));
 
             chartOptions.ShowDialog();
         }
@@ -680,23 +686,30 @@ namespace DSP
 
         private void UpdateChartCollection()
         {
-            if (collection == null)
-                collection = new SeriesCollection();
+            if (collectionReal == null)
+                collectionReal = new SeriesCollection();
             else 
-                collection.Clear();
+                collectionReal.Clear();
+
+            if (collectionImaginary == null)
+                collectionImaginary = new SeriesCollection();
+            else
+                collectionImaginary.Clear();
 
             for (int i = 0; i < signals.Count; i++)
             {
-                if (signals[i].visibility)
+                if (signals[i].signal.PointsIm.Count == 0)
                 {
-                    switch (signals[i].signal.signalType)
+                    if (signals[i].visibility)
                     {
-                        case Signal.SignalType.original:
+                        switch (signals[i].signal.signalType)
+                        {
+                            case Signal.SignalType.original:
 
-                            
+
                                 if (signals[i].signal.isContinuous)
                                 {
-                                    collection.Add(new LineSeries
+                                    collectionReal.Add(new LineSeries
                                     {
                                         Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
                                         PointForeground = null,
@@ -704,11 +717,11 @@ namespace DSP
                                         LineSmoothness = 0,
                                         Fill = System.Windows.Media.Brushes.Transparent,
                                         Title = signals[i].signalName
-                                    }); 
+                                    });
                                 }
                                 else
                                 {
-                                    collection.Add(new LineSeries
+                                    collectionReal.Add(new LineSeries
                                     {
                                         Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
 
@@ -719,75 +732,45 @@ namespace DSP
                                     });
                                 }
 
-                                
-                            
-                            
-                            break;
 
-                        case Signal.SignalType.sampled:
 
-                            
-                            collection.Add(new LineSeries
-                            {
-                                Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-                                Stroke = System.Windows.Media.Brushes.Transparent,
-                                Fill = System.Windows.Media.Brushes.Transparent,
-                                Title = signals[i].signalName
-                            });
-                            
 
-                            break;
+                                break;
 
-                        case Signal.SignalType.quantized:
+                            case Signal.SignalType.sampled:
 
-                            
-                                
-                            collection.Add(new StepLineSeries
-                            {
-                                Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-                                PointGeometry = null,
-                                Title = signals[i].signalName
-                            });
-                                
-                            
 
-                            break;
-
-                        case Signal.SignalType.reconstructed:
-
-                            
-                            if (signals[i].signal.isContinuous)
-                                collection.Add(new LineSeries
+                                collectionReal.Add(new LineSeries
                                 {
                                     Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-                                    PointForeground = null,
+                                    Stroke = System.Windows.Media.Brushes.Transparent,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = signals[i].signalName
+                                });
+
+
+                                break;
+
+                            case Signal.SignalType.quantized:
+
+
+
+                                collectionReal.Add(new StepLineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
                                     PointGeometry = null,
-                                    LineSmoothness = 0.7,
-                                    Fill = System.Windows.Media.Brushes.Transparent,
-                                    Title = signals[i].signalName
-                                        
-                                });
-                            else
-                                collection.Add(new LineSeries
-                                {
-                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-                                        
-                                    PointGeometrySize = 8,
-                                    Fill = System.Windows.Media.Brushes.Transparent,
-                                    StrokeThickness = 0,
                                     Title = signals[i].signalName
                                 });
-                            
-
-                            break;
-
-                        case Signal.SignalType.filtered:
 
 
-                            if (signals[i].signal.isContinuous) {
 
-                                if (signals[i].signal.baseSignalType != Signal.SignalType.sampled)
-                                    collection.Add(new LineSeries
+                                break;
+
+                            case Signal.SignalType.reconstructed:
+
+
+                                if (signals[i].signal.isContinuous)
+                                    collectionReal.Add(new LineSeries
                                     {
                                         Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
                                         PointForeground = null,
@@ -796,9 +779,52 @@ namespace DSP
                                         Fill = System.Windows.Media.Brushes.Transparent,
                                         Title = signals[i].signalName
 
-                                });
+                                    });
                                 else
-                                    collection.Add(new LineSeries
+                                    collectionReal.Add(new LineSeries
+                                    {
+                                        Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+
+                                        PointGeometrySize = 8,
+                                        Fill = System.Windows.Media.Brushes.Transparent,
+                                        StrokeThickness = 0,
+                                        Title = signals[i].signalName
+                                    });
+
+
+                                break;
+
+                            case Signal.SignalType.filtered:
+
+
+                                if (signals[i].signal.isContinuous)
+                                {
+
+                                    if (signals[i].signal.baseSignalType != Signal.SignalType.sampled)
+                                        collectionReal.Add(new LineSeries
+                                        {
+                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                            PointForeground = null,
+                                            PointGeometry = null,
+                                            LineSmoothness = 0.7,
+                                            Fill = System.Windows.Media.Brushes.Transparent,
+                                            Title = signals[i].signalName
+
+                                        });
+                                    else
+                                        collectionReal.Add(new LineSeries
+                                        {
+                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+
+                                            PointGeometrySize = 8,
+                                            Fill = System.Windows.Media.Brushes.Transparent,
+                                            StrokeThickness = 0,
+                                            Title = signals[i].signalName
+                                        });
+                                }
+                                else
+                                {
+                                    collectionReal.Add(new LineSeries
                                     {
                                         Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
 
@@ -808,25 +834,81 @@ namespace DSP
                                         Title = signals[i].signalName
                                     });
                                 }
-                            else
-                            {
-                                collection.Add(new LineSeries
-                                {
-                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
 
-                                    PointGeometrySize = 8,
-                                    Fill = System.Windows.Media.Brushes.Transparent,
-                                    StrokeThickness = 0,
-                                    Title = signals[i].signalName
-                                });
-                            }
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    if (signals[i].visibility)
+                    {
+                        switch (signals[i].signal.signalType)
+                        {
+
+                            case Signal.SignalType.original:
+
+                                if (complexSignalDisplayType == ComplexSignalDisplayTypes.W1)
+                                {
+
+                                    if (signals[i].signal.isContinuous)
+                                    {
+                                        collectionReal.Add(new LineSeries
+                                        {
+                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                            PointForeground = null,
+                                            PointGeometry = null,
+                                            LineSmoothness = 0,
+                                            Fill = System.Windows.Media.Brushes.Transparent,
+                                            Title = signals[i].signalName
+                                        });
+                                        collectionImaginary.Add(new LineSeries
+                                        {
+                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetImaginaryPointsToChart()),
+                                            PointForeground = null,
+                                            PointGeometry = null,
+                                            LineSmoothness = 0,
+                                            Fill = System.Windows.Media.Brushes.Transparent,
+                                            Title = signals[i].signalName
+                                        });
+                                    }
+                                    else
+                                    {
+                                        collectionReal.Add(new LineSeries
+                                        {
+                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+
+                                            PointGeometrySize = 8,
+                                            Fill = System.Windows.Media.Brushes.Transparent,
+                                            StrokeThickness = 0,
+                                            Title = signals[i].signalName
+                                        });
+                                        collectionImaginary.Add(new LineSeries
+                                        {
+                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetImaginaryPointsToChart()),
+
+                                            PointGeometrySize = 8,
+                                            Fill = System.Windows.Media.Brushes.Transparent,
+                                            StrokeThickness = 0,
+                                            Title = signals[i].signalName
+                                        });
+                                    }
+                                }
+                                else
+                                {
+
+                                }
+
 
                             break;
+
+                        }
                     }
+
                 }
             }
 
-            ShowCharts(ref chart1Real, collection);
+            ShowCharts(ref chart1Real, collectionReal);
         }
 
         private void buttonShowCalculatedParams_Click(object sender, EventArgs e)
@@ -892,6 +974,23 @@ namespace DSP
             UpdateChartCollection();
         }
 
-        
+        public void ChangeComplexSignalDisplayType(ComplexSignalDisplayTypes type)
+        {
+            complexSignalDisplayType = type;
+        }
+        private void buttonTransformSignal_Click(object sender, EventArgs e)
+        {
+            Transformation transformation = new Transformation(addSignal, signals);
+            transformation.Show();
+        }
+
+        private void addSignal(Signal signal, string originalSignalName, string transformName)
+        {
+            signals.Add(new SignalToShow(signal, true, chartsNames[4] + "[" + originalSignalName
+                + " || " + transformName + "]"));
+            UpdateChartCollection();
+
+            ShowCharts(ref chart1Im, collectionImaginary);
+        }
     }
 }

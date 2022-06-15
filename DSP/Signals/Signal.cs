@@ -245,6 +245,23 @@ namespace DSP.Signals
             }
         }
 
+        public virtual List<ObservablePoint> GetImaginaryPointsToChart()
+        {
+            if (PointsIm.Count() <= 1000)
+            {
+                return PointsIm;
+            }
+            else
+            {
+                int d = (int)((float)PointsIm.Count / 1000);
+
+                if (d == 0)
+                    return PointsIm;
+
+                return PointsIm.Where((x, i) => i % d == 0).ToList();
+            }
+        }
+
         public static Signal operator + (Signal s1, Signal s2)
         {
             List<ObservablePoint> newPoints = new List<ObservablePoint>();

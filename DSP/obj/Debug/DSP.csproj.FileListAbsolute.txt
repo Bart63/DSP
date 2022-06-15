@@ -61,3 +61,4 @@ C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.cspro
 C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.csproj.CopyComplete
 C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.exe
 C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.pdb
+D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Transformation.resources

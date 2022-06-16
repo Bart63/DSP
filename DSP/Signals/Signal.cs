@@ -48,6 +48,8 @@ namespace DSP.Signals
 
         protected List<ObservablePoint> reconstructedSignalPointsReal;
 
+        public bool isComplex = false;
+
         public enum SignalType
         {
             original, sampled, quantized, reconstructed, filtered

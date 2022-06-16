@@ -12,8 +12,10 @@ namespace DSP.Helpers
 {
     public static class FileManager
     {
-        public static void Save(Signal signal, bool isComplex = false)
+        public static bool Save(Signal signal)
         {
+            bool isComplex = signal.isComplex;
+
             List<byte> binary = new List<byte>();
 
             string text = "";
@@ -34,9 +36,9 @@ namespace DSP.Helpers
             text += signal.isContinuous.ToString() + " || ";
 
             binary.AddRange((!isComplex)? BitConverter.GetBytes(signal.PointsReal.Count)
-                : BitConverter.GetBytes(signal.PointsReal.Count * 2)); //4 bytes
+                : BitConverter.GetBytes(signal.PointsReal.Count)); //4 bytes
 
-            text += (!isComplex) ? signal.PointsReal.Count.ToString() : (signal.PointsReal.Count * 2).ToString();
+            text += (!isComplex) ? signal.PointsReal.Count.ToString() : (signal.PointsReal.Count).ToString();
             text += "\n";
 
             foreach (var p in signal.PointsReal)
@@ -66,7 +68,10 @@ namespace DSP.Helpers
             {
                 File.WriteAllBytes(fileDialog.FileName, binary.ToArray());
                 File.WriteAllText(fileDialog.FileName + ".txt", text);
+                return true;
             }
+
+            return false;
         }
 
         public static Signal Load()
@@ -117,13 +122,15 @@ namespace DSP.Helpers
                         float t = (float)i / f + t1;
 
 
-                        pointsIm.Add(new ObservablePoint(t, (float)BitConverter.ToSingle(binary.GetRange(i * 4 + 14 + (pointsReal.Count * 4), 4).ToArray(), 0)));
+                        pointsIm.Add(new ObservablePoint(t, (float)BitConverter.ToSingle(binary.GetRange(i * 4 + 14 + ((pointsReal.Count - 1) * 4), 4).ToArray(), 0)));
                     }
 
                 }
                 
 
                 Signal signal = new Signal((float)pointsReal.Max(x => x.Y), t1, d, T, f, isContinuous, pointsReal, pointsIm, Signal.SignalType.original);
+
+                signal.isComplex = isComplex;
 
                 return signal;
             }

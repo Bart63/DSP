@@ -461,12 +461,8 @@ namespace DSP
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            SignalToShow signal = signals.Find(x => x.signal.signalType == Signal.SignalType.original);
-
-            if (signal != null)
-            {
-                FileManager.Save(signal.signal);
-            }
+            SaveSignal saveSignal = new SaveSignal(signals);
+            saveSignal.ShowDialog();
         }
 
         private void comboBoxSignalType_SelectedIndexChanged(object sender, EventArgs e)
@@ -698,7 +694,7 @@ namespace DSP
 
             for (int i = 0; i < signals.Count; i++)
             {
-                if (signals[i].signal.PointsIm.Count == 0)
+                if (!signals[i].signal.isComplex)
                 {
                     if (signals[i].visibility)
                     {
@@ -843,72 +839,66 @@ namespace DSP
                 {
                     if (signals[i].visibility)
                     {
-                        switch (signals[i].signal.signalType)
+                        
+
+                        if (complexSignalDisplayType == ComplexSignalDisplayTypes.W1)
                         {
 
-                            case Signal.SignalType.original:
-
-                                if (complexSignalDisplayType == ComplexSignalDisplayTypes.W1)
+                            if (signals[i].signal.isContinuous)
+                            {
+                                collectionReal.Add(new LineSeries
                                 {
-
-                                    if (signals[i].signal.isContinuous)
-                                    {
-                                        collectionReal.Add(new LineSeries
-                                        {
-                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-                                            PointForeground = null,
-                                            PointGeometry = null,
-                                            LineSmoothness = 0,
-                                            Fill = System.Windows.Media.Brushes.Transparent,
-                                            Title = signals[i].signalName
-                                        });
-                                        collectionImaginary.Add(new LineSeries
-                                        {
-                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetImaginaryPointsToChart()),
-                                            PointForeground = null,
-                                            PointGeometry = null,
-                                            LineSmoothness = 0,
-                                            Fill = System.Windows.Media.Brushes.Transparent,
-                                            Title = signals[i].signalName
-                                        });
-                                    }
-                                    else
-                                    {
-                                        collectionReal.Add(new LineSeries
-                                        {
-                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
-
-                                            PointGeometrySize = 8,
-                                            Fill = System.Windows.Media.Brushes.Transparent,
-                                            StrokeThickness = 0,
-                                            Title = signals[i].signalName
-                                        });
-                                        collectionImaginary.Add(new LineSeries
-                                        {
-                                            Values = new ChartValues<ObservablePoint>(signals[i].signal.GetImaginaryPointsToChart()),
-
-                                            PointGeometrySize = 8,
-                                            Fill = System.Windows.Media.Brushes.Transparent,
-                                            StrokeThickness = 0,
-                                            Title = signals[i].signalName
-                                        });
-                                    }
-                                }
-                                else
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = signals[i].signalName
+                                });
+                                collectionImaginary.Add(new LineSeries
                                 {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetImaginaryPointsToChart()),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = signals[i].signalName
+                                });
+                            }
+                            else
+                            {
+                                collectionReal.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetRealPointsToChart()),
 
-                                }
+                                    PointGeometrySize = 8,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    StrokeThickness = 0,
+                                    Title = signals[i].signalName
+                                });
+                                collectionImaginary.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(signals[i].signal.GetImaginaryPointsToChart()),
 
-
-                            break;
+                                    PointGeometrySize = 8,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    StrokeThickness = 0,
+                                    Title = signals[i].signalName
+                                });
+                            }
+                        }
+                        else
+                        {
 
                         }
+
                     }
 
                 }
             }
 
             ShowCharts(ref chart1Real, collectionReal);
+            ShowCharts(ref chart1Im, collectionImaginary);
         }
 
         private void buttonShowCalculatedParams_Click(object sender, EventArgs e)
@@ -990,7 +980,6 @@ namespace DSP
                 + " || " + transformName + "]"));
             UpdateChartCollection();
 
-            ShowCharts(ref chart1Im, collectionImaginary);
         }
     }
 }

@@ -62,3 +62,11 @@ C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.cspro
 C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.exe
 C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.pdb
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.Transformation.resources
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.dll.config
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.dll
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.Math.Core.dll
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.Math.dll
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.xml
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.Math.xml
+D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.Math.Core.xml
+D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.SaveSignal.resources

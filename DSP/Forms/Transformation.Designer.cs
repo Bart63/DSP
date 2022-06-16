@@ -43,7 +43,11 @@
             "DFT",
             "DIT FFT",
             "DCT II",
-            "FCT II"});
+            "FCT II",
+            "R DFT",
+            "R DIT FFT",
+            "R DCT II",
+            "R FCT II"});
             this.comboBoxTransformationType.Location = new System.Drawing.Point(12, 12);
             this.comboBoxTransformationType.Name = "comboBoxTransformationType";
             this.comboBoxTransformationType.Size = new System.Drawing.Size(392, 32);
@@ -103,7 +107,7 @@
             this.Controls.Add(this.richTextBoxTransformationInfo);
             this.Controls.Add(this.comboBoxTransformationType);
             this.Name = "Transformation";
-            this.Text = "Transformation";
+            this.Text = "Transformacje";
             this.ResumeLayout(false);
 
         }

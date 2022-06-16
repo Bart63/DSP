@@ -55,9 +55,36 @@ namespace DSP
         {
             Signal signal = signals[selectedSignalIndex].signal;
 
-            if (signal.PointsReal.Count % 2 != 0)
+            bool stop = false;
+            for (int i = 1; i <= 10; i++)
             {
-                signal.PointsReal.RemoveAt(signal.PointsReal.Count - 1);
+                float value = (float)Math.Pow(2, i);
+
+                if (signal.PointsReal.Count == value)
+                    break;
+
+                if (signal.PointsReal.Count < value || i == 10)
+                {
+                    float newValue = i != 10 ? (float)Math.Pow(2, i - 1) : (float)Math.Pow(2, 10);
+
+                    MessageBox.Show("Ilość próbek została okrojona do: " + newValue + " co odpowiada 2^" + (i != 10 ? (i - 1) : i),
+                        "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    while(signal.PointsReal.Count > newValue)
+                    {
+                        signal.PointsReal.RemoveAt(signal.PointsReal.Count - 1);
+                    }
+                    while (signal.PointsIm.Count > newValue)
+                    {
+                        signal.PointsIm.RemoveAt(signal.PointsIm.Count - 1);
+                    }
+
+                    stop = true;
+                    break;
+                }
+
+                if (stop)
+                    break;
             }
 
             if (thread != null)
@@ -80,7 +107,7 @@ namespace DSP
 
                     thread = new Thread(async delegate ()
                     {
-                        object result = await TransformationManager.calculateDFT(signal.PointsReal);
+                        object result = await TransformationManager.calculateDFT(signal.PointsReal, signal.PointsIm);
 
                         this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja DFT")));
                     });
@@ -93,9 +120,22 @@ namespace DSP
 
                     thread = new Thread(async delegate ()
                     {
-                        object result = await TransformationManager.calculateFFT(signal.PointsReal);
+                        object result = await TransformationManager.calculateFFT(signal.PointsReal, signal.PointsIm);
 
                         this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja FFT")));
+                    });
+
+                    thread.Start();
+
+                    break;
+
+                case 4:
+
+                    thread = new Thread(async delegate ()
+                    {
+                        object result = await TransformationManager.calculateRDFT(signal.PointsReal, signal.PointsIm);
+
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja R DFT")));
                     });
 
                     thread.Start();
@@ -118,6 +158,8 @@ namespace DSP
 
             Signal newSignal = new Signal(signal.A, signal.t1, signal.d, signal.T, signal.f,
                 signal.isContinuous, points.resultReal, points.resultIm, Signal.SignalType.original);
+
+            newSignal.isComplex = true;
 
             showTransformedSignalCallback(newSignal, signals[selectedSignalIndex].signalName,
                 transformationName);

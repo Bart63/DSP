@@ -47,7 +47,7 @@ namespace DSP
                 CheckBox checkBox = new CheckBox();
                 checkBox.Text = s;
                 checkBox.Checked = signals[i].visibility;
-                checkBox.Width = 300;
+                checkBox.Width = 600;
                 checkBox.CheckedChanged += change;
 
                 flowLayoutPanel1.Controls.Add(checkBox);

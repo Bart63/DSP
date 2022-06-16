@@ -53,6 +53,13 @@ namespace DSP
 
         private async void buttonTransform_Click(object sender, EventArgs e)
         {
+            Signal signal = signals[selectedSignalIndex].signal;
+
+            if (signal.PointsReal.Count % 2 != 0)
+            {
+                signal.PointsReal.RemoveAt(signal.PointsReal.Count - 1);
+            }
+
             if (thread != null)
             {
                 if (thread.IsAlive)
@@ -66,7 +73,6 @@ namespace DSP
                 }
             }
 
-            Signal signal = signals[selectedSignalIndex].signal;
 
             switch (selectedTransformationIndex)
             {
@@ -76,7 +82,7 @@ namespace DSP
                     {
                         object result = await TransformationManager.calculateDFT(signal.PointsReal);
 
-                        this.Invoke(new Action(() => DisplayResult(result, signal)));
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja DFT")));
                     });
 
                     thread.Start();
@@ -89,7 +95,7 @@ namespace DSP
                     {
                         object result = await TransformationManager.calculateFFT(signal.PointsReal);
 
-                        this.Invoke(new Action(() => DisplayResult(result, signal)));
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja FFT")));
                     });
 
                     thread.Start();
@@ -105,7 +111,7 @@ namespace DSP
             richTextBoxTransformationInfo.Text = "Ukończono: " + percent + "%";
         }
 
-        private void DisplayResult(object result, Signal signal)
+        private void DisplayResult(object result, Signal signal, string transformationName)
         {
 
             var points = ((List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time))result;
@@ -114,7 +120,7 @@ namespace DSP
                 signal.isContinuous, points.resultReal, points.resultIm, Signal.SignalType.original);
 
             showTransformedSignalCallback(newSignal, signals[selectedSignalIndex].signalName,
-                "Transformacja DFT");
+                transformationName);
 
             float timeElapsed = points.time;
 

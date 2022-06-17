@@ -44,10 +44,10 @@
             "DIT FFT",
             "DCT II",
             "FCT II",
-            "R DFT",
-            "R DIT FFT",
-            "R DCT II",
-            "R FCT II"});
+            "I DFT",
+            "I DIT FFT",
+            "I DCT II",
+            "I FCT II"});
             this.comboBoxTransformationType.Location = new System.Drawing.Point(12, 12);
             this.comboBoxTransformationType.Name = "comboBoxTransformationType";
             this.comboBoxTransformationType.Size = new System.Drawing.Size(392, 32);

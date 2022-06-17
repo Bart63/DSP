@@ -72,6 +72,7 @@ namespace DSP
             this.buttonFilterGenerator = new System.Windows.Forms.Button();
             this.buttonSignalFilter = new System.Windows.Forms.Button();
             this.buttonTransformSignal = new System.Windows.Forms.Button();
+            this.comboBoxChartToSave = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -549,7 +550,7 @@ namespace DSP
             // buttonFilterGenerator
             // 
             this.buttonFilterGenerator.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonFilterGenerator.Location = new System.Drawing.Point(1094, 611);
+            this.buttonFilterGenerator.Location = new System.Drawing.Point(1095, 654);
             this.buttonFilterGenerator.Name = "buttonFilterGenerator";
             this.buttonFilterGenerator.Size = new System.Drawing.Size(211, 52);
             this.buttonFilterGenerator.TabIndex = 31;
@@ -560,7 +561,7 @@ namespace DSP
             // buttonSignalFilter
             // 
             this.buttonSignalFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.buttonSignalFilter.Location = new System.Drawing.Point(1311, 611);
+            this.buttonSignalFilter.Location = new System.Drawing.Point(1312, 654);
             this.buttonSignalFilter.Name = "buttonSignalFilter";
             this.buttonSignalFilter.Size = new System.Drawing.Size(193, 52);
             this.buttonSignalFilter.TabIndex = 32;
@@ -579,12 +580,26 @@ namespace DSP
             this.buttonTransformSignal.UseVisualStyleBackColor = true;
             this.buttonTransformSignal.Click += new System.EventHandler(this.buttonTransformSignal_Click);
             // 
+            // comboBoxChartToSave
+            // 
+            this.comboBoxChartToSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxChartToSave.FormattingEnabled = true;
+            this.comboBoxChartToSave.Items.AddRange(new object[] {
+            "Wykres 1",
+            "Wykres 2"});
+            this.comboBoxChartToSave.Location = new System.Drawing.Point(1094, 612);
+            this.comboBoxChartToSave.Name = "comboBoxChartToSave";
+            this.comboBoxChartToSave.Size = new System.Drawing.Size(212, 28);
+            this.comboBoxChartToSave.TabIndex = 34;
+            this.comboBoxChartToSave.Text = "Wybierz wykres do zapisu";
+            // 
             // Card
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(1516, 773);
+            this.Controls.Add(this.comboBoxChartToSave);
             this.Controls.Add(this.buttonTransformSignal);
             this.Controls.Add(this.buttonSignalFilter);
             this.Controls.Add(this.buttonFilterGenerator);
@@ -663,6 +678,7 @@ namespace DSP
         private System.Windows.Forms.Button buttonFilterGenerator;
         private System.Windows.Forms.Button buttonSignalFilter;
         private System.Windows.Forms.Button buttonTransformSignal;
+        private System.Windows.Forms.ComboBox comboBoxChartToSave;
     }
 }
 

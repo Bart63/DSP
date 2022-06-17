@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -889,7 +890,50 @@ namespace DSP
                         }
                         else
                         {
+                            var toShow = CalculateW2View(signals[i].signal.PointsReal, signals[i].signal.PointsIm);
 
+                            if (signals[i].signal.isContinuous)
+                            {
+                                collectionReal.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(toShow.module),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = signals[i].signalName
+                                });
+                                collectionImaginary.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(toShow.angle),
+                                    PointForeground = null,
+                                    PointGeometry = null,
+                                    LineSmoothness = 0,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    Title = signals[i].signalName
+                                });
+                            }
+                            else
+                            {
+                                collectionReal.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(toShow.module),
+
+                                    PointGeometrySize = 8,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    StrokeThickness = 0,
+                                    Title = signals[i].signalName
+                                });
+                                collectionImaginary.Add(new LineSeries
+                                {
+                                    Values = new ChartValues<ObservablePoint>(toShow.angle),
+
+                                    PointGeometrySize = 8,
+                                    Fill = System.Windows.Media.Brushes.Transparent,
+                                    StrokeThickness = 0,
+                                    Title = signals[i].signalName
+                                });
+                            }
                         }
 
                     }
@@ -898,7 +942,11 @@ namespace DSP
             }
 
             ShowCharts(ref chart1Real, collectionReal);
-            ShowCharts(ref chart1Im, collectionImaginary);
+
+            if (complexSignalDisplayType == ComplexSignalDisplayTypes.W1)
+                ShowCharts(ref chart1Im, collectionImaginary);
+            else
+                ShowCharts(ref chart1Im, collectionImaginary, "t [s]", "Argument liczby w funkcji częstotliwości");
         }
 
         private void buttonShowCalculatedParams_Click(object sender, EventArgs e)
@@ -937,7 +985,18 @@ namespace DSP
 
         private void buttonSaveChart_Click(object sender, EventArgs e)
         {
-            SaveChart(chart1Real);
+            int index = comboBoxChartToSave.SelectedIndex;
+
+            if (index == -1)
+            {
+                MessageBox.Show("Wybierz wykres do zapisu!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (index == 0)
+                SaveChart(chart1Real);
+            else
+                SaveChart(chart1Im);
         }
 
         private void AddFilter(Filter filter)
@@ -966,7 +1025,11 @@ namespace DSP
 
         public void ChangeComplexSignalDisplayType(ComplexSignalDisplayTypes type)
         {
-            complexSignalDisplayType = type;
+            if (complexSignalDisplayType != type)
+            {
+                complexSignalDisplayType = type;
+                UpdateChartCollection();
+            }
         }
         private void buttonTransformSignal_Click(object sender, EventArgs e)
         {
@@ -974,11 +1037,28 @@ namespace DSP
             transformation.Show();
         }
 
-        private void addSignal(Signal signal, string originalSignalName, string transformName)
+        private void addSignal(Signal signal, string originalSignalName, string transformName, Action<List<SignalToShow>> callbackLists)
         {
             signals.Add(new SignalToShow(signal, true, chartsNames[4] + "[" + originalSignalName
                 + " || " + transformName + "]"));
             UpdateChartCollection();
+
+            callbackLists(signals);
+        }
+
+        private (List<ObservablePoint> module, List<ObservablePoint> angle) CalculateW2View(List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm)
+        {
+            List<ObservablePoint> module = new List<ObservablePoint>();
+            List<ObservablePoint> angle = new List<ObservablePoint>();
+
+            for (int i = 0; i < pointsReal.Count; i++)
+            {
+                module.Add(new ObservablePoint(pointsReal[i].X, new Complex(pointsReal[i].Y, pointsIm[i].Y).Magnitude));
+
+                angle.Add(new ObservablePoint(pointsReal[i].X, Math.Atan2(pointsIm[i].Y, pointsReal[i].Y)));
+            }
+
+            return (module, angle);
 
         }
     }

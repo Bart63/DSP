@@ -222,6 +222,115 @@ namespace DSP.Helpers
 
             return (resultReal, resultImaginary, time);
         }
+
+        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateFCT(List<ObservablePoint> pointsReal)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            List<ObservablePoint> resultReal = new List<ObservablePoint>();
+            List<ObservablePoint> resultImaginary = new List<ObservablePoint>();
+
+            int length = pointsReal.Count;
+            int halfLength = pointsReal.Count / 2;
+
+            Complex[] temp = new Complex[length];
+
+            for (int i = 0; i < halfLength; i++)
+            {
+                temp[i] = pointsReal[i * 2].Y;
+                temp[length - 1 - i] = pointsReal[i * 2 + 1].Y;
+            }
+
+            if (length % 2 == 1)
+            {
+                temp[halfLength] = pointsReal[length - 1].Y;
+            }
+
+            List<ObservablePoint> nearlyDoneReal = temp.Select(x => new ObservablePoint(0, x.Real)).ToList();
+            List<ObservablePoint> nearlyDoneIm = temp.Select(x => new ObservablePoint(0, x.Imaginary)).ToList();
+
+            var fft = await calculateFFT(nearlyDoneReal, nearlyDoneIm);
+
+            nearlyDoneReal = fft.resultReal;
+            nearlyDoneIm = fft.resultIm;
+
+            for (int i = 0; i < nearlyDoneReal.Count; i++)
+            {
+                temp[i] = new Complex(nearlyDoneReal[i].Y, nearlyDoneIm[i].Y);
+
+                resultReal.Add(new ObservablePoint(pointsReal[i].X, (temp[i] * Complex.Exp(
+                    new Complex(0, -i * Math.PI / (length * 2)))).Real));
+            }
+
+
+            stopwatch.Stop();
+
+            TimeSpan span = stopwatch.Elapsed;
+
+            float time = (span.Seconds * 1000) + span.Milliseconds;
+
+            return (resultReal, resultImaginary, time);
+        }
+
+        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateIFCT(List<ObservablePoint> pointsReal)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            List<ObservablePoint> resultReal = new List<ObservablePoint>();
+            List<ObservablePoint> resultImaginary = new List<ObservablePoint>();
+
+            int length = pointsReal.Count;
+            int halfLength = pointsReal.Count / 2;
+
+            if (length > 0)
+            {
+                pointsReal[0].Y /= 2;
+            }
+
+            Complex[] temp = new Complex[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                temp[i] = pointsReal[i].Y * Complex.Exp(new Complex(0, -i * Math.PI / (length * 2)));
+            }
+
+            List<ObservablePoint> nearlyDoneReal = temp.Select(x => new ObservablePoint(0, x.Real)).ToList();
+            List<ObservablePoint> nearlyDoneIm = temp.Select(x => new ObservablePoint(0, x.Imaginary)).ToList();
+
+            var fft = await calculateFFT(nearlyDoneReal, nearlyDoneIm);
+
+            nearlyDoneReal = fft.resultReal;
+
+            double[] almost = new double[nearlyDoneReal.Count];
+
+            for (int i = 0; i < halfLength; i++)
+            {
+                almost[i * 2] = nearlyDoneReal[i].Y;
+                almost[i * 2 + 1] = nearlyDoneReal[length - 1 - i].Y;
+            }
+
+            if (length % 2 == 1)
+            {
+                almost[length - 1] = nearlyDoneReal[halfLength].Y;
+            }
+
+            for (int i = 0; i < length; i++)
+            {
+                resultReal.Add(new ObservablePoint(pointsReal[i].X, almost[i]));
+            }
+
+            stopwatch.Stop();
+
+            TimeSpan span = stopwatch.Elapsed;
+
+            float time = (span.Seconds * 1000) + span.Milliseconds;
+
+            return (resultReal, resultImaginary, time);
+        }
     }
 
     

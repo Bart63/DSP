@@ -16,7 +16,7 @@ namespace DSP
 {
     public partial class Transformation : Form
     {
-        private Action<Signal, string, string> showTransformedSignalCallback;
+        private Action<Signal, string, string, Action<List<Card.SignalToShow>>> showTransformedSignalCallback;
 
         private Thread thread = null;
 
@@ -25,13 +25,11 @@ namespace DSP
         private int selectedSignalIndex;
         private int selectedTransformationIndex;
 
-        public Transformation(Action<Signal, string, string> showTransformedSignalCallback, List<Card.SignalToShow> signals)
+        public Transformation(Action<Signal, string, string, Action<List<Card.SignalToShow>>> showTransformedSignalCallback, List<Card.SignalToShow> signals)
         {
             InitializeComponent();
             this.showTransformedSignalCallback = showTransformedSignalCallback;
-            this.signals = signals;
-
-            comboBoxSignal.Items.AddRange(signals.Select(x => x.signalName).ToArray());
+            UpdateSignalsList(signals);
 
             TransformationManager.SetCallback(DisplayPercentOfCompletion);
         }
@@ -142,6 +140,19 @@ namespace DSP
 
                     break;
 
+                case 3:
+
+                    thread = new Thread(async delegate ()
+                    {
+                        object result = await TransformationManager.calculateFCT(signal.PointsReal);
+
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja FCT II")));
+                    });
+
+                    thread.Start();
+
+                    break;
+
 
                 case 4:
 
@@ -181,6 +192,19 @@ namespace DSP
                     thread.Start();
 
                     break;
+
+                case 7:
+
+                    thread = new Thread(async delegate ()
+                    {
+                        object result = await TransformationManager.calculateIFCT(signal.PointsReal);
+
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja I-FCT II")));
+                    });
+
+                    thread.Start();
+
+                    break;
             }
 
             
@@ -202,7 +226,7 @@ namespace DSP
             newSignal.isComplex = true;
 
             showTransformedSignalCallback(newSignal, signals[selectedSignalIndex].signalName,
-                transformationName);
+                transformationName, UpdateSignalsList);
 
             float timeElapsed = points.time;
 
@@ -230,7 +254,14 @@ namespace DSP
             else
                 MessageBox.Show("Nie ma czego zatrzymywać");
         }
+
+        public void UpdateSignalsList(List<Card.SignalToShow> signals)
+        {
+            this.signals = signals;
+
+            comboBoxSignal.Items.Clear();
+            comboBoxSignal.Items.AddRange(signals.Select(x => x.signalName).ToArray());
+        }
     }
 
-    
 }

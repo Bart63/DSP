@@ -129,13 +129,53 @@ namespace DSP
 
                     break;
 
+                case 2:
+
+                    thread = new Thread(async delegate ()
+                    {
+                        object result = await TransformationManager.calculateDCTII(signal.PointsReal);
+
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja DCT II")));
+                    });
+
+                    thread.Start();
+
+                    break;
+
+
                 case 4:
 
                     thread = new Thread(async delegate ()
                     {
-                        object result = await TransformationManager.calculateRDFT(signal.PointsReal, signal.PointsIm);
+                        object result = await TransformationManager.calculateIDFT(signal.PointsReal, signal.PointsIm);
 
-                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja R DFT")));
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja I-DFT")));
+                    });
+
+                    thread.Start();
+
+                    break;
+
+                case 5:
+
+                    thread = new Thread(async delegate ()
+                    {
+                        object result = await TransformationManager.calculateIFFT(signal.PointsReal, signal.PointsIm);
+
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja I-FFT")));
+                    });
+
+                    thread.Start();
+
+                    break;
+
+                case 6:
+
+                    thread = new Thread(async delegate ()
+                    {
+                        object result = await TransformationManager.calculateIFFT(signal.PointsReal, signal.PointsIm);
+
+                        this.Invoke(new Action(() => DisplayResult(result, signal, "Transformacja I-DCT II")));
                     });
 
                     thread.Start();

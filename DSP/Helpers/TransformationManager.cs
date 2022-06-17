@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Numerics;
 using System.Diagnostics;
 using Accord.Math;
+using Accord.Math.Transforms;
 
 namespace DSP.Helpers
 {
@@ -31,12 +32,14 @@ namespace DSP.Helpers
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
-                result.Add(new Complex(pointsReal[i].Y, pointsIm[i].Y));
+                double imValue = (pointsIm.Count != 0) ? pointsIm[i].Y : 0;
+
+                result.Add(new Complex(pointsReal[i].Y, imValue));
             }
 
             Complex[] resultArray = result.ToArray();
 
-            FourierTransform.DFT(resultArray, FourierTransform.Direction.Forward);
+            FourierTransform2.DFT(resultArray, FourierTransform.Direction.Forward);
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
@@ -53,7 +56,7 @@ namespace DSP.Helpers
             return (resultReal, resultImaginary, time);
         }
 
-        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateRDFT(List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm)
+        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateIDFT(List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm)
         {
             Stopwatch stopwatch = new Stopwatch();
 
@@ -66,12 +69,14 @@ namespace DSP.Helpers
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
-                result.Add(new Complex(pointsReal[i].Y, pointsIm[i].Y));
+                double imValue = (pointsIm.Count != 0) ? pointsIm[i].Y : 0;
+
+                result.Add(new Complex(pointsReal[i].Y, imValue));
             }
 
             Complex[] resultArray = result.ToArray();
 
-            FourierTransform.DFT(resultArray, FourierTransform.Direction.Backward);
+            FourierTransform2.DFT(resultArray, FourierTransform.Direction.Backward);
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
@@ -101,12 +106,14 @@ namespace DSP.Helpers
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
-                result.Add(new Complex(pointsReal[i].Y, pointsIm[i].Y));
+                double imValue = (pointsIm.Count != 0) ? pointsIm[i].Y : 0;
+
+                result.Add(new Complex(pointsReal[i].Y, imValue));
             }
 
             Complex[] resultArray = result.ToArray();
 
-            FourierTransform.FFT(resultArray, FourierTransform.Direction.Forward);
+            FourierTransform2.FFT(resultArray, FourierTransform.Direction.Forward);
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
@@ -123,8 +130,98 @@ namespace DSP.Helpers
             return (resultReal, resultImaginary, time);
         }
 
-        
+        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateIFFT(List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm)
+        {
+            Stopwatch stopwatch = new Stopwatch();
 
+            stopwatch.Start();
+
+            List<ObservablePoint> resultReal = new List<ObservablePoint>();
+            List<ObservablePoint> resultImaginary = new List<ObservablePoint>();
+
+            List<Complex> result = new List<Complex>();
+
+            for (int i = 0; i < pointsReal.Count; i++)
+            {
+                double imValue = (pointsIm.Count != 0) ? pointsIm[i].Y : 0;
+
+                result.Add(new Complex(pointsReal[i].Y, imValue));
+            }
+
+            Complex[] resultArray = result.ToArray();
+
+            FourierTransform2.FFT(resultArray, FourierTransform.Direction.Backward);
+
+            for (int i = 0; i < pointsReal.Count; i++)
+            {
+                resultReal.Add(new ObservablePoint(pointsReal[i].X, resultArray[i].Real));
+                resultImaginary.Add(new ObservablePoint(pointsReal[i].X, resultArray[i].Imaginary));
+            }
+
+            stopwatch.Stop();
+
+            TimeSpan span = stopwatch.Elapsed;
+
+            float time = (span.Seconds * 1000) + span.Milliseconds;
+
+            return (resultReal, resultImaginary, time);
+        }
+
+        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateDCTII(List<ObservablePoint> pointsReal)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            List<ObservablePoint> resultReal = new List<ObservablePoint>();
+            List<ObservablePoint> resultImaginary = new List<ObservablePoint>();
+
+            double[] resultArray = pointsReal.Select(x => x.Y).ToArray();
+
+            CosineTransform.DCT(resultArray);
+
+            for (int i = 0; i < pointsReal.Count; i++)
+            {
+                resultReal.Add(new ObservablePoint(pointsReal[i].X, resultArray[i]));
+
+            }
+
+            stopwatch.Stop();
+
+            TimeSpan span = stopwatch.Elapsed;
+
+            float time = (span.Seconds * 1000) + span.Milliseconds;
+
+            return (resultReal, resultImaginary, time);
+        }
+
+        public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateIDCTII(List<ObservablePoint> pointsReal)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+
+            List<ObservablePoint> resultReal = new List<ObservablePoint>();
+            List<ObservablePoint> resultImaginary = new List<ObservablePoint>();
+
+            double[] resultArray = pointsReal.Select(x => x.Y).ToArray();
+
+            CosineTransform.IDCT(resultArray);
+
+            for (int i = 0; i < pointsReal.Count; i++)
+            {
+                resultReal.Add(new ObservablePoint(pointsReal[i].X, resultArray[i]));
+
+            }
+
+            stopwatch.Stop();
+
+            TimeSpan span = stopwatch.Elapsed;
+
+            float time = (span.Seconds * 1000) + span.Milliseconds;
+
+            return (resultReal, resultImaginary, time);
+        }
     }
 
     

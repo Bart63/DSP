@@ -1053,9 +1053,9 @@ namespace DSP
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
-                module.Add(new ObservablePoint(pointsReal[i].X, new Complex(pointsReal[i].Y, pointsIm[i].Y).Magnitude));
+                module.Add(new ObservablePoint(pointsReal[i].X, new Complex(pointsReal[i].Y, (pointsIm.Count > 0) ? pointsIm[i].Y : 0).Magnitude));
 
-                angle.Add(new ObservablePoint(pointsReal[i].X, Math.Atan2(pointsIm[i].Y, pointsReal[i].Y)));
+                angle.Add(new ObservablePoint(pointsReal[i].X, Math.Atan2(pointsIm[i].Y, (pointsIm.Count > 0) ? pointsReal[i].Y : 1)));
             }
 
             return (module, angle);

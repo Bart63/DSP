@@ -70,3 +70,12 @@ D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.xml
 D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.Math.xml
 D:\Studia\Semestr 6\Sygnały\DSP\bin\Debug\Accord.Math.Core.xml
 D:\Studia\Semestr 6\Sygnały\DSP\obj\Debug\DSP.SaveSignal.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.dll.config
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.Math.Core.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.Math.dll
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.Math.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\bin\Debug\Accord.Math.Core.xml
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.SaveSignal.resources
+C:\Users\barte\Documents\INF_STOS\SEM6_Proj\CPS\laby\DSP\DSP\obj\Debug\DSP.Transformation.resources

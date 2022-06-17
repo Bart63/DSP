@@ -230,10 +230,7 @@ namespace DSP
 
             float timeElapsed = points.time;
 
-            if (timeElapsed != 0)
-            {
-                richTextBoxTransformationInfo.Text = "Czas wykonania: " + timeElapsed + " ms";
-            }
+            richTextBoxTransformationInfo.Text = "Czas wykonania: " + timeElapsed + " ms";
         }
 
         private void buttonStop_Click(object sender, EventArgs e)

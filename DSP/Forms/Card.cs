@@ -399,7 +399,7 @@ namespace DSP
 
                 case 11:
 
-                    values = GetParams(new ParamsTypes[] { ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
+                    values = GetParams(new ParamsTypes[] { ParamsTypes.A, ParamsTypes.t1, ParamsTypes.d, ParamsTypes.T, ParamsTypes.basicFrequency },
                        ref result);
 
                     if (!result)
@@ -408,7 +408,7 @@ namespace DSP
                         return;
                     }
 
-                    signal = new CustomSignal(0, values[0], values[1], values[2], (int)values[3]);
+                    signal = new CustomSignal(values[0], values[1], values[2], values[3], (int)values[4]);
 
                     break;
             }
@@ -562,7 +562,7 @@ namespace DSP
 
                 case 11:
 
-                        maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
+                    maskedTextBoxAmplitude.Enabled = maskedTextBoxStartTime.Enabled = maskedTextBoxDuration.Enabled =
                         maskedTextBoxPeriod.Enabled = true;
 
                     break;
@@ -1053,9 +1053,9 @@ namespace DSP
 
             for (int i = 0; i < pointsReal.Count; i++)
             {
-                module.Add(new ObservablePoint(pointsReal[i].X, new Complex(pointsReal[i].Y, pointsIm[i].Y).Magnitude));
+                module.Add(new ObservablePoint(pointsReal[i].X, new Complex(pointsReal[i].Y, (pointsIm.Count > 0) ? pointsIm[i].Y : 1).Magnitude));
 
-                angle.Add(new ObservablePoint(pointsReal[i].X, Math.Atan2(pointsIm[i].Y, pointsReal[i].Y)));
+                angle.Add(new ObservablePoint(pointsReal[i].X, Math.Atan2((pointsIm.Count > 0) ? pointsIm[i].Y : 1, pointsReal[i].Y)));
             }
 
             return (module, angle);

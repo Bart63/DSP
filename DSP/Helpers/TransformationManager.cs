@@ -99,28 +99,81 @@ namespace DSP.Helpers
 
             stopwatch.Start();
 
+            double[] real = pointsReal.Select(x => (double)x.Y).ToArray();
+            double[] imag = pointsIm.Select(x => (double)x.Y).ToArray();
+
             List<ObservablePoint> resultReal = new List<ObservablePoint>();
             List<ObservablePoint> resultImaginary = new List<ObservablePoint>();
 
-            List<Complex> result = new List<Complex>();
+            int n = real.Length;
 
-            for (int i = 0; i < pointsReal.Count; i++)
+            int levels = (int)Math.Floor(Math.Log(n, 2));
+
+            if (1 << levels != n)
+                throw new ArgumentException("Length is not a power of 2");
+
+            // TODO: keep those tables in memory
+            var cosTable = new double[n / 2];
+            var sinTable = new double[n / 2];
+            for (int i = 0; i < n / 2; i++)
             {
-                double imValue = (pointsIm.Count != 0) ? pointsIm[i].Y : 0;
-
-                result.Add(new Complex(pointsReal[i].Y, imValue));
+                cosTable[i] = Math.Cos(2 * Math.PI * i / n);
+                sinTable[i] = Math.Sin(2 * Math.PI * i / n);
             }
 
-            Complex[] resultArray = result.ToArray();
-
-            FourierTransform2.FFT(resultArray, FourierTransform.Direction.Forward);
-
-            for (int i = 0; i < pointsReal.Count; i++)
+            // Bit-reversed addressing permutation
+            for (int i = 0; i < real.Length; i++)
             {
-                resultReal.Add(new ObservablePoint(pointsReal[i].X, resultArray[i].Real));
-                resultImaginary.Add(new ObservablePoint(pointsReal[i].X, resultArray[i].Imaginary));
+                int j = unchecked((int)((uint)Reverse(i) >> (32 - levels)));
+
+                if (j > i)
+                {
+                    var temp = real[i];
+                    real[i] = real[j];
+                    real[j] = temp;
+
+                    temp = imag[i];
+                    imag[i] = imag[j];
+                    imag[j] = temp;
+                }
             }
-            
+
+            // Cooley-Tukey decimation-in-time radix-2 FFT
+            for (int size = 2; size <= n; size *= 2)
+            {
+                int halfsize = size / 2;
+                int tablestep = n / size;
+
+                for (int i = 0; i < n; i += size)
+                {
+                    for (int j = i, k = 0; j < i + halfsize; j++, k += tablestep)
+                    {
+                        int h = j + halfsize;
+                        double re = real[h];
+                        double im = imag[h];
+
+                        double tpre = +re * cosTable[k] + im * sinTable[k];
+                        double tpim = -re * sinTable[k] + im * cosTable[k];
+
+                        real[h] = real[j] - tpre;
+                        imag[h] = imag[j] - tpim;
+
+                        real[j] += tpre;
+                        imag[j] += tpim;
+                    }
+                }
+
+                // Prevent overflow in 'size *= 2'
+                if (size == n)
+                    break;
+            }
+
+            for (int i = 0; i < real.Count(); i++)
+            {
+                resultReal.Add(new ObservablePoint(pointsReal[i].X, real[i]));
+                resultImaginary.Add(new ObservablePoint(pointsIm[i].X, imag[i]));
+            }
+
             stopwatch.Stop();
 
             TimeSpan span = stopwatch.Elapsed;
@@ -128,6 +181,16 @@ namespace DSP.Helpers
             float time = (span.Seconds * 1000) + span.Milliseconds;
 
             return (resultReal, resultImaginary, time);
+        }
+
+        private static int Reverse(int i)
+        {
+            i = (i & 0x55555555) << 1 | (int)((uint)i >> 1) & 0x55555555;
+            i = (i & 0x33333333) << 2 | (int)((uint)i >> 2) & 0x33333333;
+            i = (i & 0x0f0f0f0f) << 4 | (int)((uint)i >> 4) & 0x0f0f0f0f;
+            i = (i << 24) | ((i & 0xff00) << 8) |
+                ((int)((uint)i >> 8) & 0xff00) | (int)((uint)i >> 24);
+            return i;
         }
 
         public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateIFFT(List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm)

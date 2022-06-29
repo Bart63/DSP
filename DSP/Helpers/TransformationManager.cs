@@ -127,26 +127,22 @@ namespace DSP.Helpers
                 sinTable[i] = Math.Sin(2 * Math.PI * i / n);
             }
 
+            int[] rBits = getReversedBytes((int)Math.Log(real.Length, 2));
+
             // Change positions by bit-reversion 
             for (int i = 0; i < real.Length; i++)
             {
-                List<byte> b = BitConverter.GetBytes(i).ToList();
-                List<byte> newBytes = new List<byte>();
+                int s = rBits[i];
 
-                List<bool> bits = b.SelectMany(getBits).Reverse().ToList();
-                newBytes.AddRange(getReversedBytes(bits));
-
-                int j = BitConverter.ToInt32(newBytes.ToArray(), 0);
-
-                if (j > i)
+                if (s > i)
                 {
                     var temp = real[i];
-                    real[i] = real[j];
-                    real[j] = temp;
+                    real[i] = real[s];
+                    real[s] = temp;
 
                     temp = imag[i];
-                    imag[i] = imag[j];
-                    imag[j] = temp;
+                    imag[i] = imag[s];
+                    imag[s] = temp;
                 }
             }
 
@@ -207,41 +203,25 @@ namespace DSP.Helpers
             }
         }
 
-        private static IEnumerable<byte> getReversedBytes(List<bool> b)
+        private static int[] getReversedBytes(int numberOfBits)
         {
-            List<bool> bits = b;
+            int n = 1 << numberOfBits;
+            int[] rBits = new int[n];
 
-            //for zero index - no sense to do anything
-            if (bits.Contains(true))
+            // calculate the array
+            for (int i = 0; i < n; i++)
             {
-                //get as min bits as possible
-                while (!bits[0] && bits.Count > 3)
-                    bits.RemoveAt(0);
+                int oldBits = i;
+                int newBits = 0;
 
-                while (!bits[bits.Count - 1] && bits.Count > 3)
-                    bits.RemoveAt(bits.Count - 1);
-
-                bits.Reverse();
-
-                //fill with zeros to 4 bytes
-                while (bits.Count < 32)
-                    bits.Insert(0, false);
+                for (int j = 0; j < numberOfBits; j++)
+                {
+                    newBits = (newBits << 1) | (oldBits & 1);
+                    oldBits = (oldBits >> 1);
+                }
+                rBits[i] = newBits;
             }
-
-            //due to the copy method line 235
-            bits.Reverse();
-            BitArray bitArray = new BitArray(bits.ToArray());
-
-            byte[] newBytes = new byte[4];
-            bitArray.CopyTo(newBytes, 0);
-
-            bits.Clear();
-
-            yield return newBytes[0];
-            yield return newBytes[1];
-            yield return newBytes[2];
-            yield return newBytes[3];
-                
+            return rBits;
         }
 
         public static async Task<(List<ObservablePoint> resultReal, List<ObservablePoint> resultIm, float time)> calculateIFFT(List<ObservablePoint> pointsReal, List<ObservablePoint> pointsIm)
